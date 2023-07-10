@@ -8,8 +8,8 @@ RUN apt-get update && apt-get install -y wget libgfortran5 libfftw3-dev fonts-de
   rm Miniconda3-latest-Linux-x86_64.sh && \
   conda update -c conda-forge -y conda && \
   conda create -n py39 -c conda-forge python=3.9 pip mamba && \
-  # install isce2
-  mamba install -c conda-forge -y isce2 && \
+  # install isce2 # decided not needed here
+  # mamba install -c conda-forge -y isce2 && \
   # install LiCSBAS \
   cd /opt && git clone https://github.com/comet-licsar/LiCSBAS && \
   mamba install -c conda-forge -y --file LiCSBAS/LiCSBAS_requirements.txt && \
