@@ -1,0 +1,32 @@
+c Inputfile created by Doris 5.0
+c         ___          ___ 
+comment   ___COMPREFDEM___ 
+c                             
+MEMORY              	2000                	 // MB
+BEEP                	error               	 // level of beeping
+OVERWRITE           	on                  	 // overwrite existing files
+PREVIEW             	on                  	 // on
+BATCH               	on                  	 // non-interactive
+LISTINPUT           	on                  	 // prevents copy of this file to log
+SCREEN              	info                	 // level of output to standard out
+c 
+PROCESS        COMPREFDEM 
+c 
+LOGFILE             	log.out             	 // log file
+I_RESFILE           	ifgs.res            	 // interferogram parameter file
+M_RESFILE           	master.res          	 // master parameter file
+S_RESFILE           	slave.res           	 // slave parameter file
+HEIGHT              	0.0                 	 // average WGS84 height
+ORB_INTERP          	POLYFIT             	 // orbit interpolation method
+ELLIPSOID           	WGS84               	 // WGS84, GRS80, BESSEL or define major and minor axis
+c                             
+c CRD_INCLUDE_FE      	OFF                 	 // phase w.r.t. ellipsoid        
+CRD_OUT_DEM_LP      	top10nl_spoorbaandeel_lijn_radarcoded.raw	
+#CRD_OUT_FILE        	master_slave.crd    
+CRD_IN_DEM          	/home/anurag/Documents/AlignSAR/Groningen/radarcoding_process/top10nl_spoorbaandeel_lijn_reproj_0.00015.raw	
+CRD_IN_FORMAT       	r4                  
+CRD_IN_SIZE         	3626 25610	
+CRD_IN_DELTA        	0.00015 0.00015	
+CRD_IN_UL           	53.466446499368175 3.054382017254171	
+CRD_IN_NODATA       	-32768              
+STOP                          

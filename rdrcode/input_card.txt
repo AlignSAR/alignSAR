@@ -1,0 +1,39 @@
+% ----------------------------------------------------------------------
+% Radarcoding project parameters
+% ----------------------------------------------------------------------
+
+%**********************************
+% Project parameters 
+%**********************************
+project_id = 'rdr_test'
+
+
+%**********************************
+% SAR data parameters 
+%**********************************
+SARDataDir  =  '/media/anurag/Seagate/Sentinel_1_data/archive_data/enschede' %Path to the SAR data directory
+dorisProcessDir  = '/media/anurag/SSD_1/anurag/PhD_Project/Doris_Processing/Doris_Processing_36_Groningen/new_datastack/stack_vv'% 'Full path to the processing directory')
+cropAoi     = '/media/anurag/SSD_1/anurag/PhD_Project/Doris_Processing/Doris_Processing_36_Groningen/AOI/gro_aoi.shp' % 'Full path to shapefile used to crop the data'
+sensorName  = 's1'%  's1 | paz | tsx'
+orbit_dir   = '/media/anurag/AK_WD/Sentinel_Processing/Doris_Processing_9/orbit_files'
+startDate   = '20151005'
+stopDate    = '20160329'
+masterDate  = '20220214'
+
+%**********************************
+% Ref data params
+%**********************************
+
+refDataFile = '/home/anurag/Documents/AlignSAR/Data/top10nl-compleet-2022.gpkg'% 'Full path to shapefile/or gtiff raster for the reference data to be radarcoded'
+cropSwitch  = 'True'% True | False % Whether the datasets need to be cropped to the cropAoi file boundary
+refDataType = 'polygon' %polygon/raster
+layerNames  = ['top10nl_wegdeel_vlak', 'top10nl_waterdeel_vlak', 'top10nl_gebouw_vlak', 'top10nl_spoorbaandeel_lijn'] %List of layer names in the shapefile to be radarcoded
+resolution  = 0.00015%decimal degrees
+burn_val    = 1 %m
+
+%**********************************
+% processing options
+%**********************************
+
+int_process_dir = '/home/anurag/Documents/AlignSAR/Groningen/radarcoding_process'%intermediate processing dir
+doInSAR     = 'False'% Whether to do InSAR interferogram generation or not
