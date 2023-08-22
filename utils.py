@@ -170,7 +170,7 @@ def get_stack(dates, doris_stack_dir, crop_switch=True, crop_list=[100,200,100,2
         
     res = np.zeros((lines,pixels, len(dates)), dtype = np.complex64)
     for i,date in enumerate(dates):
-        slc_arr = get_cropped_image('amp', doris_stack_dir, date, crop_switch=crop_switch, crop_list=crop_list, sensor=sensor, swath_burst=swath_burst)
+        slc_arr = get_cropped_image('amp', doris_stack_dir, date, crop_switch=crop_switch, crop_list=crop_list, sensor=sensor, swath_burst=False)
         #slc_arr = 10*np.log10(np.absolute(slc_arr))
         #plt.imshow(np.clip(slc_arr, 0, 35), cmap='gray')
         #plt.show()
