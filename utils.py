@@ -105,7 +105,7 @@ def get_cropped_image(choice_amp_int, doris_stack_dir, date, amp_file_name='slav
     
     
     '''
-    if (sensor=='s1' & swath_burst):
+    if (sensor=='s1' & swath_burst):  #change '&' to 'and' when using python 3.8, '&' is for python 3.10
         amp_dataFilename = os.path.join(doris_stack_dir, date, 'swath_'+swath, 'burst_'+burst, amp_file_name)
         ifgs_dataFilename = os.path.join(doris_stack_dir, date, 'swath_'+swath, 'burst_'+burst, ifgs_file_name)
         
