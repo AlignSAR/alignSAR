@@ -171,8 +171,8 @@ if __name__=='__main__':
     vv_arr_stack = get_stack(dates, paz_doris_stack, crop_switch=CRP_LIST, crop_list=CRP_LIST, sensor='s1')
     vh_arr_stack = get_stack(dates, doris_stack_dir_VH, crop_switch=CRP_LIST, crop_list=CRP_LIST, sensor='s1')
     
-    np.save('groningen_vv_cpx_amp.npy', vv_arr_stack)
-    np.save('groningen_vh_cpx_amp.npy', vh_arr_stack)
+    np.save('groningen_vv_cpx.npy', vv_arr_stack)
+    np.save('groningen_vh_cpx.npy', vh_arr_stack)
     
     plot_decomposition_RGB(np.dstack((np.absolute(vv_arr_stack).mean(2), np.absolute(vh_arr_stack).mean(2))), clip_extremes=True)
     
