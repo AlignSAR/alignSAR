@@ -158,7 +158,6 @@ def plot_decomposition_RGB(slc_arr, clip_extremes):
 if __name__=='__main__':
     doris_stack_dir_VV = '/media/anurag/SSD_1/anurag/PhD_Project/Doris_Processing/Doris_Processing_36_Groningen/new_datastack/stack_vv/'
     doris_stack_dir_VH = '/media/anurag/SSD_1/anurag/PhD_Project/Doris_Processing/Doris_Processing_36_Groningen/new_datastack/stack_vh/'
-    #paz_doris_stack = '/media/anurag/AK_WD/PAZ_Processing/stack'
     master_date = 20200330#'20220214'#'20170117'
     CROPPING = True
     CRP_LIST = [500, 1440, 16000, 18350]#[2000, 3500, 8500, 10000]#
@@ -166,7 +165,7 @@ if __name__=='__main__':
     SP_AVG_WIN_SIYE = 3
     
     #Get the dates
-    dates = get_dates(paz_doris_stack, master_date)[:MAX_IMAGES]
+    dates = get_dates(doris_stack_dir_VV, master_date)[:MAX_IMAGES]
     print(dates)
     #Extract the stack array
     vv_arr_stack = get_stack(dates, paz_doris_stack, crop_switch=CRP_LIST, crop_list=CRP_LIST, sensor='s1')
