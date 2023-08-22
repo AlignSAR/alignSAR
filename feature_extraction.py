@@ -168,7 +168,7 @@ if __name__=='__main__':
     dates = get_dates(doris_stack_dir_VV, master_date)[:MAX_IMAGES]
     print(dates)
     #Extract the stack array
-    vv_arr_stack = get_stack(dates, paz_doris_stack, crop_switch=CRP_LIST, crop_list=CRP_LIST, sensor='s1')
+    vv_arr_stack = get_stack(dates, doris_stack_dir_VV, crop_switch=CRP_LIST, crop_list=CRP_LIST, sensor='s1')
     vh_arr_stack = get_stack(dates, doris_stack_dir_VH, crop_switch=CRP_LIST, crop_list=CRP_LIST, sensor='s1')
     
     np.save('groningen_vv_cpx.npy', vv_arr_stack)
