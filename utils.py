@@ -98,7 +98,7 @@ def get_slv_arr_shape(doris_stack_dir, date, sensor='s1', swath='1', burst='1'):
     return (Naz_res, Nrg_res)
 
 
-def get_cropped_image(choice_amp_int, doris_stack_dir, date, amp_file_name='slave_rsmp.raw', ifgs_file_name = 'cint_srd.raw', crop_switch=False, crop_list=[], sensor='s1', swath_burst=swath_burst, swath='1', burst='1'):
+def get_cropped_image(choice_amp_int, doris_stack_dir, date, amp_file_name='slave_rsmp.raw', ifgs_file_name = 'cint_srd.raw', coh_file_name = 'coherence.raw', crop_switch=False, crop_list=[], sensor='s1', swath_burst=False, swath='1', burst='1'):
     '''
     Function to read a subset of of slave_rsmp.raw or cint_srd.raw
     Args:
@@ -108,15 +108,19 @@ def get_cropped_image(choice_amp_int, doris_stack_dir, date, amp_file_name='slav
     if (sensor=='s1' & swath_burst):  #change '&' to 'and' when using python 3.8, '&' is for python 3.10
         amp_dataFilename = os.path.join(doris_stack_dir, date, 'swath_'+swath, 'burst_'+burst, amp_file_name)
         ifgs_dataFilename = os.path.join(doris_stack_dir, date, 'swath_'+swath, 'burst_'+burst, ifgs_file_name)
+        coh_dataFilename = os.path.join(doris_stack_dir, date, 'swath_'+swath, 'burst_'+burst, coh_file_name)
         
         slv_resFilename = os.path.join(doris_stack_dir, date, 'swath_'+swath, 'burst_'+burst, 'slave.res')
-        ifg_resFilename = os.path.join(doris_stack_dir, date, 'swath_'+swath, 'burst_'+burst, 'ifgs.res')
+        ifgs_resFilename = os.path.join(doris_stack_dir, date, 'swath_'+swath, 'burst_'+burst, 'ifgs.res')
+        coh_resFilename = os.path.join(doris_stack_dir, date, 'swath_'+swath, 'burst_'+burst, 'coherence.raw')
     else:
         amp_dataFilename = os.path.join(doris_stack_dir, date, amp_file_name)
         ifgs_dataFilename = os.path.join(doris_stack_dir, date, ifgs_file_name)
+        coh_dataFilename = os.path.join(doris_stack_dir, date, coh_file_name)
         
         slv_resFilename = os.path.join(doris_stack_dir, date,'slave.res')
         ifg_resFilename = os.path.join(doris_stack_dir, date,'ifgs.res')
+        coh_resFilename = os.path.join(doris_stack_dir, date,'coherence.raw')
     
     
     slv_res = ResData(slv_resFilename)
@@ -161,7 +165,7 @@ def get_dates(doris_stack_dir, master_date):
     return dates
     return [datetime.datetime.strptime(l, '%Y%m%d') for l in dates]
 
-def get_stack(dates, doris_stack_dir, crop_switch=True, crop_list=[100,200,100,200], sensor='s1', swath_burst=False):
+def get_stack(dates, master_date, doris_stack_dir, map_type, crop_switch=True, crop_list=[100,200,100,200], sensor='s1', swath_burst=False):
     if crop_switch:
         lines = crop_list[1]-crop_list[0]
         pixels = crop_list[3]-crop_list[2]
@@ -170,10 +174,15 @@ def get_stack(dates, doris_stack_dir, crop_switch=True, crop_list=[100,200,100,2
         
     res = np.zeros((lines,pixels, len(dates)), dtype = np.complex64)
     for i,date in enumerate(dates):
-        slc_arr = get_cropped_image('amp', doris_stack_dir, date, crop_switch=crop_switch, crop_list=crop_list, sensor=sensor, swath_burst=False)
-        #slc_arr = 10*np.log10(np.absolute(slc_arr))
-        #plt.imshow(np.clip(slc_arr, 0, 35), cmap='gray')
-        #plt.show()
+        if date == master_date and map_type == 'cpx':
+            conitue
+        elif date == master_date and map_type == 'ifg':
+            conitue
+        else:
+            slc_arr = get_cropped_image(map_type, doris_stack_dir, date, crop_switch=crop_switch, crop_list=crop_list, sensor=sensor, swath_burst=False)
+            #slc_arr = 10*np.log10(np.absolute(slc_arr))
+            #plt.imshow(np.clip(slc_arr, 0, 35), cmap='gray')
+            #plt.show()
         res[...,i] = slc_arr
     return res
 
@@ -195,15 +204,16 @@ if __name__=='__main__':
     CRP_LIST = [500, 1440, 16000, 18350]#[2000, 3500, 8500, 10000]#
     MAX_IMAGES = 30
     SP_AVG_WIN_SIYE = 3
+    map_type = 'cpx'  # 'cpx', 'ifg', 'coh'
     
     #Get the dates
     dates = get_dates(paz_doris_stack, master_date)[:MAX_IMAGES]
     print(dates)
     #Extract the stack array
-    vv_arr_stack = get_stack(dates, paz_doris_stack, crop_switch=CRP_LIST, crop_list=CRP_LIST, sensor='s1', swath_burst=False)
-    vh_arr_stack = get_stack(dates, doris_stack_dir_VH, crop_switch=CRP_LIST, crop_list=CRP_LIST, sensor='s1', swath_burst=False)
+    vv_arr_stack = get_stack(dates, master_date, doris_stack_dir_VV, map_type, crop_switch=CRP_LIST, crop_list=CRP_LIST, sensor='s1', swath_burst=False)
+    vh_arr_stack = get_stack(dates, master_date, doris_stack_dir_VH, map_type, crop_switch=CRP_LIST, crop_list=CRP_LIST, sensor='s1', swath_burst=False)
     
-    np.save('groningen_vv_cpx_amp.npy', vv_arr_stack)
-    np.save('groningen_vh_cpx_amp.npy', vh_arr_stack)
+    np.save('groningen_vv_cpx.npy', vv_arr_stack)
+    np.save('groningen_vh_cpx.npy', vh_arr_stack)
 
 
