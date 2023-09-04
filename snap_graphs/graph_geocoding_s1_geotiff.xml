@@ -80,9 +80,6 @@
     <node id="Read">
             <displayPosition x="31.0" y="44.0"/>
     </node>
-    <node id="Calibration">
-      <displayPosition x="103.0" y="87.0"/>
-    </node>
     <node id="Terrain-Correction">
       <displayPosition x="402.0" y="212.0"/>
     </node>
