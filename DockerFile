@@ -40,8 +40,9 @@ RUN wget $URL/$TBX -O /opt/$TBX && chmod +x /opt/$TBX && sh /opt/esa-snap_sentin
 #  #download latest doris version
 #  git clone https://anu_ITC:ATBB7BTWExS8eSLzQm5g3gyqJzggB09794E4@bitbucket.org/anu_itc/doris_5_patch2022.git
 #  #Install fftw
-#  wget -c http://www.fftw.org/fftw-3.2.2.tar.gz && tar -xvf fftw-3.2.2.tar.gz && cd fftw-3.2.2 && ./configure --prefix=`pwd` --enable-float && make && make install && cd ..
+#  wget -c http://www.fftw.org/fftw-3.2.2.tar.gz && tar -xvf fftw-3.2.2.tar.gz && cd fftw-3.2.2 && mkdir -p /opt/lib/dorisreq && ./configure --prefix=/opt/lib/dorisreq --enable-float && make && make install && cd ..
 #  #Install doris core
-#  cd doris_5_patch2022/doris/doris_core && apt-get install -y tcsh csh && ./configure && make && make install && cd ../../../
+#  cd doris_5_patch2022/doris/doris_core && apt-get install -y tcsh csh && ./configure --path_to_fftw=/opt/lib/dorisreq && make && make install && cd ../../../
+# #####ln -s `which g++-4` /usr/bin/g++
 #  #Install doris utilities
 #  cd ../sartools && make && make install 
