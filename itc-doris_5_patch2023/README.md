@@ -1,6 +1,6 @@
 ## Updated version of Doris 5
 
-**Author: Anurag Kulshrestha, email: anurag.librian@gmail.com**
+**Author: Anurag Kulshrestha and Ling Chang **
 
 **Institute: Department of Earth Observation Science, ITC, University of Twente. The Netherlands**
 
@@ -13,3 +13,8 @@
 ### Changes in download_sentinel_data_orbits.py
     Changed link for orbit download to https://scihub.copernicus.eu/gnss
     Streamlined the download process by updating the web-crawler.
+
+### Changes in bk messages.hh
+    Change Line 214 strcat(name ,’\0’); to name [9] = ’\0’
+### Changes in cpxfiddle.cc
+    Change if (argv[optind]==’\0’) to if (*argv[optind]==’\0’)
