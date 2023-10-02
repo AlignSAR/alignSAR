@@ -4,6 +4,7 @@
 
 **Institute: Department of Earth Observation Science, ITC, University of Twente. The Netherlands**
 
+**This updated version is built upon TUDelft's Doris 5 (https://github.com/TUDelftGeodesy/Doris)**
 # Changes:
 ### Changes in create_dem.py
     1. Applied patch on in the _srtm_listing() function to change the source for DEMs
