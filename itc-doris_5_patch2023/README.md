@@ -2,7 +2,7 @@
 
 **Author: Anurag Kulshrestha and Ling Chang **
 
-**Institute: Department of Earth Observation Science, ITC, University of Twente. The Netherlands**
+**Institute: Department of Earth Observation Science, ITC, University of Twente, The Netherlands**
 
 **This updated version is built upon TUDelft's Doris 5 (https://github.com/TUDelftGeodesy/Doris).**
 # Changes:
