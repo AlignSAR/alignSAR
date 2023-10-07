@@ -127,7 +127,7 @@ class DorisSentinel1(object):
         # Resample individual bursts        
         if(dorisParameters.do_resample):
             profile.log_time_stamp('resample')
-            processing.resample(concatenate=False, ras=True, overwrite=True)
+            processing.resample(concatenate=True, ras=True, overwrite=True)
         
         # Reramp burst
         if(dorisParameters.do_reramp):
