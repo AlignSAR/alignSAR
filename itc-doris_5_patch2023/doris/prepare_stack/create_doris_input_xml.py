@@ -37,7 +37,7 @@ class CreateDorisInputXml(object):
 
         input = False
         while input == False:
-            user_input = raw_input("Which track do you want to work with? (explore on https://scihub.copernicus.eu/dhus/) : ")
+            user_input = raw_input("Which track/path do you want to work with? (explore on https://scihub.copernicus.eu/dhus/) : ")
             try:
                 input = str(int(user_input)).zfill(3)
                 self.input_file_dict['track'] = user_input
@@ -81,7 +81,7 @@ class CreateDorisInputXml(object):
 
         input = False
         while input == False:
-            user_input = raw_input("Do you want to generate the DEM file automaticly (Yes/No): ").lower()
+            user_input = raw_input("Do you want to generate the DEM file automatically (Yes/No): ").lower()
             if user_input == 'yes' or user_input == 'no':
                 self.input_file_dict['generate_dem'] = user_input
                 input = True
