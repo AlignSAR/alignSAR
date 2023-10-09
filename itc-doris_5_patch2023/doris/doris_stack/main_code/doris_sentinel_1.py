@@ -134,8 +134,8 @@ class DorisSentinel1(object):
             profile.log_time_stamp('reramp')
             processing.reramp()
         
-        #processing.combine_slave(overwrite=False, ramped=False, deramped=True, ras=True)
-        #processing.combine_master(overwrite=False, ramped=False, deramped=True, ras=True)
+        processing.combine_slave(overwrite=False, ramped=False, deramped=True, ras=True)
+        processing.combine_master(overwrite=True, ramped=True, deramped=True, ras=True)
 
         # Perform enhanced spectral diversity for full swath
         if(dorisParameters.do_esd):
