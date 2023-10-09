@@ -129,7 +129,7 @@ Edited by Anurag on 21-02-2020: Edit: Line 54: CRD_OUT_DEM_H2PH -> CRD_OUT_H2PH
 		<unwrap>remove DEM induced reference phase
 			<PROCESS>unwrap</PROCESS>
 			<UW_METHOD comment="" c="off">SNAPHU</UW_METHOD>
-			<UW_OUT_FILE comment="" c="off">unwrapped.raw</UW_OUT_FILE>
+			<UW_OUT_FILE comment="" c="off">coherence.raw</UW_OUT_FILE>
 			<UW_OUT_FORMAT comment="" c="off">REAL4</UW_OUT_FORMAT>
 			<UW_SNAPHU_LOG comment="" c="off">snaphu.log</UW_SNAPHU_LOG>
 			<UW_SNAPHU_coh comment="" c="off">unwrap_input.raw</UW_SNAPHU_coh>
