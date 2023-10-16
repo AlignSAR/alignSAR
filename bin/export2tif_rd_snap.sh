@@ -18,4 +18,7 @@ outputdir=$3
 outname=`basename $input | cut -d '.' -f1`
 
 echo "exporting "$bandname
-/opt/snap/bin/gpt $SNAPGRAPHS/graph_export2tif_rdc.xml -Psourceband=$bandname -Poutput=$outputdir/$x.$outname.geo.tif -Pinput=$input #>/dev/null 2>/dev/null
+/opt/snap/bin/gpt $SNAPGRAPHS/graph_export2tif_rdc.xml -Psourceband=$bandname -Poutput=$outputdir/$x.$outname.geo.temp.tif -Pinput=$input #>/dev/null 2>/dev/null
+gdal_translate -of GTiff -ot Float32 -co COMPRESS=DEFLATE -co PREDICTOR=3 $outputdir/$x.$outname.geo.temp.tif $outputdir/$x.$outname.geo.tif
+
+rm $outputdir/$x.$outname.geo.temp.tif
