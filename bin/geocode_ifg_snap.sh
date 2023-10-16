@@ -16,6 +16,8 @@ for x in Phase Intensity; do
 bandname=`grep "<BAND_NAME>" $input 2>/dev/null | cut -d '>' -f2 | grep ^$x | cut -d '<' -f 1`
 if [ ! -z $bandname ]; then
  echo "geocoding "$bandname
- /opt/snap/bin/gpt $SNAPGRAPHS/graph_geocoding_s1_geotiff.xml -Psourceband=$bandname -Poutput=$outputdir/$x.$outname.geo.tif -Pinput=$input #>/dev/null 2>/dev/null
+ /opt/snap/bin/gpt $SNAPGRAPHS/graph_geocoding_s1_geotiff.xml -Psourceband=$bandname -Poutput=$outputdir/$x.$outname.geo.temp.tif -Pinput=$input #>/dev/null 2>/dev/null
+ gdal_translate -of GTiff -ot Float32 -co COMPRESS=DEFLATE -co PREDICTOR=3 $outputdir/$x.$outname.geo.temp.tif $outputdir/$x.$outname.geo.tif
+ rm $outputdir/$x.$outname.geo.temp.tif
 fi
 done
