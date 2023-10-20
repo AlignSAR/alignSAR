@@ -41,7 +41,7 @@ class CreateBash(object):
         f.close()
 
         # make sure the file is executable
-        os.chmod(file_path, 0744)
+        os.chmod(file_path, 0o744)
 
         # Also create a download and dem creation bash script.
         file_path = os.path.join(stack_folder, 'create_dem.sh')
@@ -58,7 +58,7 @@ class CreateBash(object):
         f.close()
 
         # make sure the file is executable
-        os.chmod(file_path, 0744)
+        os.chmod(file_path, 0o744)
 
         file_path = os.path.join(stack_folder, 'download_sentinel.sh')
         f = open(file_path, 'w')
@@ -74,4 +74,4 @@ class CreateBash(object):
         f.close()
 
         # make sure the file is executable
-        os.chmod(file_path, 0744)
+        os.chmod(file_path, 0o744)

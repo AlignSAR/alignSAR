@@ -13,10 +13,10 @@
 # Description srtm q data: https://lpdaac.usgs.gov/node/505
 
 import numpy as np
-import gdal
-import gdalconst
-import osr
-from HTMLParser import HTMLParser
+from osgeo import gdal
+from osgeo import gdalconst
+from osgeo import osr
+from html.parser import HTMLParser
 import pickle
 import requests
 import os
@@ -515,7 +515,7 @@ class CreateDem:
 
         output_txt = out_file + '.doris_inputfile'
         output_var = var_file
-        output_var = open(output_var, 'w')
+        output_var = open(output_var, 'wb')
         txtfile = open(output_txt, 'w')
 
         dem_var = dict()
@@ -588,11 +588,11 @@ class CreateDem:
         filelist['SRTM1'] = dict()
         filelist['SRTM3'] = dict()
         filelist['SRTM30'] = dict()
-        #print('aaya')
+        
         for folder, key_value in zip(folders, keys):
-
-            conn = requests.get(server + '/' + folder, auth=(username, password))
             print(server+'/'+folder)
+            conn = requests.get(server + '/' + folder)#, auth=(username, password))
+            
             if conn.status_code == 200:
                 print("status200 received ok")
             else:
@@ -627,7 +627,7 @@ class CreateDem:
                     filelist[key_value][str(n)] = dict()
                 filelist[key_value][str(n)][str(e)] = filename#server + '/' + folder + filename
 
-        file_list = open(os.path.join(data_folder, 'filelist'), 'w')
+        file_list = open(os.path.join(data_folder, 'filelist'), 'wb')
         pickle.dump(filelist, file_list)
         file_list.close()
 
