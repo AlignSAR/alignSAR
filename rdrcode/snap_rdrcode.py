@@ -1,70 +1,115 @@
 # Milan Lazecky, 2023 - to avoid use of doris. Works neatly!
-import os
+import os, glob, re
 import xarray as xr
 import numpy as np
 import rioxarray
 
-dimpath = '/home/espi/alignsar/geocoding/SNAP_output_sample'
-datapath = os.path.join(dimpath, '20220214_20220109_IW1.data')
-lonpath = os.path.join(datapath, 'orthorectifiedLon.img')
-latpath = os.path.join(datapath, 'orthorectifiedLat.img')
+def snap_geo2rdc(grid2rdpath, dim, outpath, totif=True):
+  ''' This will radarcode a given geotiff (in WGS-84) to a radar-coded tif file using the SNAP OrthoRectified coordinates.
 
-grid2rdpath = os.path.join(dimpath, 'elevation.tif') # what to radarcode
-samples = 3045  # should read automatically from the dimpath
-lines = 1072
+  Args:
+    grid2rdpath (str)  path to the input geotiff file (e.g. elevation.tif)
+    dim  (str)  path to the dim file (must contain the orthorectified lat/lon layers) (e.g. SNAP_output_sample/20220214_20220109_IW1.dim)
+    outpath  (str)  path to store the output tif (will be named with 'rdc.tif', e.g. elevation.rdc.tif)
+    totif  (boolean)  if False, it will store only to a binary instead of tif file
 
-outpath='/home/espi/testconv'
-outtrans = os.path.join(outpath, 'trans.dat')
-outra = os.path.join(outpath, 'outra.grd.filled.grd')
-outingeo = os.path.join(outpath, 'demgeo.grd')
-outrdcfile = os.path.join(outpath, 'outinrdc.img')
+  Returns:
+    boolean  True for 'all ok', otherwise False
+  '''
+  grid2rdpath = os.path.realpath(grid2rdpath)
+  if totif:
+    outrdcfile = os.path.join(outpath, os.path.basename(grid2rdpath).replace('.tif','.rdc.tif')) # or different convention?
+  else:
+    outrdcfile = os.path.join(outpath, os.path.basename(grid2rdpath).replace('.tif','.rdc')) # or different convention?
+  outtrans = os.path.join(outpath, 'trans.dat')
+  outra = os.path.join(outpath, 'outra.grd.filled.grd')
+  outingeo = os.path.join(outpath, 'geo2ra.grd')
+  #
+  dim = os.path.realpath(dim)
+  dimpath = os.path.dirname(dim)
+  datapath = os.path.join(dimpath, os.path.basename(dim).replace('.dim','.data'))
+  lonpath = os.path.join(datapath, 'orthorectifiedLon.img')
+  latpath = os.path.join(datapath, 'orthorectifiedLat.img')
+  if (not os.path.exists(latpath)) and (not os.path.exists(outtrans)):
+    print('this dim file does not contain lat/lon layers. please fix')
+    return False
 
-
-############# loading data
-grid2rd = rioxarray.open_rasterio(grid2rdpath)
-grid2rd = grid2rd.squeeze('band')
-grid2rd = grid2rd.drop('band')
-grid2rd = grid2rd.rename({'x': 'lon','y': 'lat'})
-
-# load lon, lat
-lat=np.fromfile(latpath, dtype=np.float32).byteswap().reshape((lines,samples))
-lon=np.fromfile(lonpath, dtype=np.float32).byteswap().reshape((lines,samples))
-
-# transform to rg,az 
-lat=xr.DataArray(lat)
-lon=xr.DataArray(lon)
-lat=lat.rename({'dim_0': 'a','dim_1': 'r'})
-lon=lon.rename({'dim_0': 'a','dim_1': 'r'})
-lat['a']=lat.a.values #+1
-lat['r']=lat.r.values #+1
-lon['a']=lon.a.values #+1
-lon['r']=lon.r.values #+1
-
-latrav = lat.values.ravel()
-lonrav = lon.values.ravel()
-rgrav=np.tile(lat.r.values, (len(lat.a.values),1)).ravel()
-asrav=np.tile(lat.a.values, (len(lat.r.values),1)).T.ravel()
-
-# SAT2lat will end up with:
-# range, azimuth, elevation(ref to radius in PRM), lon, lat # i modified this a bit
-rall = np.column_stack([rgrav, asrav, lonrav, latrav])      # 4 cols; this is the trans.dat
-rall=rall.reshape(lat.values.shape[0], lat.values.shape[1], 4)
-rall.astype(np.float32).tofile(outtrans)
-
-# what to radarcode
-grid2rd.to_netcdf(outingeo)
-
-############# calculation itself
-# perform the radarcoding
-cmd = 'cd {0}; convert_ll2ra.sh {1} {2}'.format(outpath, str(samples), str(lines))
-os.system(cmd)
-# done in 8 seconds
-
-# fix the dimensions (not needed anymore...)
-aa=xr.open_dataarray(outra) #'/home/espi/testconv/outra.grd.filled.grd')
-#aa=aa.rename({'y':'azi','x':'rg'})
-#aa['azi']=(aa.azi.values+0.5).astype(np.uint16)
-#aa['rg']=(aa.rg.values+0.5).astype(np.uint16)
-# only store:
-# final export to the binary file (-> import to the datacube etc.)
-aa.values.tofile(outrdcfile)
+  def grep1(arg,filename):
+    file = open(filename, "r")
+    res=''
+    for line in file:
+      if re.search(arg, line):
+        res=line
+        break
+    file.close()
+    return res
+  
+  header=glob.glob(datapath+'/*.hdr')[0]
+  samples = int(grep1('samples', header).split('=')[1].split('\n')[0])
+  lines = int(grep1('lines', header).split('=')[1].split('\n')[0])
+  
+  ############# loading data
+  grid2rd = rioxarray.open_rasterio(grid2rdpath)
+  grid2rd = grid2rd.squeeze('band')
+  grid2rd = grid2rd.drop('band')
+  grid2rd = grid2rd.rename({'x': 'lon','y': 'lat'})
+  
+  if not os.path.exists(outtrans):
+    # load lon, lat
+    lat=np.fromfile(latpath, dtype=np.float32).byteswap().reshape((lines,samples))
+    lon=np.fromfile(lonpath, dtype=np.float32).byteswap().reshape((lines,samples))
+    
+    # transform to rg,az 
+    lat=xr.DataArray(lat)
+    lon=xr.DataArray(lon)
+    lat=lat.rename({'dim_0': 'a','dim_1': 'r'})
+    lon=lon.rename({'dim_0': 'a','dim_1': 'r'})
+    lat['a']=lat.a.values #+1
+    lat['r']=lat.r.values #+1
+    lon['a']=lon.a.values #+1
+    lon['r']=lon.r.values #+1
+    
+    latrav = lat.values.ravel()
+    lonrav = lon.values.ravel()
+    rgrav=np.tile(lat.r.values, (len(lat.a.values),1)).ravel()
+    asrav=np.tile(lat.a.values, (len(lat.r.values),1)).T.ravel()
+    
+    # SAT2lat will end up with:
+    # range, azimuth, elevation(ref to radius in PRM), lon, lat # i modified this a bit
+    rall = np.column_stack([rgrav, asrav, lonrav, latrav])      # 4 cols; this is the trans.dat
+    rall=rall.reshape(lat.values.shape[0], lat.values.shape[1], 4)
+    rall.astype(np.float32).tofile(outtrans)
+  else:
+    print('using existing trans.dat file')
+  
+  # what to radarcode
+  grid2rd.to_netcdf(outingeo)
+  ############# calculation itself
+  # perform the radarcoding
+  cmd = 'cd {0}; convert_ll2ra.sh {1} {2} 2>/dev/null'.format(outpath, str(samples), str(lines))
+  rc = os.system(cmd)
+  # done in 8 seconds
+  
+  aa=xr.open_dataarray(outra) #'/home/espi/testconv/outra.grd.filled.grd')
+  # fix the dimensions (not needed anymore...)
+  #aa=aa.rename({'y':'azi','x':'rg'})
+  #aa['azi']=(aa.azi.values+0.5).astype(np.uint16)
+  #aa['rg']=(aa.rg.values+0.5).astype(np.uint16)
+  # only store:
+  if not totif:
+    # final export to the binary file (-> import to the datacube etc.)
+    aa.values.tofile(outrdcfile)
+  else:
+    #aa['x']=(aa.x.values+0.5).astype(np.uint16)
+    #aa['y']=(aa.y.values+0.5).astype(np.uint16)
+    aa.rio.to_raster(outrdcfile)
+  if os.path.exists(outrdcfile):
+    # all ok, cleaning (but keeping trans.dat for future use)
+    for todel in [outra, outingeo]:
+      if os.path.exists(todel):
+        os.remove(todel)
+    print('radarcoding finished')
+    return True
+  else:
+    print('ERROR during radarcoding')
+    return False
