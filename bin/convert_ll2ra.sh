@@ -1,7 +1,7 @@
 #!/bin/bash
 # ML 2023: great acknowledgment to GMTSAR and (forever best) GMT!
 V=""
-ingeo=demgeo.grd
+ingeo=geo2ra.grd
 trans=trans.dat
 outra=outra.grd
 nsamples=$1
