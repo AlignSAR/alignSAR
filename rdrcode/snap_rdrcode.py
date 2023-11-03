@@ -4,17 +4,39 @@ import xarray as xr
 import numpy as np
 import rioxarray
 
-def snap_geo2rdc(grid2rdpath, dim, outpath, totif=True):
-  ''' This will radarcode a given geotiff (in WGS-84) to a radar-coded tif file using the SNAP OrthoRectified coordinates.
+'''
+# installation:
+# export PATH=$PATH:.../alignSAR/bin
+# export SNAPGRAPHS=.../alignSAR/snap_graphs
+# export PYTHONPATH=$PYTHONPATH:.../alignSAR/rdrcode
 
-  Args:
-    grid2rdpath (str)  path to the input geotiff file (e.g. roads.tif)
-    dim  (str)  path to the dim file (must contain the orthorectified lat/lon layers) (e.g. SNAP_output_sample/20220214_20220109_IW1.dim)
-    outpath  (str)  path to store the output tif (will be named with 'rdc.tif', e.g. roads.rdc.tif)
-    totif  (boolean)  if False, it will store only to a binary instead of tif file
+# now run jupyterlab
 
-  Returns:
-    boolean  True for 'all ok', otherwise False
+# DEMO to run in jupyter notebook
+from snap_rdrcode import *
+dim = '/home/espi/alignsar/geocoding/SNAP_output_sample/20220214_20220109_IW1.dim'
+# to geocode the elevation.img to elevation.geo.tif
+! geocode_ifg_snap.sh /home/espi/alignsar/geocoding/SNAP_output_sample/20220214_20220109_IW1.dim /path/to/temp
+outpath = '/path/to/temp'
+grid2rdpath = os.path.join(outpath, 'elevation.geo.tif')
+rdcfilepath = snap_geo2rdc(grid2rdpath, dim, outpath)
+rdc = load_tif_file(rdcfilepath)
+rdc.plot()
+'''
+
+def load_tif_file(tif):
+  '''simple function to load a tif file as xarray
+  '''
+  if not os.path.exists(tif):
+    print('ERROR: the file does not exist')
+    return False
+  grid = rioxarray.open_rasterio(tif)
+  grid = grid.squeeze('band')
+  grid = grid.drop('band')
+  return grid
+
+def geo2rdc(grid2rdpath, latfile, lonfile, outpath, totif = True):
+  '''main function for radarcoding - can use lat, lon files directly (e.g. as GEOCODE output from doris)
   '''
   grid2rdpath = os.path.realpath(grid2rdpath)
   if totif:
@@ -25,15 +47,6 @@ def snap_geo2rdc(grid2rdpath, dim, outpath, totif=True):
   outra = os.path.join(outpath, 'outra.grd.filled.grd')
   outingeo = os.path.join(outpath, 'geo2ra.grd')
   #
-  dim = os.path.realpath(dim)
-  dimpath = os.path.dirname(dim)
-  datapath = os.path.join(dimpath, os.path.basename(dim).replace('.dim','.data'))
-  lonpath = os.path.join(datapath, 'orthorectifiedLon.img')
-  latpath = os.path.join(datapath, 'orthorectifiedLat.img')
-  if (not os.path.exists(latpath)) and (not os.path.exists(outtrans)):
-    print('this dim file does not contain lat/lon layers. please fix')
-    return False
-
   def grep1(arg,filename):
     file = open(filename, "r")
     res=''
@@ -109,7 +122,30 @@ def snap_geo2rdc(grid2rdpath, dim, outpath, totif=True):
       if os.path.exists(todel):
         os.remove(todel)
     print('radarcoding finished')
-    return True
+    return outrdcfile
   else:
     print('ERROR during radarcoding')
     return False
+
+def snap_geo2rdc(grid2rdpath, dim, outpath, totif=True):
+  ''' This will radarcode a given geotiff (in WGS-84) to a radar-coded tif file using the SNAP OrthoRectified coordinates.
+
+  Args:
+    grid2rdpath (str)  path to the input geotiff file (e.g. roads.tif)
+    dim  (str)  path to the dim file (must contain the orthorectified lat/lon layers) (e.g. SNAP_output_sample/20220214_20220109_IW1.dim)
+    outpath  (str)  path to store the output tif (will be named with 'rdc.tif', e.g. roads.rdc.tif)
+    totif  (boolean)  if False, it will store only to a binary instead of tif file
+
+  Returns:
+    str  path to the output rdc file (or False if that failed)
+  '''
+  dim = os.path.realpath(dim)
+  dimpath = os.path.dirname(dim)
+  datapath = os.path.join(dimpath, os.path.basename(dim).replace('.dim','.data'))
+  lonpath = os.path.join(datapath, 'orthorectifiedLon.img')
+  latpath = os.path.join(datapath, 'orthorectifiedLat.img')
+  if (not os.path.exists(latpath)) and (not os.path.exists(outtrans)):
+    print('this dim file does not contain lat/lon layers. please fix')
+    return False
+  return geo2rdc(grid2rdpath, latpath, lonpath, outpath, totif = totif)
+  
