@@ -8,9 +8,9 @@ def snap_geo2rdc(grid2rdpath, dim, outpath, totif=True):
   ''' This will radarcode a given geotiff (in WGS-84) to a radar-coded tif file using the SNAP OrthoRectified coordinates.
 
   Args:
-    grid2rdpath (str)  path to the input geotiff file (e.g. elevation.tif)
+    grid2rdpath (str)  path to the input geotiff file (e.g. roads.tif)
     dim  (str)  path to the dim file (must contain the orthorectified lat/lon layers) (e.g. SNAP_output_sample/20220214_20220109_IW1.dim)
-    outpath  (str)  path to store the output tif (will be named with 'rdc.tif', e.g. elevation.rdc.tif)
+    outpath  (str)  path to store the output tif (will be named with 'rdc.tif', e.g. roads.rdc.tif)
     totif  (boolean)  if False, it will store only to a binary instead of tif file
 
   Returns:
