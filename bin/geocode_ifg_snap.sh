@@ -12,10 +12,10 @@ input=$1
 outputdir=$2
 outname=`basename $input | cut -d '.' -f1`
 
-for x in Phase Intensity; do
-#for bandname in `grep "<BAND_NAME>" $input 2>/dev/null | cut -d '>' -f2 | cut -d '<' -f 1`; do    # for all bands. but i,q do not work!
-# x=`echo $bandname | cut -d '_' -f 1`
-bandname=`grep "<BAND_NAME>" $input 2>/dev/null | cut -d '>' -f2 | grep ^$x | cut -d '<' -f 1`
+# for x in Phase Intensity; do
+for bandname in `grep "<BAND_NAME>" $input 2>/dev/null | cut -d '>' -f2 | cut -d '<' -f 1`; do    # for all bands. but i,q do not work!
+x=`echo $bandname | cut -d '_' -f 1`
+#bandname=`grep "<BAND_NAME>" $input 2>/dev/null | cut -d '>' -f2 | grep ^$x | cut -d '<' -f 1`
 if [ ! -z $bandname ]; then
  echo "geocoding "$bandname
  /opt/snap/bin/gpt $SNAPGRAPHS/graph_geocoding_s1_geotiff.xml -Psourceband=$bandname -Poutput=$outputdir/$x.$outname.geo.temp.tif -Pinput=$input >/dev/null 2>/dev/null
