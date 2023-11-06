@@ -275,6 +275,11 @@ if __name__=='__main__':
     water_arr = read_rdr_coded_file(top10_water_file_name, 2842,22551,dtype=np.float32, CROPPING=CROPPING, CRP_LIST=CRP_LIST, MASKING=False, OFFSET=True, OFFST_lp=[1,12])
     road_arr = read_rdr_coded_file(top10_road_file_name, 2842,22551,dtype=np.float32, CROPPING=CROPPING, CRP_LIST=CRP_LIST, MASKING=False, OFFSET=True, OFFST_lp=[1,12])
 
+    # read geo lon lat
+    lam_dataFilename = '/media/xu/Elements2/AlignSAR/Doris_Processing/Groningen_Ling/geo_lonlat/merged_lan_phi/lam.raw'
+    phi_dataFilename = '/media/xu/Elements2/AlignSAR/Doris_Processing/Groningen_Ling/geo_lonlat/merged_lan_phi/phi.raw'
+    lam_merge_arr = freadbk(lam_dataFilename,1,1,2842,22551,'float32', int(2842), int(22551))
+    phi_merge_arr = freadbk(phi_dataFilename,1,1,2842,22551,'float32', int(2842), int(22551))
 
     # calculate the covariance matirx for intensity and pol information calcualtion
     cov_arr = get_avg_cov_mat(vv_arr_stack, vh_arr_stack,AVG_WIN_SIZE = 3, PADDING=True)
@@ -299,23 +304,28 @@ if __name__=='__main__':
     cross_pol_cross_product = np.absolute(co_pol_diff(cov_arr))
     # entropy
     entropy = entropy_cal(np.sort(np.absolute(LA.eigvals(cov_arr)), axis = 3))  # change axis = 3 in line 19 in 'get_p_value' function for whole stack
+    # lon
+    lon = lam_merge_arr[500:1440, 16000:18350]
+    # lat
+    lat = phi_merge_arr[500:1440, 16000:18350]
 
     # create signature and attribute list
     signature_list = ['VV amplitude (linear)', 'VH amplitude (linear)', 'VV interferometric phase (radians)', 'VV coherence', 'Intensity summation',
                              'Intensity difference (dual-pol difference)', 'Intensity ratio (dual-pol power ratio)', 'Cross-pol correlation coefficient',
-                             'Cross-pol cross product', 'Entropy', 'Buildings', 'Railways', 'Water', 'Roads']
+                             'Cross-pol cross product', 'Entropy', 'Buildings', 'Railways', 'Water', 'Roads', 'Lon', 'Lat']
     local_attributes_list = [VV_amplitude_attr, VH_amplitude_attr, VV_interferometric_phase_attr, VV_coherence_attr, Intensity_summation_attr,
                              Intensity_difference_attr, Intensity_ratio_attr, Cross_pol_correlation_coefficient_attr, Cross_pol_cross_product_attr,
-                             Entropy_attr, Buildings_attr, Railways_attr, Water_attr, Roads_attr]
+                             Entropy_attr, Buildings_attr, Railways_attr, Water_attr, Roads_attr, Lon_attr, Lat_attr]
 
     sar_folder_path = '/media/xu/Elements2/AlignSAR/Doris_Processing/Doris_Processing_36_Groningen/sar_data_2022/'
+
     epochs=7
     for i in range(epochs):
         data_name = 'Groningen_netcdf_data_'+dates[i]
         netcdf_name = 'Groningen_netcdf_'+dates[i]
         data_name = np.transpose(np.stack((vv_amp[:,:,i], vh_amp[:,:,i], vv_ifg[:,:,i], vv_coh[:,:,i], intensity_sum[:,:,i], intensity_diff[:,:,i],
                                                           intensity_ratio[:,:,i],cross_pol_corr_coeff[:,:,i], cross_pol_cross_product[:,:,i], entropy[:,:,i],
-                                                          building_arr, railway_arr, water_arr, road_arr)))
+                                                          building_arr, railway_arr, water_arr, road_arr, lon, lat)))
 
         # create netcdf file
         netcdf_name = nc.Dataset(netcdf_name+'_full_attributes.nc', 'w', format='NETCDF4')
@@ -328,7 +338,7 @@ if __name__=='__main__':
         for attr_name, attr_value in global_attributes.items():
             setattr(netcdf_name, attr_name, attr_value)
         # for 14 layers, assign each layer's data and local attribute to the netcdf
-        layer_num = 14
+        layer_num = 16
         for i in range(layer_num):
             # when define the data format and data frame. the top10nl layers should be float 64, the others are float 32
             if signature_list[i] == 'Buildings' or signature_list[i] == 'Railways' or signature_list[i] == 'Water' or signature_list[i] == 'Roads':
@@ -341,3 +351,7 @@ if __name__=='__main__':
             # assign the layer data to the netcdf
             layer[:] = data_name[:,:,i]
         netcdf_name.close()
+
+
+# test = nc.Dataset('Groningen_netcdf_20220109_full_attributes.nc')
+# test.close()

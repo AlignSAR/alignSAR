@@ -45,31 +45,24 @@ def get_global_attribute(sar_folder_path, folder_num, xml_num):
     # sar_proj_epsg = root.find(".//").text
     # sar_orbit_state = root.find(".//").text
     sar_absolute_orbit = root.find(".//absoluteOrbitNumber").text
+    sar_relative_orbit = (int(sar_absolute_orbit)-73) % 175 +1
     # sci_publications = root.find(".//").text
     sar_view_azimuth = root.find(".//pass").text
     sar_view_incidence_angle = root.find(".//incidenceAngleMidSwath").text
     # sar_insar_master_time = # read from input file
-    sar_slc_crop = [500, 1440, 16000, 18350] # read from input file
+    sar_SLC_crop = [500, 1440, 16000, 18350] # read from input file
 
-
-    MetaSAR_dict = {'sar_date_time':sar_date_time, 'sar_master_date_time':sar_master_date_time, 'sar_UTC_time':sar_UTC_time, 'sar_instrument_mode':sar_instrument_mode, \
-                'sar_looks_range':sar_looks_range, 'sar_looks_azimuth':sar_looks_azimuth, 'sar_pixel_spacing_range':sar_pixel_spacing_range, \
-                'sar_pixel_spacing_azimuth':sar_pixel_spacing_azimuth, 'sar_processing_software':sar_processing_software, \
-                'sar_absolute_orbit':sar_absolute_orbit, 'sar_view_azimuth':sar_view_azimuth, 'sar_view_incidence_angle':sar_view_incidence_angle, \
-                'sar_slc_crop':sar_slc_crop}
 
     Global_attr = {'processing_level':'L1', 'date_created': '2023-09-23', 'creator_name': 'Xu Zhang', 'creator_email': 'x.zhang-7@utwente.nl', \
                 'creator_url': 'https://research.utwente.nl/en/persons/xu-zhang', 'institution': 'UT', 'project': 'ESA Open SAR Library', 'publisher_name': 'AlignSAR', \
-                'publisher_email': 'alignsar.project@gmail.com', 'publisher_url': 'alignsar.nl', 'geospatial_lat_min': '53.10925724797295', \
-                'geospatial_lat_max': '53.45800180803104', 'geospatial_lon_min': '5.378760481961083', 'geospatial_lon_max': '6.84575585725768', \
+                'publisher_email': 'alignsar.project@gmail.com', 'publisher_url': 'alignsar.nl', 'geospatial_lat_min': '53.108846741824934', \
+                'geospatial_lat_max': '53.45763298862386', 'geospatial_lon_min': '5.376860616873864', 'geospatial_lon_max': '6.8439575842848654', \
                'sar_date_time':sar_date_time, 'sar_master_date_time':sar_master_date_time, 'sar_UTC_time':sar_UTC_time, 'sar_instrument_mode':sar_instrument_mode, \
                 'sar_looks_range':sar_looks_range, 'sar_looks_azimuth':sar_looks_azimuth, 'sar_pixel_spacing_range':sar_pixel_spacing_range, \
                 'sar_pixel_spacing_azimuth':sar_pixel_spacing_azimuth, 'sar_processing_software':sar_processing_software, \
-                'sar_absolute_orbit':sar_absolute_orbit, 'sar_view_azimuth':sar_view_azimuth, 'sar_view_incidence_angle':sar_view_incidence_angle, \
-                'sar_slc_crop':sar_slc_crop}
+                'sar_absolute_orbit':sar_absolute_orbit,'sar_relative_orbit':sar_relative_orbit, 'sar_view_azimuth':sar_view_azimuth, 'sar_view_incidence_angle':sar_view_incidence_angle, \
+                'sar_SLC_crop[azimuth,range]':sar_SLC_crop, 'sar_subswath': '1', 'sar_burst': '1,2'}
     return Global_attr
-
-sar_folder_path = '/media/xu/Elements2/AlignSAR/Doris_Processing/Doris_Processing_36_Groningen/sar_data_2022/'
 
 
 # get the first xml file in first sar image folder, e.g., S1A_IW_SLC__1SDV_20220109T171712_20220109T171740_041387_04EBB7_25EB.SAFE/annotation/s1a-iw1-slc-vh-20220109t171712-20220109t171738-041387-04ebb7-001.xml
@@ -195,4 +188,18 @@ Roads_attr={
     'Range': 'between 0 and 1',
     'Description': 'the integer value 1 indicates the location of roads. The values between 0 and 1 show the fuzzy boundary between roads and non roads.',
     'Source': 'topographic base map TOP10NL'
+}
+
+
+Lon_attr ={
+    'Units': 'degree',\
+    'Format': 'float32',\
+    'Description': 'longitude of each pixel'
+}
+
+
+Lat_attr ={
+    'Units': 'degree',\
+    'Format': 'float32',\
+    'Description': 'latitude of each pixel'
 }
