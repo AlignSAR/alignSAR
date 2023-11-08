@@ -1,4 +1,4 @@
-# Milan Lazecky, 2023 - to avoid use of doris. Works neatly!
+# Milan Lazecky, 2023 - to improve quality of geocoding. Functions work for outputs of both doris (lon, lat outputs from GEOCODE) and SNAP (dim file must contain OrthorectifiedLon/Lat layers).
 import os, glob, re
 import xarray as xr
 import numpy as np
@@ -35,8 +35,20 @@ def load_tif_file(tif):
   grid = grid.drop('band')
   return grid
 
-def geo2rdc(grid2rdpath, latfile, lonfile, outpath, totif = True):
+def geo2rdc(grid2rdpath, latfile, lonfile, samples, lines, outpath, totif = True):
   '''main function for radarcoding - can use lat, lon files directly (e.g. as GEOCODE output from doris)
+  
+  Args:
+    grid2rdpath (str)  path to the input geotiff file (e.g. roads.tif)
+    latfile  (str)  path to the latitudes per pixel file
+    lonfile  (str)  path to the longitude per pixel file
+    samples  (int)  number of samples for the lon/lat files
+    lines  (int)  number of lines for the lon/lat files
+    outpath  (str)  path to store the output tif (will be named with 'rdc.tif', e.g. roads.rdc.tif)
+    totif  (boolean)  if False, it will store only to a binary instead of tif file
+
+  Returns:
+    str  path to the output rdc file (or False if that failed)
   '''
   grid2rdpath = os.path.realpath(grid2rdpath)
   if totif:
@@ -56,10 +68,6 @@ def geo2rdc(grid2rdpath, latfile, lonfile, outpath, totif = True):
         break
     file.close()
     return res
-  
-  header=glob.glob(datapath+'/*.hdr')[0]
-  samples = int(grep1('samples', header).split('=')[1].split('\n')[0])
-  lines = int(grep1('lines', header).split('=')[1].split('\n')[0])
   
   ############# loading data
   grid2rd = rioxarray.open_rasterio(grid2rdpath)
@@ -144,8 +152,11 @@ def snap_geo2rdc(grid2rdpath, dim, outpath, totif=True):
   datapath = os.path.join(dimpath, os.path.basename(dim).replace('.dim','.data'))
   lonpath = os.path.join(datapath, 'orthorectifiedLon.img')
   latpath = os.path.join(datapath, 'orthorectifiedLat.img')
+  header=glob.glob(datapath+'/*.hdr')[0]
+  samples = int(grep1('samples', header).split('=')[1].split('\n')[0])
+  lines = int(grep1('lines', header).split('=')[1].split('\n')[0])
   if (not os.path.exists(latpath)) and (not os.path.exists(outtrans)):
     print('this dim file does not contain lat/lon layers. please fix')
     return False
-  return geo2rdc(grid2rdpath, latpath, lonpath, outpath, totif = totif)
+  return geo2rdc(grid2rdpath, latpath, lonpath, samples, lines, outpath, totif = totif)
   
