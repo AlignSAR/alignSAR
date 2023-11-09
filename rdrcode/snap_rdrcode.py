@@ -56,8 +56,8 @@ def geo2rdc(grid2rdpath, latfile, lonfile, samples, lines, outpath, totif = True
   else:
     outrdcfile = os.path.join(outpath, os.path.basename(grid2rdpath).replace('.tif','.rdc')) # or different convention?
   outtrans = os.path.join(outpath, 'trans.dat')
-  #outra = os.path.join(outpath, 'outra.grd.filled.grd')
-  outra = os.path.join(outpath, 'outra.grd')
+  outra = os.path.join(outpath, 'outra.grd.filled.grd')
+  #outra = os.path.join(outpath, 'outra.grd')
   outingeo = os.path.join(outpath, 'geo2ra.grd')
   #
   def grep1(arg,filename):
