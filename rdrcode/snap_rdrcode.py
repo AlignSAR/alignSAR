@@ -24,6 +24,16 @@ rdc = load_tif_file(rdcfilepath)
 rdc.plot()
 '''
 
+def grep1(arg,filename):
+  file = open(filename, "r")
+  res=''
+  for line in file:
+    if re.search(arg, line):
+      res=line
+      break
+  file.close()
+  return res
+
 def load_tif_file(tif):
   '''simple function to load a tif file as xarray
   '''
@@ -60,15 +70,6 @@ def geo2rdc(grid2rdpath, latfile, lonfile, samples, lines, outpath, totif = True
   #outra = os.path.join(outpath, 'outra.grd')
   outingeo = os.path.join(outpath, 'geo2ra.grd')
   #
-  def grep1(arg,filename):
-    file = open(filename, "r")
-    res=''
-    for line in file:
-      if re.search(arg, line):
-        res=line
-        break
-    file.close()
-    return res
   
   ############# loading data
   grid2rd = rioxarray.open_rasterio(grid2rdpath)
