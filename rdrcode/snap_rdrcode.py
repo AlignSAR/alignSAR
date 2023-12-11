@@ -1,4 +1,9 @@
-# Milan Lazecky, 2023 - to improve quality of geocoding. Functions work for outputs of both doris (lon, lat outputs from GEOCODE) and SNAP (dim file must contain OrthorectifiedLon/Lat layers).
+# Milan Lazecky, 2023 - to improve quality of geocoding for AlignSAR. 
+# Functions work for outputs of both doris (lon, lat outputs from GEOCODE) and SNAP (dim file must contain OrthorectifiedLon/Lat layers).
+# Nearest neighbours interpolation is used to preserve information for categorical data
+# Calls GMT functions that are set up to radarcode in 90 m spacing (0.0008333 deg) and then interpolate to final radar pixel resolution.
+# One can increase the spacing in bin/convert_ll2ra.sh (see line 9) if needed, for accuracy but on the expense of long computation time.
+
 import os, glob, re
 import xarray as xr
 import numpy as np
@@ -6,11 +11,13 @@ import rioxarray
 from alignsar_utils import RI2cpx
 '''
 # installation:
+source bashrc_alignsar.sh  # already done in the docker, or set up your environment as below:
 # export PATH=$PATH:.../alignSAR/bin
 # export SNAPGRAPHS=.../alignSAR/snap_graphs
 # export PYTHONPATH=$PYTHONPATH:.../alignSAR/rdrcode
 
-# now run jupyterlab
+# now run jupyterlab or python
+# (note we decided to not include jupyter environment in this docker at the moment)
 
 # DEMO to run in jupyter notebook
 from snap_rdrcode import *
