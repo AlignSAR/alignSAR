@@ -222,6 +222,23 @@ def plot_clipped(arr, per_min, per_max):
     print(np.nanpercentile(arr, (per_min, per_max)))
     return np.clip(arr, *np.nanpercentile(arr, (per_min, per_max)))
 
+
+def read_param_file(param_file_dir):
+    meta = open(param_file_dir)
+    meta_dict = {}
+    for i in meta.readlines():
+        if (i[0]!='%'):
+            j=i[:-1].split('=') # removing \n's from end of the line
+            if (len(j)>1):
+                if (j[1].find('%')>0):
+                    j[1]=j[1][:j[1].index('%')]  #trim further after
+                if (j[1][1]=="'"):
+                    j[1]=j[1][2:-1]
+                j=[str.strip(k) for k in j] #trimming
+                meta_dict[j[0]]=j[1]
+    return meta_dict
+
+
 if __name__=='__main__':
     doris_stack_dir_VV = '/media/anurag/SSD_1/anurag/PhD_Project/Doris_Processing/Doris_Processing_36_Groningen/new_datastack/stack_vv/'
     doris_stack_dir_VH = '/media/anurag/SSD_1/anurag/PhD_Project/Doris_Processing/Doris_Processing_36_Groningen/new_datastack/stack_vh/'
