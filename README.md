@@ -10,7 +10,7 @@ The AlignSAR tools are used to extract representative SAR signatures, and ultima
 7. snap_graphs: graphs for SNAP used within the toolbox (e.g. rdr<->geocode)
 8. DockerFile: docker file with OS and software setup.
 9. Meta_info_extraction_global_local.py: script to extract global/local attributes from Sentinel-1 SAR metadata. 
-10. bashrc_alignsar.sh: install script setting the expected environment variables and paths
+10. bashrc_alignsar: install settings for the expected environment variables and paths
 11. resdata.py: script needed from signature_extraction.py.
 12. signature_extraction.py: SAR signature extraction script.
 13. speckle_filt.py: A speckle filtering script.
@@ -18,4 +18,4 @@ The AlignSAR tools are used to extract representative SAR signatures, and ultima
 
 ## Installation
 Either build a docker image using provided Dockerfile, or run following command to set additional environment variables:
-`source bashrc_alignsar.sh`
+`source bashrc_alignsar`
