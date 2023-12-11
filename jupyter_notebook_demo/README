@@ -1,0 +1,9 @@
+1. The '.py' and '.ipynb' files are used for demonstration only.
+
+2. The 'jupyter_input_prepare.py' and 'signature_extraction_demo.ipynb' are prepared for signature extraction, while the 'Random Forest demo (Groningen case).ipynb' is prepared for machine learning (random forest) demonstration using extracted SAR signatures in NetCDF format.
+
+2. The 'jupyter_input_prepare.py' is prepared when the users have the processed Doris products, e.g., 'coherence.raw', 'slave_rsmp.raw', and 'cint_srd.raw', etc. It will generate four '.npy' files, including 'Jupyter_input_vv_cpx_stack.npy', 'Jupyter_input_vh_cpx_stack.npy', 'Jupyter_input_vv_ifg_stack.npy', 'Jupyter_input_vv_coh_stack.npy', 'Jupyter_input_top10NL_stack.npy'. These outputs will be used as input for Jupyter-notebook 'signature_extraction_demo.ipynb'.
+
+3. The 'signature_extraction_demo.ipynb' needs the results from 'jupyter_input_prepare.py', however, these results can also be downloaded via: https://surfdrive.surf.nl/files/index.php/s/56JthYWrVaa4ZAt.
+
+4. The 'Random Forest demo (Groningen case).ipynb' is a machince learning demonstration using the extracted SAR signatures. The signatures are stored in NetCDF format. The user can download the demonstration data 'Groningen_netcdf_20220109_full_attributes.nc' via the link: https://surfdrive.surf.nl/files/index.php/s/56JthYWrVaa4ZAt.
