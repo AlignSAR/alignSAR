@@ -6,6 +6,8 @@ trans=trans.dat
 outra=outra.grd
 nsamples=$1
 nlines=$2
+# spacing=0.00027  # 30 m. More accurate but takes longer
+spacing=0.08333333333 # 90 m
 
 if [ -z $nsamples ]; then echo "please set params"; exit; fi
 
@@ -18,13 +20,16 @@ rm $ingeo.0.grd $ingeo.ok.grd
 #
 #   make grids of longitude and latitude versus range and azimuth
 #
-gmt gmtconvert $trans -o2,3,0 -bi4f -bo3f > llr
-gmt gmtconvert $trans -o2,3,1 -bi4f -bo3f > lla
+#  Note, we should first perform blockmean to synchronise things (but what resolution to choose? skipping now)
 #
-# blockmean to synchronise things (but what resolution to choose? skipping now)
-#
-gmt surface llr `gmt gmtinfo llp -I0.08333333333 -bi3f` -bi3f -I.00083333333333 -T.50 -Gllr.grd $V # might need only once?
-gmt surface lla `gmt gmtinfo llp -I0.08333333333 -bi3f` -bi3f -I.00083333333333 -T.50 -Glla.grd $V # note 30 m = 0.00027 if needed
+if [ ! -f llr.grd ]; then 
+ gmt gmtconvert $trans -o2,3,0 -bi4f -bo3f > llr
+ gmt surface llr `gmt gmtinfo llp -I$spacing -bi3f` -bi3f -I$spacing -T.50 -Gllr.grd $V # lla/llr is needed to be generated need only once!
+fi
+if [ ! -f lla.grd ]; then 
+ gmt gmtconvert $trans -o2,3,1 -bi4f -bo3f > lla
+ gmt surface lla `gmt gmtinfo llp -I$spacing -bi3f` -bi3f -I$spacing -T.50 -Glla.grd $V
+fi
 #
 gmt grdtrack llp -nl -Gllr.grd -bi3f -bo4f > llpr 
 gmt grdtrack llpr -nl -Glla.grd -bi4f -bo5f > llpra 
@@ -38,5 +43,5 @@ gmt xyz2grd rap $R -I1 -r -G$outra -bi3f
 gmt grdfill $outra -An $R -G$outra.filled.grd
 
 # clean
-rm lla llp llpr llpra llr rap
-rm lla.grd llr.grd # takes long to regenerate
+rm lla llp llpr llpra llr rap 
+# rm lla.grd llr.grd # takes long to regenerate
