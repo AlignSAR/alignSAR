@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy import signal
 import numpy.ma as ma
-from utils import *
+from alignsar_utils import *
 
 def multi_temp_spk_filt(slc_arr, window_size=3):
     """
