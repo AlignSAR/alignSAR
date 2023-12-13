@@ -19,3 +19,6 @@
     Change Line 214 strcat(name ,’\0’); to name [9] = ’\0’
 ### Changes in cpxfiddle.cc
     Change if (argv[optind]==’\0’) to if (*argv[optind]==’\0’)
+
+### relevant third-party software for Doris 5
+    The installation packages of all relevant software and tools with a recommended version for Doris can be downloaded via https://github.com/LC-SAR/Doris5requiredSoftware
