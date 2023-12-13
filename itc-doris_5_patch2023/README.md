@@ -21,4 +21,5 @@
     Change if (argv[optind]==’\0’) to if (*argv[optind]==’\0’)
 
 ### relevant third-party software for Doris 5
-    The installation packages of all relevant software and tools with a recommended version for Doris can be downloaded via https://github.com/LC-SAR/Doris5requiredSoftware
+    The installation packages of all relevant software and tools with a recommended version for Doris can be downloaded 
+    via https://github.com/LC-SAR/Doris5requiredSoftware
