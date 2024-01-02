@@ -30,5 +30,14 @@ A set of sample data covering the city of Groningen, the Netherlands, with STAC 
 
 [3] Ling Chang, Jose Manuel Delgado Blasco, Andrea Cavallini, Andy Hooper, Anurag Kulshrestha, Milan Lazecky, Wojciech Witkowski, Xu Zhang, Serkan Girgin and all other AlignSAR members (2023). AlignSAR: developing an open SAR library for machine learning applications. ESA Fringe 2023, 11-15 Sept 2023, Leeds, UK.
 
+## License
+CC BY-NC-SA: [Creative Commons Attribution-NonCommercial-ShareAlike][https://creativecommons.org/licenses/by-nc-sa/4.0/]
+
+This license lets others remix, adapt, and build upon your work non-commercially, as long as they credit you and license their new creations under the identical terms.
+
+## Questions and suggestions
+We welcome your questions and suggestions and contributions. Free free to contact us be sending email to alignsar.project@gmail.com
+
+
 
 
