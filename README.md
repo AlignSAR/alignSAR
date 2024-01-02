@@ -8,20 +8,21 @@ The AlignSAR tools are used to extract representative SAR signatures, and ultima
 4. jupyter_notebook_demo: a jupyter notebook to demonstrate how to extract, visualize and analyse SAR signatures.
 6. rdcode: the radarcoding scripts.
 7. snap_graphs: graphs for SNAP used within the toolbox (e.g. rdr<->geocode)
-8. DockerFile: docker file with OS and software setup.
-9. Meta_info_extraction_global_local.py: script to extract global/local attributes from Sentinel-1 SAR metadata. 
-10. bashrc_alignsar: install settings for the expected environment variables and paths
-11. resdata.py: script needed from signature_extraction.py.
-12. signature_extraction.py: SAR signature extraction script.
-13. speckle_filt.py: A speckle filtering script.
-14. alignsar_utils.py: various python functions used within the toolbox.
+8. AlignSAR_tutorial.pdf: tutorial for this package
+9. DockerFile: docker file with OS and software setup.
+10. Meta_info_extraction_global_local.py: script to extract global/local attributes from Sentinel-1 SAR metadata. 
+11. bashrc_alignsar: install settings for the expected environment variables and paths
+12. resdata.py: script needed from signature_extraction.py.
+13. signature_extraction.py: SAR signature extraction script.
+14. speckle_filt.py: A speckle filtering script.
+15. alignsar_utils.py: various python functions used within the toolbox.
 
 ## Installation
 Either build a docker image using provided Dockerfile, or run following command to set additional environment variables:
 `source bashrc_alignsar`
 
 ## Tutorial and sample data
-A set of sample data covering the city of Groningen, the Netherlands, with STAC can be downloaded via [link](https://www.eotdl.com/datasets/AlignSAR-Groningen-Sentinel1). More description is in the Tutorial.
+A set of sample data covering the city of Groningen, the Netherlands, with STAC can be downloaded via [link](https://www.eotdl.com/datasets/AlignSAR-Groningen-Sentinel1). More description is in the [Tutorial][https://github.com/AlignSAR/alignSAR/blob/main/AlignSAR_tutorial.pdf].
 
 ## Citations
 [1] Ling Chang, Anurag Kulshrestha, Bin Zhang and Xu Zhang (2023). Extraction and analysis of radar scatterer attributes for PAZ SAR by combining time series InSAR, PolSAR and land use measurements. Remote Sensing 15(6), 1571.  
