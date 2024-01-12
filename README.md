@@ -17,6 +17,8 @@ The AlignSAR tools are used to extract representative SAR signatures, and ultima
 14. speckle_filt.py: A speckle filtering script.
 15. alignsar_utils.py: various python functions used within the toolbox.
 
+Note that this is research code provided to you "as is" with no warranties of correctness. Use at your own risk.
+
 ## Installation
 Either build a docker image using provided Dockerfile, or run following command to set additional environment variables:
 `source bashrc_alignsar`
