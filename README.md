@@ -27,7 +27,7 @@ Either build a docker image using provided Dockerfile, or run following command 
 A set of sample data covering the city of Groningen, the Netherlands, with STAC can be downloaded via [link](https://www.eotdl.com/datasets/). More description is in the [Tutorial][https://github.com/AlignSAR/alignSAR/blob/main/AlignSAR_tutorial.pdf].
 
 ## Citations
-[1] Ling Chang, Anurag Kulshrestha, Bin Zhang and Xu Zhang (2023). Extraction and analysis of radar scatterer attributes for PAZ SAR by combining time series InSAR, PolSAR and land use measurements. Remote Sensing 15(6), 1571.  
+[1] Ling Chang, Anurag Kulshrestha, Bin Zhang and Xu Zhang (2023). Extraction and analysis of radar scatterer attributes for PAZ SAR by combining time series InSAR, PolSAR and land use measurements. Remote Sensing 15(6), 1571 [doi](https://doi.org/10.3390/rs15061571).  
 
 [2] Anurag Kulshrestha, Ling Chang and Alfred Stein (2023). Radarcoding reference data for SAR training data creation in Radar coordiantes. IEEE Geoscience and Remote Sensing Letters (under review).
 
