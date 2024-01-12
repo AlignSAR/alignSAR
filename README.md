@@ -39,7 +39,7 @@ CC BY-NC-SA: [Creative Commons Attribution-NonCommercial-ShareAlike][https://cre
 This license lets others remix, adapt, and build upon your work non-commercially, as long as they credit you and license their new creations under the identical terms.
 
 ## Questions and suggestions
-We welcome your questions and suggestions and contributions. Free free to contact us be sending email to alignsar.project@gmail.com
+We welcome your questions and suggestions and contributions. Free free to contact us by sending email to alignsar.project@gmail.com
 
 ## Acknowledgment
 We like to acknowledge ESA. 
