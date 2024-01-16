@@ -16,13 +16,17 @@ class Labeling:
         #This functions reads the data of the NetCDF and convert is as pandas dataframe
         
         # read netCDF
-        groningen_x1 = xr.open_dataarray(x)
+        # groningen_x1 = xr.open_dataarray(x)
+        groningen_x1 = nc.Dataset(x)
         
         #Convert to numpy array
-        xarr = groningen_x1.to_numpy()
+        # xarr = groningen_x1.to_numpy()
+        variable_names = groningen_x1.variables.keys()
+        xarr = [np.array(groningen_x1.variables[variable_name][:]) for variable_name in variable_names]
 
         #Reshape the data
-        xarr_df = np.reshape(xarr, (xarr.shape[0]*xarr.shape[1],xarr.shape[2]))
+        # xarr_df = np.reshape(xarr, (xarr.shape[0]*xarr.shape[1],xarr.shape[2]))
+        xarr_df = np.reshape(xarr, (len(xarr[0])*len(xarr[0][0]),len(xarr)))
         
         #Convert numpy array to pandas dataframe
         xdf = pd.DataFrame(xarr_df, columns=groningen_x1.signatures.to_numpy())
