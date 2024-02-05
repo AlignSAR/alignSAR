@@ -44,7 +44,7 @@ This license lets others remix, adapt, and build upon your work non-commercially
 We welcome your questions and suggestions and contributions. Free free to contact us by sending email to alignsar.project@gmail.com
 
 ## Acknowledgment
-We like to acknowledge ESA. 
+We acknowledge ESA. 
 
 
 
