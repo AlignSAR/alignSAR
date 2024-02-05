@@ -8,14 +8,15 @@ The AlignSAR tools are used to extract representative SAR signatures, and ultima
 4. jupyter_notebook_demo: a jupyter notebook to demonstrate how to extract, visualize and analyse SAR signatures.
 6. rdcode: the radarcoding scripts.
 7. snap_graphs: graphs for SNAP used within the toolbox (e.g. rdr<->geocode)
-8. AlignSAR_tutorial.pdf: tutorial for this package
-9. DockerFile: docker file with OS and software setup.
-10. Meta_info_extraction_global_local.py: script to extract global/local attributes from Sentinel-1 SAR metadata. 
-11. bashrc_alignsar: install settings for the expected environment variables and paths
-12. resdata.py: script needed from signature_extraction.py.
-13. signature_extraction.py: SAR signature extraction script.
-14. speckle_filt.py: A speckle filtering script.
-15. alignsar_utils.py: various python functions used within the toolbox.
+8. stac: python scripts to create STAC
+9. AlignSAR_tutorial.pdf: tutorial for this package
+10. DockerFile: docker file with OS and software setup.
+11. Meta_info_extraction_global_local.py: script to extract global/local attributes from Sentinel-1 SAR metadata. 
+12. bashrc_alignsar: install settings for the expected environment variables and paths
+13. resdata.py: script needed from signature_extraction.py.
+14. signature_extraction.py: SAR signature extraction script.
+15. speckle_filt.py: A speckle filtering script.
+16. alignsar_utils.py: various python functions used within the toolbox.
 
 Note that this is research code provided to you "as is" with no warranties of correctness. Use at your own risk.
 
