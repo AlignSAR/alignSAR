@@ -30,7 +30,7 @@ A set of sample data covering the city of Groningen, the Netherlands, with STAC 
 ## Citations
 [1] Ling Chang, Anurag Kulshrestha, Bin Zhang and Xu Zhang (2023). Extraction and analysis of radar scatterer attributes for PAZ SAR by combining time series InSAR, PolSAR and land use measurements. Remote Sensing 15(6), 1571 [[DOI]](https://doi.org/10.3390/rs15061571).  
 
-[2] Anurag Kulshrestha, Ling Chang and Alfred Stein (2023). Radarcoding reference data for SAR training data creation in Radar coordiantes. IEEE Geoscience and Remote Sensing Letters (under review).
+[2] Anurag Kulshrestha, Ling Chang and Alfred Stein (2024). Radarcoding reference data for SAR training data creation in Radar coordiantes. IEEE Geoscience and Remote Sensing Letters.
 
 [3] Ling Chang, Jose Manuel Delgado Blasco, Andrea Cavallini, Andy Hooper, Anurag Kulshrestha, Milan Lazecky, Wojciech Witkowski, Xu Zhang, Serkan Girgin and all other AlignSAR members (2023). AlignSAR: developing an open SAR library for machine learning applications. ESA Fringe 2023, 11-15 Sept 2023, Leeds, UK.
 
