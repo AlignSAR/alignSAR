@@ -144,7 +144,7 @@ def geo2rdc(grid2rdpath, latfile, lonfile, samples, lines, outpath, totif = True
   rc = os.system(cmd)
   # done in 8 seconds
   print('exporting the result')
-  aa=xr.open_dataarray(outra) #'/home/espi/testconv/outra.grd.filled.grd')
+  #aa=xr.open_dataarray(outra) #'/home/espi/testconv/outra.grd.filled.grd')
   # fix the dimensions (not needed anymore...)
   #aa=aa.rename({'y':'azi','x':'rg'})
   #aa['azi']=(aa.azi.values+0.5).astype(np.uint16)
@@ -152,11 +152,14 @@ def geo2rdc(grid2rdpath, latfile, lonfile, samples, lines, outpath, totif = True
   # only store:
   if not totif:
     # final export to the binary file (-> import to the datacube etc.)
+    aa=xr.open_dataarray(outra)
     aa.values.tofile(outrdcfile)
   else:
     #aa['x']=(aa.x.values+0.5).astype(np.uint16)
     #aa['y']=(aa.y.values+0.5).astype(np.uint16)
-    aa.rio.to_raster(outrdcfile)
+    #aa.rio.to_raster(outrdcfile)   # some issue with GDAL
+    cmd = "gmt grdconvert {0} {1}=gd:GTiff".format(outra, outrdcfile)
+    os.system(cmd) # much better through GMT, also automatically compressed... 1MB instead of 280MB
   if os.path.exists(outrdcfile):
     # all ok, cleaning (but keeping trans.dat for future use)
     for todel in [outra, outingeo]:
