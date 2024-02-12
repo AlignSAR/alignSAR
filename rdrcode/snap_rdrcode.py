@@ -104,9 +104,13 @@ def geo2rdc(grid2rdpath, latfile, lonfile, samples, lines, outpath, totif = True
   if not os.path.exists(outtrans):
     print('generating transformation table (trans.dat)')
     # load lon, lat
-    lat=np.fromfile(latfile, dtype=np.float32).byteswap().reshape((lines,samples))
-    lon=np.fromfile(lonfile, dtype=np.float32).byteswap().reshape((lines,samples))
-    
+    lat=np.fromfile(latfile, dtype=np.float32).reshape((lines,samples))
+    lon=np.fromfile(lonfile, dtype=np.float32).reshape((lines,samples))
+    # but we may need to byteswap those!
+    tocheck = np.abs(np.nanmean(lat))
+    if np.isnan(tocheck) or tocheck > 90:
+      lat=lat.byteswap()
+      lon=lon.byteswap()
     # transform to rg,az 
     lat=xr.DataArray(lat)
     lon=xr.DataArray(lon)
@@ -136,7 +140,7 @@ def geo2rdc(grid2rdpath, latfile, lonfile, samples, lines, outpath, totif = True
   ############# calculation itself
   # perform the radarcoding
   #cmd = 'cd {0}; time convert_ll2ra.sh {1} {2} 2>/dev/null'.format(outpath, str(samples), str(lines))
-  cmd = 'cd {0}; time convert_ll2ra.sh {1} {2}'.format(outpath, str(samples), str(lines))
+  cmd = 'cd {0}; convert_ll2ra.sh {1} {2}'.format(outpath, str(samples), str(lines))
   rc = os.system(cmd)
   # done in 8 seconds
   print('exporting the result')
