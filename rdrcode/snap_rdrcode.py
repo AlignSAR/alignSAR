@@ -68,6 +68,8 @@ def geo2rdc(grid2rdpath, latfile, lonfile, samples, lines, outpath, totif = True
     str  path to the output rdc file (or False if that failed)
   '''
   grid2rdpath = os.path.realpath(grid2rdpath)
+  if not os.path.exists(outpath):
+    os.mkdir(outpath)
   if totif:
     outrdcfile = os.path.join(outpath, os.path.basename(grid2rdpath).replace('.tif','.rdc.tif')) # or different convention?
   else:
@@ -85,9 +87,10 @@ def geo2rdc(grid2rdpath, latfile, lonfile, samples, lines, outpath, totif = True
   grid2rd = grid2rd.rename({'x': 'lon','y': 'lat'})
   
   if not os.path.exists(outtrans):
+    print('generating transformation table (trans.dat)')
     # load lon, lat
-    lat=np.fromfile(latpath, dtype=np.float32).byteswap().reshape((lines,samples))
-    lon=np.fromfile(lonpath, dtype=np.float32).byteswap().reshape((lines,samples))
+    lat=np.fromfile(latfile, dtype=np.float32).byteswap().reshape((lines,samples))
+    lon=np.fromfile(lonfile, dtype=np.float32).byteswap().reshape((lines,samples))
     
     # transform to rg,az 
     lat=xr.DataArray(lat)
@@ -113,13 +116,14 @@ def geo2rdc(grid2rdpath, latfile, lonfile, samples, lines, outpath, totif = True
     print('using existing trans.dat file')
   
   # what to radarcode
+  print('running the LL2RA transformation')
   grid2rd.to_netcdf(outingeo)
   ############# calculation itself
   # perform the radarcoding
-  cmd = 'cd {0}; convert_ll2ra.sh {1} {2} 2>/dev/null'.format(outpath, str(samples), str(lines))
+  cmd = 'cd {0}; time convert_ll2ra.sh {1} {2} 2>/dev/null'.format(outpath, str(samples), str(lines))
   rc = os.system(cmd)
   # done in 8 seconds
-  
+  print('exporting the result')
   aa=xr.open_dataarray(outra) #'/home/espi/testconv/outra.grd.filled.grd')
   # fix the dimensions (not needed anymore...)
   #aa=aa.rename({'y':'azi','x':'rg'})
@@ -144,6 +148,7 @@ def geo2rdc(grid2rdpath, latfile, lonfile, samples, lines, outpath, totif = True
     print('ERROR during radarcoding')
     return False
 
+
 def snap_geo2rdc(grid2rdpath, dim, outpath, totif=True):
   ''' This will radarcode a given geotiff (in WGS-84) to a radar-coded tif file using the SNAP OrthoRectified coordinates.
 
@@ -161,6 +166,7 @@ def snap_geo2rdc(grid2rdpath, dim, outpath, totif=True):
   datapath = os.path.join(dimpath, os.path.basename(dim).replace('.dim','.data'))
   lonpath = os.path.join(datapath, 'orthorectifiedLon.img')
   latpath = os.path.join(datapath, 'orthorectifiedLat.img')
+  outtrans = os.path.join(outpath, 'trans.dat')
   header=glob.glob(datapath+'/*.hdr')[0]
   samples = int(grep1('samples', header).split('=')[1].split('\n')[0])
   lines = int(grep1('lines', header).split('=')[1].split('\n')[0])
