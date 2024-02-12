@@ -12,6 +12,7 @@ spacing=0.08333333333 # 90 m
 if [ -z $nsamples ]; then echo "please set params"; exit; fi
 
 # avoid issues with 0 being NaN. that's ok but need to burn this value here
+echo "Preparing data"
 gmt grdconvert $ingeo -G$ingeo.0.grd=+n-9999
 gmt grdmath $ingeo.0.grd 0 DENAN = $ingeo.ok.grd
 gmt grd2xyz $ingeo.ok.grd -s -bo3f -fg > llp
@@ -23,25 +24,31 @@ rm $ingeo.0.grd $ingeo.ok.grd
 #  Note, we should first perform blockmean to synchronise things (but what resolution to choose? skipping now)
 #
 if [ ! -f llr.grd ]; then 
+ echo "Common llr.grd file not found, regenerating (takes long)"
  gmt gmtconvert $trans -o2,3,0 -bi4f -bo3f > llr
  gmt surface llr `gmt gmtinfo llp -I$spacing -bi3f` -bi3f -I$spacing -T.50 -Gllr.grd $V # lla/llr is needed to be generated need only once!
 fi
 if [ ! -f lla.grd ]; then 
+ echo "Common lla.grd file not found, regenerating (takes long)"
  gmt gmtconvert $trans -o2,3,1 -bi4f -bo3f > lla
  gmt surface lla `gmt gmtinfo llp -I$spacing -bi3f` -bi3f -I$spacing -T.50 -Glla.grd $V
 fi
 #
+echo "Linking coordinates and data values"
 gmt grdtrack llp -nl -Gllr.grd -bi3f -bo4f > llpr 
 gmt grdtrack llpr -nl -Glla.grd -bi4f -bo5f > llpra 
 #
 gmt gmtconvert llpra -bi5f -bo3f -o3,4,2 > rap
 # R=`gmt gmtinfo rap -I1/1 -bi3f`
 R="-R0/"$nsamples"/0/"$nlines
+echo "Converting discrete nodes to regular grid"
 gmt xyz2grd rap $R -I1 -r -G$outra -bi3f
 # R="-R0/"`echo $R | cut -d '/' -f2`"/0/"`echo $R | cut -d '/' -f4`
 # finally nearest neighbour interpolation to fill the holes (zeroes are values now!)
+echo "Filling holes by NN interpolation"
 gmt grdfill $outra -An $R -G$outra.filled.grd
 
+echo "done, cleaning"
 # clean
 rm lla llp llpr llpra llr rap 
 # rm lla.grd llr.grd # takes long to regenerate
