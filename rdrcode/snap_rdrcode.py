@@ -9,6 +9,12 @@ import xarray as xr
 import numpy as np
 import rioxarray
 from alignsar_utils import RI2cpx
+
+if not 'alignSAR' in os.environ['PATH']:
+  print('ERROR, path to the alignSAR bin directory is not set - please set before running in python using:')
+  print("export PATH=$PATH:/path/to/your/alignSAR/bin")
+  exit()
+
 '''
 # installation:
 source bashrc_alignsar.sh  # already done in the docker, or set up your environment as below:
@@ -82,6 +88,15 @@ def geo2rdc(grid2rdpath, latfile, lonfile, samples, lines, outpath, totif = True
   
   ############# loading data
   grid2rd = rioxarray.open_rasterio(grid2rdpath)
+  try:
+    if '"EPSG","4326"' not in grid2rd.spatial_ref.crs_wkt:
+      grid2rd = grid2rd.rio.reproject("EPSG:4326")
+  except:
+    print('cannot check ref sys (make sure the input tif is in WGS-84)')
+  try:
+    grid2rd = grid2rd.where(grid2rd!=grid2rd._FillValue)
+  except:
+    print('')
   grid2rd = grid2rd.squeeze('band')
   grid2rd = grid2rd.drop('band')
   grid2rd = grid2rd.rename({'x': 'lon','y': 'lat'})
@@ -116,11 +131,12 @@ def geo2rdc(grid2rdpath, latfile, lonfile, samples, lines, outpath, totif = True
     print('using existing trans.dat file')
   
   # what to radarcode
-  print('running the LL2RA transformation')
+  print('running the LL2RA transformation (please ignore warnings below)')
   grid2rd.to_netcdf(outingeo)
   ############# calculation itself
   # perform the radarcoding
-  cmd = 'cd {0}; time convert_ll2ra.sh {1} {2} 2>/dev/null'.format(outpath, str(samples), str(lines))
+  #cmd = 'cd {0}; time convert_ll2ra.sh {1} {2} 2>/dev/null'.format(outpath, str(samples), str(lines))
+  cmd = 'cd {0}; time convert_ll2ra.sh {1} {2}'.format(outpath, str(samples), str(lines))
   rc = os.system(cmd)
   # done in 8 seconds
   print('exporting the result')
