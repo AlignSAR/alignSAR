@@ -10,7 +10,7 @@ The AlignSAR tools are used to extract representative SAR signatures, and ultima
 7. snap_graphs: graphs for SNAP used within the toolbox (e.g. rdr<->geocode)
 8. stac: python scripts to create STAC
 9. AlignSAR_tutorial.pdf: tutorial for this package
-10. DockerFile: docker file with OS and software setup.
+10. DockerFile: docker file with OS and software setup. Note that another docker file with having Doris-5 software is in itc-doris_5_patch2023, with the same name [DockerFile](https://github.com/AlignSAR/alignSAR/blob/main/DockerFile).
 11. Meta_info_extraction_global_local.py: script to extract global/local attributes from Sentinel-1 SAR metadata. 
 12. bashrc_alignsar: install settings for the expected environment variables and paths
 13. resdata.py: script needed from signature_extraction.py.
