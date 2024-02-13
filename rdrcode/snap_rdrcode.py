@@ -116,10 +116,10 @@ def geo2rdc(grid2rdpath, latfile, lonfile, samples, lines, outpath, totif = True
     lon=xr.DataArray(lon)
     lat=lat.rename({'dim_0': 'a','dim_1': 'r'})
     lon=lon.rename({'dim_0': 'a','dim_1': 'r'})
-    lat['a']=lat.a.values #+1
-    lat['r']=lat.r.values #+1
-    lon['a']=lon.a.values #+1
-    lon['r']=lon.r.values #+1
+    #lat['a']=lat.a.values+1
+    #lat['r']=lat.r.values+1
+    #lon['a']=lon.a.values+1
+    #lon['r']=lon.r.values+1
     
     latrav = lat.values.ravel()
     lonrav = lon.values.ravel()

@@ -6,8 +6,9 @@ trans=trans.dat
 outra=radarcoded.grd
 nsamples=$1
 nlines=$2
-# spacing=0.00027  # 30 m. More accurate but takes longer
-spacing=0.08333333333 # 90 m
+#spacing=0.08333333333 # 900 m
+spacing=0.008333333333 # 90 m
+#spacing=0.002777777 # 30 m
 
 if [ -z $nsamples ]; then echo "please set params"; exit; fi
 
