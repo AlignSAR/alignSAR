@@ -8,7 +8,8 @@ nsamples=$1
 nlines=$2
 #spacing=0.08333333333 # 900 m
 spacing=0.008333333333 # 90 m
-#spacing=0.002777777 # 30 m
+spacing=0.002777777777 # 30 m
+spacing=0.001388888888 # 15 m
 
 if [ -z $nsamples ]; then echo "please set params"; exit; fi
 
