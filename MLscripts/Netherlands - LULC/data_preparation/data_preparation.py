@@ -23,13 +23,14 @@ class Labeling:
         # xarr = groningen_x1.to_numpy()
         variable_names = groningen_x1.variables.keys()
         xarr = [np.array(groningen_x1.variables[variable_name][:]) for variable_name in variable_names]
+        xarr = np.stack(xarr, axis = -1)
 
         #Reshape the data
-        # xarr_df = np.reshape(xarr, (xarr.shape[0]*xarr.shape[1],xarr.shape[2]))
-        xarr_df = np.reshape(xarr, (len(xarr[0])*len(xarr[0][0]),len(xarr)))
+        xarr_df = np.reshape(xarr, (xarr.shape[0]*xarr.shape[1],xarr.shape[2]))[:,:14]
+        # xarr_df = np.reshape(xarr, (len(xarr[0])*len(xarr[0][0]),len(xarr)))
         
         #Convert numpy array to pandas dataframe
-        xdf = pd.DataFrame(xarr_df, columns=groningen_x1.signatures.to_numpy())
+        xdf = pd.DataFrame(xarr_df, columns=np.stack(list(groningen_x1.variables.keys()), axis = -1)[:14]
 
         return groningen_x1,xdf
         
