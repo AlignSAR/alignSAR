@@ -36,11 +36,6 @@ A set of sample data covering the city of Groningen, the Netherlands, with STAC 
 
 [4] Ling Chang, Xu Zhang, Anurag Kulshrestha, Serkan Girgin, Alfred Stein, Jose Manuel Delgado Blasco, Angie Catalina Carrillo Chappe, Andrea Cavallini, Marco Uccelli, Milan  Lazecky, Andy Hooper, Wojciech Witkowski,  Magdalena Lucka, Artur Guzy (2024). AlignSAR: An open-source package of SAR benchmark dataset creation for machine learning applications. 2024 IEEE International Geoscience and Remote Sensing Symposium, IGARSS 2024, accepted.[Link](https://surfdrive.surf.nl/files/index.php/s/yAgIc2QQ84ht3c1)
 
-## License
-CC BY-NC-SA: [Creative Commons Attribution-NonCommercial-ShareAlike](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-
-This license lets others remix, adapt, and build upon your work non-commercially, as long as they credit you and license their new creations under the identical terms.
-
 ## Questions and suggestions
 We welcome your questions and suggestions and contributions. Free free to contact us by sending email to alignsar.project@gmail.com
 
