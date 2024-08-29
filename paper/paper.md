@@ -23,10 +23,7 @@ authors:
     affiliation: 1
   - name: Jose Manuel Delgado Blasco
     orcid:  0000-0003-0098-3046
-    affiliation: 4
-  - name: Serkan Girgin
-    orcid: 0000-0002-0156-185X
-    affiliation: 1   
+    affiliation: 4   
 affiliations:
  - name: University of Twente, The Netherlands
    index: 1
