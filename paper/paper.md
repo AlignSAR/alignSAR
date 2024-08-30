@@ -31,7 +31,7 @@ affiliations:
    index: 2
  - name: University of Leeds, United Kingdom
    index: 3
- - name: University of Jaen, Spain
+ - name: Microgeodesia Research Group, University of Jaen, Spain
    index: 4
 date: 27 Aug 2024
 bibliography: paper.bib
@@ -45,7 +45,7 @@ AlignSAR enables users to process both legacy and contemporary SAR datasets, inc
 
 ## Statement of Need
 
-SAR techniques, including InSAR (Interferometric SAR) [@bamler1998synthetic] and PolSAR (Polarimetric SAR) [@lee2017polarimetric], are well-established and are employed in natural and anthropogenic hazard monitoring, as well as land use and land cover classification. These techniques typically employ conventional methods such as persistent scatterer interferometry and the small baseline subset approach [@ferretti2001permanent], [@lanari2004small], recently in conjunction with machine learning techniques. A variety of commercial and open-source processing tools have been developed to support different SAR applications. For instance, ESA-developed [SNAP](https://earth.esa.int/eogateway/tools/snap), a JAVA-based tool, is commonly used for standard InSAR and PolSAR decomposition analysis. [Doris](https://github.com/TUDelftGeodesy/Doris), stands for Delft object-oriented radar interferometric software, and is another open-source tool designed for InSAR analysis, though it is somewhat outdated and has been partially depreciated. On the commercial side, [Gamma](https://www.gamma-rs.ch/software) offers a robust solution for InSAR analysis, also integrated into platforms like [ASF Services – On Demand Processing](https://asf.alaska.edu/asf-services-hyp3-processing/) and [LiCS](https://comet.nerc.ac.uk/comet-lics-portal/). 
+SAR techniques, including InSAR (Interferometric SAR) [@bamler1998synthetic] and PolSAR (Polarimetric SAR) [@lee2017polarimetric], are well-established and are employed in natural and anthropogenic hazard monitoring, as well as land use and land cover classification. These techniques typically employ conventional methods such as persistent scatterer interferometry and the small baseline subset approach [@ferretti2001permanent], [@lanari2004small], recently in conjunction with machine learning techniques. A variety of commercial and open-source processing tools have been developed to support different SAR applications. For instance, The ESA SentiNel Application Platform  [SNAP](https://earth.esa.int/eogateway/tools/snap), a JAVA-based tool, which contains the Sentinel-1 Toolbox that is commonly used for standard InSAR and PolSAR decomposition analysis. [Doris](https://github.com/TUDelftGeodesy/Doris), stands for Delft object-oriented radar interferometric software, and is another open-source tool designed for InSAR analysis, though it is somewhat outdated and has been partially depreciated. On the commercial side, [Gamma](https://www.gamma-rs.ch/software) offers a robust solution for InSAR analysis, also integrated into platforms like [ASF Services – On Demand Processing](https://asf.alaska.edu/asf-services-hyp3-processing/) and [LiCS](https://comet.nerc.ac.uk/comet-lics-portal/). 
 
 As an increasing number of dedicated SAR missions are launched, the community of SAR users is expanding, with growing interest in applying SAR data within machine learning frameworks. Despite this trend, the aforementioned tools are not specifically designed for machine learning applications. Furthermore, directly applying methods developed for other types of signals and images to SAR data, without considering SAR representative signatures, can lead to biased and inaccurate machine learning outcomes. 
 
@@ -81,6 +81,6 @@ AlignSAR is available as an Apache-2.0-licensed open-source tool package hosted 
 
 ## Acknowledgements
 
-The authors extend sincere gratitude to the ESA (European Space Agency) for funding the development of AlignSAR through the Open SAR Library project (4000140600/23/I-DT). We also thank all project members, listed on https://www.alignsar.nl/alignsar-team/ for their invaluable contributions to the development, testing and demonstration of the methods in this project.
+The authors extend sincere gratitude to the ESA (European Space Agency) for funding the development of AlignSAR through the Open SAR Library project (4000140600/23/I-DT) and the ESA Network of Resources . We also thank all project members, listed on https://www.alignsar.nl/alignsar-team/ for their invaluable contributions to the development, testing and demonstration of the methods in this project. 
 
 ## References
