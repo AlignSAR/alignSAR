@@ -69,7 +69,7 @@ AlignSAR is available as an Apache-2.0-licensed open-source tool package hosted 
 4. [snap_graphs](https://github.com/AlignSAR/alignSAR/tree/main/snap_graphs): graphs for SNAP used within the toolbox (e.g. rdr<->geocode).
 
 5. [stac](https://github.com/AlignSAR/alignSAR/tree/main/stac): python scripts to create STAC (SpatioTemporal Asset Catalogs) 
-6. [DockerFile](https://github.com/AlignSAR/alignSAR/blob/main/DockerFile): docker file with OS and software setup. Note that another docker file with Doris-5 installed is in itc-doris_5_patch2023, with the same name DockerFile.
+6. [DockerFile](https://github.com/AlignSAR/alignSAR/blob/main/DockerFile): docker file with OS and software setup. Note that another docker file with Doris-5 installed is in itc-doris_5_patch2023, with the same name DockerFile but different software setup.
 
 7. [Meta_info_extraction_global_local.py](https://github.com/AlignSAR/alignSAR/blob/main/Meta_info_extraction_global_local.py): a script to extract global/local attributes from Sentinel-1 SAR metadata.
 
