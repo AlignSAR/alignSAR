@@ -79,7 +79,7 @@ AlignSAR is available as an Apache-2.0-licensed open-source toolbox hosted on [G
 
 9. [speckle_filt.py](https://github.com/AlignSAR/alignSAR/blob/main/speckle_filt.py): a script for spatio-temoporal speckle filtering. For more details, refer to [@Quegan2001].
 
-10. [MLscripts](https://github.com/AlignSAR/alignSAR/tree/main/MLscripts): scripts for machine learning analysis. [Yolov8](https://github.com/ultralytics/ultralytics), ANN (Artificial Neural Network) and Siamese are separately used for Object Detection (India), Land Use Land Cover classification (Netherlands), and Change Detection (Poland).
+10. [MLscripts](https://github.com/AlignSAR/alignSAR/tree/main/MLscripts): scripts for machine learning analysis. [Yolov8](https://github.com/ultralytics/ultralytics), ANN (Artificial Neural Network) and Siamese are separately used for Object Detection (India), Land Use Land Cover classification (Netherlands), and Change Detection (Poland). 
 
 Figure 1 illustrates the processing flowchart for creating SAR benchmark datasets, with key functionalities highlighted in blue. The flowchart consists of six main stages: environment and software setup, pre-processing, signature extraction, SAR benchmark dataset generation, STAC creation, and machine learning application demonstration.
 ![My Image](flowchart.png) 
