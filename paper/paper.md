@@ -81,7 +81,7 @@ AlignSAR is available as an Apache-2.0-licensed open-source toolbox hosted on [G
 
 10. [MLscripts](https://github.com/AlignSAR/alignSAR/tree/main/MLscripts): scripts for machine learning analysis. [Yolov8](https://github.com/ultralytics/ultralytics), ANN (Artificial Neural Network) and Siamese are separately used for Object Detection (India), Land Use Land Cover classification (Netherlands), and Change Detection (Poland).
 
-Figure 1 describes the processing flowchart of creating SAR benchmark datasets with relevant functionalities in blue. The flowchart include five main blocks, pre-processing, signature extraction, SAR benchmark dataset creation, STAC creation (optional) and machine learning application demonstration. 
+Figure 1 describes the processing flowchart of creating SAR benchmark datasets with relevant functionalities in blue. The flowchart include six main blocks, environment and software setup, pre-processing, signature extraction, SAR benchmark dataset creation, STAC creation (optional) and machine learning application demonstration. 
 ![My Image](flowchart.png) 
 <center>Figure 1: Processing flowchart</center>
 
