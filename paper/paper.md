@@ -41,7 +41,7 @@ bibliography: paper.bib
 
 Benchmark datasets are essential for the development, evaluation, and comparison of machine learning models. However, in the field of Synthetic Aperture Radar (SAR) remote sensing [@curlander1991synthetic], there is a notable lack of large and standardized benchmark datasets, as reported by [@long2021creating], [@zhu2021deep]. Moreover, there is currently no open reference library of methods and tools for creating SAR benchmark datasets. To address these gaps, we developed AlignSAR, a comprehensive toolbox designed to create benchmark datasets specifically from SAR imagery, optimized for machine learning applications.
 
-AlignSAR enables users to process both legacy and contemporary SAR datasets, including those from Envisat, Radarsat, and Sentinel-1, facilitating the extraction of representative SAR signatures. Additionally, the toolbox supports the alignment of other geospatial observations, such as LiDAR and optical satellite data, onto SAR reference grids, thereby enriching each SAR pixel with additional signatures. The SAR benchmark datasets created with AlignSAR, constructed from these enriched and aligned signatures, are then ready for use in a variety of machine-learning tasks.
+AlignSAR enables users to process both legacy and contemporary SAR datasets, including those from Envisat, Radarsat, and Sentinel-1, facilitating the extraction of representative SAR signatures. Additionally, the toolbox supports the alignment of other geospatial observations, such as LiDAR and optical satellite data, onto SAR reference grids, thereby enriching each SAR pixel with additional signatures. The SAR benchmark datasets created with AlignSAR, constructed from these enriched and aligned signatures, are then ready for use in a variety of machine-learning tasks and can be shared easily on the Cloud, e.g. by using STAC (SpatioTemporal Asset Catalogs).
 
 ## Statement of Need
 
@@ -69,7 +69,8 @@ AlignSAR is available as an Apache-2.0-licensed open-source toolbox hosted on [G
 
 4. [snap_graphs](https://github.com/AlignSAR/alignSAR/tree/main/snap_graphs): graphs for SNAP used within the toolbox (e.g. rdr<->geocode).
 
-5. [stac](https://github.com/AlignSAR/alignSAR/tree/main/stac): python scripts to create STAC (SpatioTemporal Asset Catalogs) 
+5. [stac](https://github.com/AlignSAR/alignSAR/tree/main/stac): python scripts to create STAC (SpatioTemporal Asset Catalogs). Our STAC examples are available via [STAC Browser](https://radiantearth.github.io/stac-browser/#/?.language=en) by specifying the STAC Catalog with 'https://data.crib.utwente.nl/stac/alignsar/catalog.json'.
+   
 6. [DockerFile](https://github.com/AlignSAR/alignSAR/blob/main/DockerFile): docker file with OS and software setup. Note that another docker file with Doris-5 installed is in itc-doris_5_patch2023, with the same name DockerFile but different software setup.
 
 7. [Meta_info_extraction_global_local.py](https://github.com/AlignSAR/alignSAR/blob/main/Meta_info_extraction_global_local.py): a script to extract global/local attributes from Sentinel-1 SAR metadata.
