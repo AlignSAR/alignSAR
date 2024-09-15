@@ -1,5 +1,5 @@
 ---
-title: 'AlignSAR: An open-source package of SAR benchmark dataset creation for machine learning applications'
+title: 'AlignSAR: An open-source toolbox of SAR benchmark dataset creation for machine learning applications'
 tags:
   - SAR
   - Benchmark Datasets
@@ -39,9 +39,9 @@ bibliography: paper.bib
 
 ## Summary
 
-Benchmark datasets are essential for the development, evaluation, and comparison of machine learning models. However, in the field of Synthetic Aperture Radar (SAR) remote sensing [@curlander1991synthetic], there is a notable lack of large and standardized benchmark datasets, as reported by [@long2021creating], [@zhu2021deep]. Moreover, there is currently no open reference library of methods and tools for creating SAR benchmark datasets. To address these gaps, we developed AlignSAR, a comprehensive tool package designed to create benchmark datasets specifically from SAR imagery, optimized for machine learning applications.
+Benchmark datasets are essential for the development, evaluation, and comparison of machine learning models. However, in the field of Synthetic Aperture Radar (SAR) remote sensing [@curlander1991synthetic], there is a notable lack of large and standardized benchmark datasets, as reported by [@long2021creating], [@zhu2021deep]. Moreover, there is currently no open reference library of methods and tools for creating SAR benchmark datasets. To address these gaps, we developed AlignSAR, a comprehensive toolbox designed to create benchmark datasets specifically from SAR imagery, optimized for machine learning applications.
 
-AlignSAR enables users to process both legacy and contemporary SAR datasets, including those from Envisat, Radarsat, and Sentinel-1, facilitating the extraction of representative SAR signatures. Additionally, the package supports the alignment of other geospatial observations, such as LiDAR and optical satellite data, onto SAR reference grids, thereby enriching each SAR pixel with additional signatures. The SAR benchmark datasets created with AlignSAR, constructed from these enriched and aligned signatures, are then ready for use in a variety of machine-learning tasks.
+AlignSAR enables users to process both legacy and contemporary SAR datasets, including those from Envisat, Radarsat, and Sentinel-1, facilitating the extraction of representative SAR signatures. Additionally, the toolbox supports the alignment of other geospatial observations, such as LiDAR and optical satellite data, onto SAR reference grids, thereby enriching each SAR pixel with additional signatures. The SAR benchmark datasets created with AlignSAR, constructed from these enriched and aligned signatures, are then ready for use in a variety of machine-learning tasks.
 
 ## Statement of Need
 
@@ -57,7 +57,7 @@ Category 3: Inherited attributes from additional geospatial observations, e.g. l
 
 ## Source Code and Tutorial
 
-AlignSAR is available as an Apache-2.0-licensed open-source tool package hosted on [GitHub](https://github.com/AlignSAR/alignSAR). The [AlignSAR tutorial](https://github.com/AlignSAR/alignSAR/blob/main/AlignSAR_tutorial.pdf) outlines the methodology and functionality structure employed in this project, describes all the open-source tools developed within this package, and uses a use case with [Sentinel-1 SAR](https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-1) and [TOP10NL](https://www.pdok.nl/introductie/-/article/basisregistratie-topografie-brt-topnl) data for demonstration. 
+AlignSAR is available as an Apache-2.0-licensed open-source toolbox hosted on [GitHub](https://github.com/AlignSAR/alignSAR). The [AlignSAR tutorial](https://github.com/AlignSAR/alignSAR/blob/main/AlignSAR_tutorial.pdf) outlines the methodology and functionality structure employed in this project, describes all the open-source tools developed within this toolbox, and uses a use case with [Sentinel-1 SAR](https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-1) and [TOP10NL](https://www.pdok.nl/introductie/-/article/basisregistratie-topografie-brt-topnl) data for demonstration. 
 
 ## Main Functionalities
 
