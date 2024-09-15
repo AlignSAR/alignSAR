@@ -51,7 +51,7 @@ As an increasing number of dedicated SAR missions are launched, the community of
 
 AlignSAR developed new methods and tools upon existing tools such as Doris and SNAP, and enhances the functionalities, optimizes key processes, and extends the capabilities of the tools used. It standardizes the extraction procedure of representative SAR signatures, and provides radar- and geo-coded geospatial observations that are all aligned onto SAR reference coordinates and then associates additional signatures from these geospatial data with the corresponding SAR pixels. In addition, AlignSAR provides a demonstration of machine-learning-based land use land cover classification using a set of SAR benchmark datasets in a particular user case. Note that the SAR signatures are classified into three categories:  
 
-Category 1: Single polarimetric signatures, like amplitude, intensity, backscatter coefficient, interferometric phase and coherence;  
+Category 1: Single polarimetric signatures, like amplitude, intensity, backscatter coefficient, interferometric and SLC phase and coherence;  
 Category 2: Multi polarimetric signatures, such as co-, dual polarization cross product, and summation, difference and ratio of the co-, dual, quad polarization intensities, and entropy, scattering mechanisms, SAR vegetation index (RVI), and SAR soil moisture.  
 Category 3: Inherited attributes from additional geospatial observations, e.g. land use land cover type, cadastral features, temperature, atmospheric phase, and geological information. 
 
