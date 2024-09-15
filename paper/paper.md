@@ -83,7 +83,7 @@ AlignSAR is available as an Apache-2.0-licensed open-source toolbox hosted on [G
 
 Figure 1 describes the processing flowchart of creating SAR benchmark datasets with relevant functionalities in blue. The flowchart include five main blocks, pre-processing, signature extraction, SAR benchmark dataset creation, STAC creation (optional) and machine learning application demonstration. 
 ![My Image](flowchart.png) 
-<center>*Figure 1: Processing procedure.*<center>
+<center>Figure 1: Processing flowchart</center>
 
 
 ## Acknowledgements
