@@ -59,7 +59,7 @@ Category 3: Inherited attributes from additional geospatial observations, e.g. l
 
 AlignSAR is available as an Apache-2.0-licensed open-source toolbox hosted on [GitHub](https://github.com/AlignSAR/alignSAR). The [AlignSAR tutorial](https://github.com/AlignSAR/alignSAR/blob/main/AlignSAR_tutorial.pdf) outlines the methodology and functionality structure employed in this project, describes all the open-source tools developed within this toolbox, and uses a use case with [Sentinel-1 SAR](https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-1) and [TOP10NL](https://www.pdok.nl/introductie/-/article/basisregistratie-topografie-brt-topnl) data for demonstration. 
 
-## Main Functionalities
+## Main Functionalities and Processing Flowchart
 
 1. [itc-doris_5_patch2023](https://github.com/AlignSAR/alignSAR/tree/main/itc-doris_5_patch2023): an updated version of Doris that is used to read raw SAR (Single Look Complex format), coregister all SAR images to the same reference grids, resample them, remove the reference and topographic phase using external Digital Elevation Model (DEM) (e.g [SRTM](https://www.earthdata.nasa.gov/sensors/srtm#:~:text=The%20Shuttle%20Radar%20Topography%20Mission,global%20dataset%20of%20land%20elevations.) or [Copernicus DEM](https://spacedata.copernicus.eu/collections/copernicus-digital-elevation-model)), and generate co-registered amplitude, SLC phase and interferometric phase data.
 
@@ -81,9 +81,9 @@ AlignSAR is available as an Apache-2.0-licensed open-source toolbox hosted on [G
 
 10. [MLscripts](https://github.com/AlignSAR/alignSAR/tree/main/MLscripts): scripts for machine learning analysis. [Yolov8](https://github.com/ultralytics/ultralytics), ANN (Artificial Neural Network) and Siamese are separately used for Object Detection (India), Land Use Land Cover classification (Netherlands), and Change Detection (Poland).
 
-Figure 1 describes the processing procedure of creating SAR benchmark datasets with relevant functionalities in blue. 
+Figure 1 describes the processing flowchart of creating SAR benchmark datasets with relevant functionalities in blue. The flowchart include five main blocks, pre-processing, signature extraction, SAR benchmark dataset creation, STAC creation (optional) and machine learning application demonstration. 
 ![My Image](flowchart.png) 
-*Figure 1: Processing procedure.*
+<center>*Figure 1: Processing procedure.*<center>
 
 
 ## Acknowledgements
