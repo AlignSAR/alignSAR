@@ -1,0 +1,39 @@
+{
+  "creators": [
+    {
+      "affiliation": "University of Twente",
+      "name": "Chang, Ling",
+      "orcid": "0000-0001-8212-7221"
+    },
+    {
+      "affiliation": "University of Twente",
+      "name": "Zhang, Xu)"
+    },
+    {
+      "affiliation": "ICEYE",
+      "name": "Kulshrestha, Anurag"
+    },
+    {
+      "affiliation": "University of Leeds",
+      "name": "Lazecky, Milan"
+    },
+    {
+      "affiliation": "University of Twente",
+      "name": "Girgin, Serkan"
+    },
+    {
+      "affiliation": "University of Jaen",
+      "name": "Delgado Blasco, Jose Manuel"
+    }
+  ],
+  "description": "AlignSAR is a toolbox desgined for creating benchmark datasets from Synthetic Aperture Radar (SAR) data, optimized for machine learning applications. This toolbox allows users to process both legacy and current SAR datasets, including those from Envisat, Radarsat, and Sentinel-1, to extract representative SAR signatures. Additionally, it enables the alignment of other geospatial observations such as those from LiDAR and optical satellite missions onto SAR reference grids, enriching each SAR pixel with additional signatures. The resulting SAR benchmark datasets, constructed from these aligned signatures, associated with STAC (SpatioTemporal Asset Catalogs), are then utilized in various machine learning tasks.",
+  "keywords": [
+    "SAR",
+    "Benchmark Datasets",
+    "Machine Learning"
+  ],
+  "license": {
+    "id": "Apache-2.0"
+  },
+  "title": "AlignSAR: An open-source toolbox of SAR benchmark dataset creation for machine learning applications"
+}
