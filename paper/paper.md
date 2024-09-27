@@ -89,6 +89,6 @@ Figure 1 illustrates the processing flowchart for creating SAR benchmark dataset
 
 ## Acknowledgements
 
-The authors extend sincere gratitude to the ESA (European Space Agency) for funding the development of AlignSAR through the Open SAR Library project (4000140600/23/I-DT) and the ESA Network of Resources . We also thank all project members, listed on https://www.alignsar.nl/alignsar-team/ for their invaluable contributions to the development, testing and demonstration of the methods in this project. 
+The authors extend sincere gratitude to the ESA (European Space Agency) for funding the development of AlignSAR through the Open SAR Library project (4000140600/23/I-DT) and the ESA Network of Resources. We also thank all project members, listed on https://www.alignsar.nl/alignsar-team/ for their invaluable contributions to the development, testing and demonstration of the methods in this project. 
 
 ## References
