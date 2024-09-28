@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Schema name="data_coverage" id="data_coverage">
+	<SimpleField name="Name" type="string"></SimpleField>
+	<SimpleField name="volc_id" type="string"></SimpleField>
+	<SimpleField name="name" type="string"></SimpleField>
+	<SimpleField name="vid" type="string"></SimpleField>
+</Schema>
+<Folder><name>data_coverage</name>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#data_coverage">
+		<SimpleData name="Name">Campi Flegrei</SimpleData>
+		<SimpleData name="volc_id">211010</SimpleData>
+		<SimpleData name="vid">23</SimpleData>
+	</SchemaData></ExtendedData>
+      <Polygon><outerBoundaryIs><LinearRing><coordinates>14.0263873873874,40.7143873873874 14.0263873873874,40.9396126126126 14.2516126126126,40.9396126126126 14.2516126126126,40.7143873873874 14.0263873873874,40.7143873873874</coordinates></LinearRing></outerBoundaryIs></Polygon>
+  </Placemark>
+</Folder>
+</Document></kml>
