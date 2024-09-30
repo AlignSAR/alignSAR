@@ -23,7 +23,7 @@
 start_step="01"	# 01-05, 11-16
 end_step="16"	# 01-05, 11-16
 
-cometdev='1'
+cometdev='1' # will enable: p120refp, singular LS method, errors nullification
 nlook="1"	# multilook factor, used in step02
 GEOCmldir="GEOCml1"	# If start from 11 or later after doing 03-05, use e.g., GEOCml${nlook}GACOSmaskclip
 n_para="8" # Number of parallel processing in step 02-05,12,13,16. default: number of usable CPU
@@ -62,13 +62,13 @@ p02to05_n_para=$n_para
 ### Frequently used options. If blank, use default. ###
 p01_start_date=""	# default: 20141001
 p01_end_date=""	# default: today
-p01_get_gacos="n" # y/n
-p01_get_pha="n" # y/n
-p01_get_mli="n" # y/n
+p01_get_gacos="y" # y/n
+p01_get_pha="y" # y/n
+p01_get_mli="y" # y/n
 p11_unw_thre="0.05"	# default: 0.3
 p11_coh_thre="0"	# default: 0.05
 p11_s_param="n" # y/n
-p120_use="n"  # y/n
+p120_use="y"  # y/n
 p12_loop_thre="10"	# default: 1.5 rad. With --nullify, recommended higher value (as this is an average over the whole scene)
 p12_multi_prime="y"	# y/n. y recommended
 p12_nullify="" # y/n. y recommended
@@ -100,7 +100,7 @@ p16_ex_range=""	# e.g. 10:100/20:200 (ix start from 0)
 p16_ex_range_geo=""	# e.g. 130.11/131.12/34.34/34.6 (in deg)
 
 ### Less frequently used options. If blank, use default. ###
-p01_frame=""	# e.g. 021D_04972_131213 
+p01_frame="022D_04826_ALIGNSAR"	# e.g. 021D_04972_131213 
 p01_n_para=$n_para	# default: 4
 p02_GEOCdir=""	# default: GEOC
 p02_GEOCmldir=""	# default: GEOCml$nlook
