@@ -60,8 +60,8 @@ p02to05_cliparea_geo=$p05_clip_range_geo # setting the clip range, e.g. 130.11/1
 p02to05_n_para=$n_para
 
 ### Frequently used options. If blank, use default. ###
-p01_start_date=""	# default: 20141001
-p01_end_date=""	# default: today
+p01_start_date="20200601"	# default: 20141001
+p01_end_date="20240630"	# default: today
 p01_get_gacos="y" # y/n
 p01_get_pha="y" # y/n
 p01_get_mli="y" # y/n
