@@ -25,7 +25,7 @@ end_step="16"	# 01-05, 11-16
 
 cometdev='1' # will enable: p120refp, singular LS method, errors nullification
 nlook="1"	# multilook factor, used in step02
-GEOCmldir="GEOCml1"	# If start from 11 or later after doing 03-05, use e.g., GEOCml${nlook}GACOSmaskclip
+GEOCmldir="GEOCml"${nlook}	# If start from 11 or later after doing 03-05, use e.g., GEOCml${nlook}GACOSmaskclip
 n_para="8" # Number of parallel processing in step 02-05,12,13,16. default: number of usable CPU
 gpu="n"	# y/n
 check_only="n" # y/n. If y, not run scripts and just show commands to be done
@@ -47,7 +47,7 @@ p04_mask_coh_thre=""	# e.g. 0.2
 p04_mask_range=""	# e.g. 10:100/20:200 (ix start from 0)
 p04_mask_range_file=""	# Name of file containing range list
 p05_clip_range=""	# e.g. 10:100/20:200 (ix start from 0)
-p05_clip_range_geo=""	# e.g. 130.11/131.12/34.34/34.6 (in deg)
+p05_clip_range_geo="14.02639/14.25161/40.71439/40.93961"	# e.g. 130.11/131.12/34.34/34.6 (in deg)
 
 # Optional reunwrapping:
 p02to05_freq=$freq # default: 5.405e9 Hz
