@@ -1,0 +1,1 @@
+In the 'tests', three machine learning tests are provided, using ANN (artificial neural network) for the LULC (land use and land cover) over the Netherlands, Yolov8 for the oil spill detection in India, and # Siamese for the change detectio over Poland. The sample data for the Netherlands case can be downloaded via https://surfdrive.surf.nl/files/index.php/s/Crwbyo9qgYs46Si
