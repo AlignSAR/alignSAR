@@ -25,7 +25,7 @@ root@1f6eb227bd0d:/# which doris
 
 root@1f6eb227bd0d:/# doris -v
 
-INFO    : @(#)Doris InSAR software, $Revision: 4.0.8 $, $Author: TUDelft $
+INFO    : @(#)Doris InSAR software, $Revision: 4.0.8 $, /$Author: TUDelft $
 
 Software name:    Doris (Delft o-o Radar Interferometric Software)
 
