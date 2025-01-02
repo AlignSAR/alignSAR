@@ -1,4 +1,4 @@
-# 0.	Dockerfile installation:
+## 0.	Dockerfile installation:
 
 - To build the AlignSAR docker image, a user should install docker and download Dockerfile (that can automatically install Doris-5 and its relevant third-party software tools) provided in the github repository (https://github.com/AlignSAR/alignSAR) to a dedicated directory. Inside the directory, the user can build the image using:
 
@@ -18,16 +18,23 @@ docker. Afterward, the Doris-5 installation directory should be modified by edit
 - To unmount ’alignsar’ one can directly close the terminal.
 
 - To check whether the Dockerfile is initiated after running the commands above, for instance, one can run ‘which doris’ and ‘doris -v’, and receive the information in the terminal:
+  
 root@1f6eb227bd0d:/# which doris
+
 /usr/local/bin/doris
+
 root@1f6eb227bd0d:/# doris -v
 
 INFO    : @(#)Doris InSAR software, $Revision: 4.0.8 $, $Author: TUDelft $
+
 Software name:    Doris (Delft o-o Radar Interferometric Software)
+
 Software version: version  4.0.8 (04-09-2014)
+
                      build      Wed Jan  1 11:08:16 2025
+                     
 
 Note that AlignSAR provides SAR data preprocessing workflow using 1) Doris, and 2) LiCSAR and SNAP. ‘Dockerfile’ can install Doris-5 and its relevant third-party software tools, while DockerFile_LiCSAR_SNAP is another dockerfile we offered, which can install LiCSAR and SNAP software. The methods and workflow description can be found in the tutorial ‘AlignSAR_tutorial.pdf’. In case of not building and running the Dockerfile(s), one can also manually install Doris, LiCSAR and SNAP and customize preferred processing environment. 
 
-# 1.	SAR benchmark dataset processing procedure and demonstration 
+## 1.	SAR benchmark dataset processing procedure and demonstration 
 Please refer to Alignsar_tutorial.pdf
