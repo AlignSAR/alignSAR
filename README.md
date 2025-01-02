@@ -2,21 +2,27 @@
 The AlignSAR tools are used to extract representative SAR signatures, and ultimately offer FAIR-guided open SAR benchmark dataset library designed for SAR-based artificial intelligence applications, while ensuring interoperability and consistency with existing and upcoming initiatives and technologies, facilitating wider exploitation of SAR data and its integration and combination with other datasets. This library will contain meaningful and accurate SAR signatures created by integrating and aligning multi-SAR images and other geodetic measurements in time and space. Related link: https://www.alignsar.nl
 
 ## Tool description:
-1. MLscripts (in 'alignsar' folder): scripts for machine learning analysis. Yolov8, ANN and Siamese are separately used for Object Detection (India), Land Use Land Cover classification (Netherlands), and Change Detection (Poland).  
+DockerFile: docker file with OS and software setup. 'Dockerfile' is to install Doris-5 and relevant software, 'DockerFile_LiCSAR_SNAP' is to install LiCSAR and SNAP.
+
+ in 'alignsar' folder
+1. MLscripts: scripts for machine learning analysis. Yolov8, ANN and Siamese are separately used for Object Detection (India), Land Use Land Cover classification (Netherlands), and Change Detection (Poland).  
 2. bin: non-python scripts used within the toolbox (e.g. rdr<->geocode)
 3. itc-doris_5_patch2023: an updated version of Doris-5 software developed by TUDelft.
-4. jupyter_notebook_demo: a jupyter notebook to demonstrate how to extract, visualize and analyse SAR signatures.
-6. rdcode: the radarcoding scripts.
-7. snap_graphs: graphs for SNAP used within the toolbox (e.g. rdr<->geocode)
-8. stac: python scripts to create STAC
-9. AlignSAR_tutorial.pdf: tutorial for this package
-10. DockerFile: docker file with OS and software setup. Note that another docker file with Doris-5 installed is in itc-doris_5_patch2023, with the same name [DockerFile](https://github.com/AlignSAR/alignSAR/blob/main/DockerFile) but different software setup.
-11. Meta_info_extraction_global_local.py: script to extract global/local attributes from Sentinel-1 SAR metadata. 
-12. bashrc_alignsar: install settings for the expected environment variables and paths
-13. resdata.py: script needed from signature_extraction.py.
-14. signature_extraction.py: SAR signature extraction script.
-15. speckle_filt.py: A speckle filtering script.
-16. alignsar_utils.py: various python functions used within the toolbox.
+4. rdcode: the radarcoding scripts.
+5. snap_graphs: graphs for SNAP used within the toolbox (e.g. rdr<->geocode)
+6. stac: python scripts to create STAC
+7. Meta_info_extraction_global_local.py: script to extract global/local attributes from Sentinel-1 SAR metadata. 
+8. bashrc_alignsar: install settings for the expected environment variables and paths
+9. resdata.py: script needed from signature_extraction.py.
+10. signature_extraction.py: SAR signature extraction script.
+11. speckle_filt.py: A speckle filtering script.
+12. alignsar_utils.py: various python functions used within the toolbox.
+
+in 'examples' folder
+1. jupyter_notebook_demo: a jupyter notebook to demonstrate how to extract, visualize and analyse SAR signatures.
+
+in 'tests' folder
+
 
 Note that this is research code provided to you "as is" with no warranties of correctness. Use at your own risk.
 
