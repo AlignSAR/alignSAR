@@ -1,2 +1,2 @@
-In the 'tests', a machine learning test is provided in MLscripts, using an ANN (artificial neural network) for the LULC classification (land use and land cover) over the Netherlands.
+In the 'tests', a machine learning test is provided in MLscripts, which uses an ANN (artificial neural network) for the LULC classification (land use and land cover) over the Netherlands.
 The sample data for the Netherlands case can be downloaded via https://surfdrive.surf.nl/files/index.php/s/Crwbyo9qgYs46Si
