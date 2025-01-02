@@ -24,6 +24,9 @@ in 'examples' folder
 in 'tests' folder
 1. 'MLscripts/Netherlands-LULC': an ANN (artificial neural network) machine learning test for the LULC classification (land use and land cover) over the Netherlands.
 
+in 'tutorial' folder
+1. Alignsar_tutorial.pdf: a tutorial containing all the information on AlignSAR installation, methods, data used and step-by-step procedure for SAR benchmark dataset creation and machine learning demonstration.
+   
 Note that this is research code provided to you "as is" with no warranties of correctness. Use at your own risk.
 
 ## Installation
