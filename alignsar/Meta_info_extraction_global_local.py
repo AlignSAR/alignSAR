@@ -1,6 +1,9 @@
 import xml.etree.ElementTree as ET
 import os
 
+# The functions in this file will be called in 'signature_extraction.py' file for feature extraction. 
+# Corresponding path setting is mentioned in 'signature_extraction.py'. 
+
 def get_xml_path(sar_folder_path, folder_num, xml_num):
     items = os.listdir(sar_folder_path)
     # create 'folders' list to contain all the sar image folders, e.g., folders=[S1A_IW_SLC__1SDV_20220109T171712_20220109T171740_041387_04EBB7_25EB.SAFE, ...]

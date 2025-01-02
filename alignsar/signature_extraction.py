@@ -10,6 +10,12 @@ import xarray as xr
 from Meta_info_extraction_global_local import *
 import netCDF4 as nc
 
+# Several paths should be specified before using this script. 
+# 'doris_stack_dir_VV' and 'doris_stack_dir_VH' are pre-processed path of Doris results.
+# 'top10_path' is the path of TOP10NL data.
+# 'lam_dataFilename' and 'phi_dataFilename' are longitude and latitude.
+# 'sar_folder_path' is unzipped raw SAR SLC file path for extracting global and local attributes.
+
 def get_p_value(eigen_full):
     '''
 
