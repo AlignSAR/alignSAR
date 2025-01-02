@@ -22,7 +22,7 @@ in 'examples' folder
 1. jupyter_notebook_demo: a jupyter notebook to demonstrate how to extract, visualize and analyse SAR signatures.
 
 in 'tests' folder
-
+1. 'MLscripts/Netherlands-LULC': an ANN (artificial neural network) machine learning test for the LULC classification (land use and land cover) over the Netherlands.
 
 Note that this is research code provided to you "as is" with no warranties of correctness. Use at your own risk.
 
