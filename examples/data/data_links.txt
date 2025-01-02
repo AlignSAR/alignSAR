@@ -1,0 +1,21 @@
+
+1. Seven Sentinel-1 SAR SLC raw sample data can be downloaded through ASF (https://search.asf.alaska.edu/#/) using the Python script:
+https://surfdrive.surf.nl/files/index.php/s/ap7vIj5fPFd0TgH
+(An account must be registered for ASF in advance)
+
+2. The corresponding orbital data for Sentinel-1 SAR data can be obtained via
+https://step.esa.int/auxdata/orbits/Sentinel-1/POEORB/
+(The precise orbital data may be ~20 days later than the Sentinel SAR acquisition date)
+
+3. For the use case in the Netherlands, the area of interest shapefile can be found via
+https://surfdrive.surf.nl/files/index.php/s/aeVYKto02DiQabT
+This shapefile can be used when running InSAR preprocessing with DORIS-5 software and reproducing the samples of the SAR benchmark datasets.
+
+4. The geospatial data TOP10NL data 'top10nl_Compleet-2022.gpkg' (version 2022) can be downloaded via
+https://service.pdok.nl/brt/topnl/atom/top10nl.xml
+
+5. The samples of the resultant SAR benchmark datasets for the use case in the Netherlands can be downloaded via
+https://surfdrive.surf.nl/files/index.php/s/56JthYWrVaa4ZAt
+They can be processed by the scripts in the folder 'jupyter_notebook_demo'
+
+Regarding the machine learning testing with ANN (artificial neural network), the sample data for the Netherlands use case can be downloaded via https://surfdrive.surf.nl/files/index.php/s/Crwbyo9qgYs46Si
