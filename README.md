@@ -25,7 +25,7 @@ Either build a docker image using provided Dockerfile, or run following command 
 `source bashrc_alignsar`
 
 ## Tutorial and sample data
-A set of sample data covering the city of Groningen, the Netherlands, with STAC can be downloaded via [link-eotdl](https://www.eotdl.com/datasets/). More description is in the [Tutorial](https://github.com/AlignSAR/alignSAR/blob/main/AlignSAR_tutorial.pdf).
+A set of sample data covering the city of Groningen, the Netherlands, with STAC can be downloaded via [link-eotdl](https://www.eotdl.com/datasets/). More description is in the [Tutorial](https://github.com/AlignSAR/alignSAR/blob/main/tutorial/AlignSAR_tutorial.pdf).
 
 ## Citations
 [1] Ling Chang, Anurag Kulshrestha, Bin Zhang and Xu Zhang (2023). Extraction and analysis of radar scatterer attributes for PAZ SAR by combining time series InSAR, PolSAR and land use measurements. Remote Sensing 15(6), 1571 [[DOI]](https://doi.org/10.3390/rs15061571).  
