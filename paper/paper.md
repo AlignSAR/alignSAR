@@ -57,7 +57,7 @@ Category 3: Inherited attributes from additional geospatial observations, e.g. l
 
 # Source Code and Tutorial
 
-AlignSAR is available as an Apache-2.0-licensed open-source toolbox hosted on [GitHub](https://github.com/AlignSAR/alignSAR). The [AlignSAR tutorial](https://github.com/AlignSAR/alignSAR/blob/main/AlignSAR_tutorial.pdf) outlines the methodology and functionality structure employed in this project, describes all the open-source tools developed within this toolbox, and uses a use case with [Sentinel-1 SAR](https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-1) and [TOP10NL](https://www.pdok.nl/introductie/-/article/basisregistratie-topografie-brt-topnl) data for demonstration. 
+AlignSAR is available as an Apache-2.0-licensed open-source toolbox hosted on [GitHub](https://github.com/AlignSAR/alignSAR). The [AlignSAR tutorial](https://github.com/AlignSAR/alignSAR/blob/main/tutorial/AlignSAR_tutorial.pdf) outlines the methodology and functionality structure employed in this project, describes all the open-source tools developed within this toolbox, and uses a use case with [Sentinel-1 SAR](https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-1) and [TOP10NL](https://www.pdok.nl/introductie/-/article/basisregistratie-topografie-brt-topnl) data for demonstration. 
 
 # Main Functionalities and Processing Flowchart
 
@@ -71,7 +71,7 @@ AlignSAR is available as an Apache-2.0-licensed open-source toolbox hosted on [G
 
 5. [stac](https://github.com/AlignSAR/alignSAR/tree/main/alignsar/stac): python scripts to create STAC (SpatioTemporal Asset Catalogs). Our STAC examples are available via [STAC Browser](https://radiantearth.github.io/stac-browser/#/?.language=en) by specifying the STAC Catalog with 'https://data.crib.utwente.nl/stac/alignsar/catalog.json'.
    
-6. [DockerFile](https://github.com/AlignSAR/alignSAR)): docker file with OS and software setup. The docker file can automatically install Doris-5 and relevant software.
+6. [DockerFile](https://github.com/AlignSAR/alignSAR/blob/main/Dockerfile): docker file with OS and software setup. The docker file can automatically install Doris-5 and relevant software.
 
 7. [Meta_info_extraction_global_local.py](https://github.com/AlignSAR/alignSAR/blob/main/alignsar/Meta_info_extraction_global_local.py): a script to extract global/local attributes from Sentinel-1 SAR metadata.
 
