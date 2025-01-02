@@ -2,7 +2,7 @@
 
 - To build the AlignSAR docker image, a user should install docker and download Dockerfile (that can automatically install Doris-5 and its relevant third-party software tools) provided in the github repository (https://github.com/AlignSAR/alignSAR) to a dedicated directory. Inside the directory, the user can build the image using:
 
-    docker build -t alignsar .
+     docker build -t alignsar .
 
 and test the image by running an interactive terminal session using:
 
