@@ -27,7 +27,7 @@ ENV LiCSARpath="/opt/licsar_proc"
 # install LiCSAR_proc
 RUN git clone https://github.com/comet-licsar/licsar_proc && \
   mamba install -c conda-forge -y -n py39 --file licsar_proc/requirements.txt && \
-  mamba install -c conda-forge -y -n py39 gmt && \
+  mamba install -c conda-forge -y -n py39 gmt fiona && \
   echo "export LiCSARpath=/opt/licsar_proc" >> ~/.bashrc && \
   echo "export PATH=\$PATH:\$LiCSARpath/bin:\$LiCSARpath/bin/orig:\$LiCSARpath/bin/scripts:\$LiCSARpath/python" >> ~/.bashrc && \
   echo "export PYTHONPATH=\$PYTHONPATH:\$LiCSARpath/python:\$LiCSARpath/python/LiCSAR_lib:\$LiCSARpath/python/LiCSAR_db" >> ~/.bashrc && \
