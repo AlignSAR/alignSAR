@@ -8,14 +8,16 @@ RUN curl -LO "http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.
   bash Miniconda3-latest-Linux-x86_64.sh -p /opt/miniconda -b && \
   rm Miniconda3-latest-Linux-x86_64.sh
 
+# set up the conda environment (and set mamba to use it)
 RUN conda update -c conda-forge -y conda && \
-  conda create -n py39 -c conda-forge python=3.9 pip mamba
+  conda create -n py39 -c conda-forge python=3.9 pip mamba && \
+  mamba config append envs_dirs /opt/miniconda/envs
   # install isce2 # decided not needed here
   # mamba install -c conda-forge -y isce2 && \
 
 # install LiCSBAS
 RUN  cd /opt && git clone https://github.com/comet-licsar/LiCSBAS && \
-  mamba env update -n py39 --file LiCSBAS/environment.yml && \
+  mamba env update -n py39 -y --file LiCSBAS/environment.yml && \
   echo "export PATH=\$PATH:/opt/LiCSBAS/bin" >> ~/.bashrc && \
   echo "export PYTHONPATH=\$PYTHONPATH:/opt/LiCSBAS/LiCSBAS_lib" >> ~/.bashrc
   # install LiCSAR_proc
@@ -32,8 +34,9 @@ RUN git clone https://github.com/comet-licsar/licsar_proc && \
   echo "source activate py39" >> ~/.bashrc
 
 # install LiCSBAS addons as part of licsar_extra: - can be disabled as quite heavy and useful only for unwrapping (which is optional)
-RUN mamba activate py39 && \
-  pip install git+https://github.com/comet-licsar/licsar_extra.git
+RUN eval "$(mamba shell hook --shell bash)" && \
+    mamba activate py39 && \
+    pip install git+https://github.com/comet-licsar/licsar_extra.git
 
 # install alignSAR scripts (and set paths and variables)
 RUN git clone https://github.com/AlignSAR/alignSAR.git && \
