@@ -1,5 +1,8 @@
 FROM ubuntu:22.04
 USER root
+# Use bash instead of sh
+SHELL ["/bin/bash", "-c"]
+
 ENV PATH=/opt/miniconda/bin:/opt/miniconda/envs/py39/bin:/opt/snap/bin:$PATH
 RUN apt-get update && apt-get install -y wget libgfortran5 libfftw3-dev fonts-dejavu openjdk-8-jre curl jq vim git && \
   apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
