@@ -22,7 +22,7 @@ dependencies = [
 ]
 description = "AlignSAR: An open-source toolbox of SAR benchmark dataset creation for machine learning applications"
 readme = "README.md"
-license = {file = "LICENSE.txt"}
+license = {file = "LICENSE"}
 authors = [
     {name = "Ling Chang", email = "ling.chang@utwente.nl"},
     {name = "Xu Zhang"},
