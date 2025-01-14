@@ -11,14 +11,14 @@ dependencies = [
     "scikit-learn",
     "scipy",
     "xarray",
-“netCDF4”,
-“matplotlib”,
-“resdata”,
-“rasterio”,
-“geopandas”,
-“pyproj”,
-“gdal”,
-“rioxarray”
+    “netCDF4”,
+    “matplotlib”,
+    “resdata”,
+    “rasterio”,
+    “geopandas”,
+    “pyproj”,
+    “gdal”,
+    “rioxarray”
 ]
 description = "AlignSAR: An open-source toolbox of SAR benchmark dataset creation for machine learning applications"
 readme = "README.md"
