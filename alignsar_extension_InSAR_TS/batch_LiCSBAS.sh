@@ -266,7 +266,8 @@ if [ $step -eq 04 -a $start_step -le 04 -a $end_step -ge 04 ];then
     if [ ! -z $p04_outGEOCmldir_suffix ];then outGEOCmldir="$inGEOCmldir$p04_outGEOCmldir_suffix";
       else outGEOCmldir="${inGEOCmldir}mask"; fi
     p04_op="$p04_op -o $outGEOCmldir"
-    if [ ! -z $p04_mask_coh_thre ];then p04_op="$p04_op -c $p04_mask_coh_thre"; fi
+    if [ ! -z $p04_mask_coh_thre_avg ];then p04_op="$p04_op -c $p04_mask_coh_thre_avg"; fi
+    if [ ! -z $p04_mask_coh_thre_ifg ];then p04_op="$p04_op -s $p04_mask_coh_thre_ifg"; fi
     if [ ! -z $p04_mask_range ];then p04_op="$p04_op -r $p04_mask_range"; fi
     if [ ! -z $p04_mask_range_file ];then p04_op="$p04_op -f $p04_mask_range_file"; fi
     if [ ! -z $p04_n_para ];then p04_op="$p04_op --n_para $p04_n_para";
