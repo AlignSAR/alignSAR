@@ -36,14 +36,14 @@ log="$logdir/$(date +%Y%m%d%H%M)$(basename $0 .sh)_${start_step}_${end_step}.log
 freq="" # default: 5.405e9 Hz
 
 ### Running the updated pipelines:
-run_reunwrapping='y' # y/n. default: 'n'. Reunwrapping would use 02to05 script instead of the original 02[,03,04,05]
+run_reunwrapping='n' # y/n. default: 'n'. Reunwrapping would use 02to05 script instead of the original 02[,03,04,05]
 
 ### Optional steps (03-05) ###
 order_op03_05="03 04 05"	# can change order e.g., 05 03 04
-do03op_GACOS="n"	# y/n
-do04op_mask="n"	# y/n
-do05op_clip="n"	# y/n
-p04_mask_coh_thre=""	# e.g. 0.2
+do03op_GACOS="y"	# y/n
+do04op_mask="y"	# y/n
+do05op_clip="y"	# y/n
+p04_mask_coh_thre_ifg="0.15"	# e.g. 0.2
 p04_mask_range=""	# e.g. 10:100/20:200 (ix start from 0)
 p04_mask_range_file=""	# Name of file containing range list
 p05_clip_range=""	# e.g. 10:100/20:200 (ix start from 0)
