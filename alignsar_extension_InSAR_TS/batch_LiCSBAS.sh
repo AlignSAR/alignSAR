@@ -43,6 +43,7 @@ order_op03_05="03 04 05"	# can change order e.g., 05 03 04
 do03op_GACOS="y"	# y/n
 do04op_mask="y"	# y/n
 do05op_clip="y"	# y/n
+p04_mask_coh_thre_avg=''
 p04_mask_coh_thre_ifg="0.15"	# e.g. 0.2
 p04_mask_range=""	# e.g. 10:100/20:200 (ix start from 0)
 p04_mask_range_file=""	# Name of file containing range list
