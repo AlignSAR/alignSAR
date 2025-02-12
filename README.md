@@ -68,6 +68,8 @@ docker. Afterward, the Doris-5 installation directory should be modified by edit
                      
 Note that AlignSAR provides SAR data preprocessing workflow using 1) Doris, and 2) LiCSAR and SNAP. ‘Dockerfile’ can install Doris-5 and its relevant third-party software tools, while DockerFile_LiCSAR_SNAP is another dockerfile we offered, which can install LiCSAR and SNAP software. The methods and workflow description can be found in the tutorial ‘AlignSAR_tutorial.pdf’. In case of not building and running the Dockerfile(s), one can also manually install Doris, LiCSAR and SNAP and customize preferred processing environment. 
 
+This [Dockerfile](https://github.com/AlignSAR/alignSAR/blob/main/Dockerfile) has been successfully tested with three different operating systems/docker versions: macOS (docker version: version 4.37.2), ubuntu 20.04.6 LTS (docker version: 24.0.5) and Ubuntu 20.04.1 (docker version: 24.0.7). If having versioning related errors/Python packages missing when running [Dockerfile](https://github.com/AlignSAR/alignSAR/blob/main/Dockerfile) on macOS Sequoia 15.2, please run [Dockerfile1](https://github.com/AlignSAR/alignSAR/blob/main/misc/Dockerfile1) instead.
+
 ###	SAR benchmark dataset processing procedure and demonstration 
 Please refer to [Alignsar_tutorial.pdf](https://github.com/AlignSAR/alignSAR/blob/main/tutorial/AlignSAR_tutorial.pdf).
 
