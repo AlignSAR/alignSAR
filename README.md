@@ -91,7 +91,7 @@ A set of sample data covering the city of Groningen, the Netherlands, can be fou
 We welcome your questions and suggestions and contributions. Free free to contact us by sending email to alignsar.project@gmail.com
 
 ## Acknowledgment
-We acknowledge ESA. 
+We acknowledge ESA and all members in this project. 
 
 
 
