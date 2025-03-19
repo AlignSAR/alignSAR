@@ -9,3 +9,4 @@ Support materials to generate AlignSAR InSAR Time Series Signature Datacube (ITS
 
 The input InSAR Time Series Benchmark Datacube (ITSBD) is available from https://gws-access.jasmin.ac.uk/public/nceo_geohazards/LiCSAR_products/22/022D_04826_ALIGNSAR/licsbas/022D_ALIGNSAR_v2.nc
 
+The datacube can be used as input for the ML processor LiCSAlert (since release v.3.5.1: https://github.com/matthew-gaddes/LiCSAlert/releases/tag/V3.5.1 ) by running provided run_licsalert.py script.
