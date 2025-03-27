@@ -1,2 +1,17 @@
 In the 'tests', a machine learning test is provided in MLscripts, which uses an ANN (artificial neural network) for the LULC classification (land use and land cover) over the Netherlands.
 The sample data for the Netherlands case can be downloaded via https://surfdrive.surf.nl/files/index.php/s/Crwbyo9qgYs46Si
+
+How to run this test, the user is advised to follow the following steps: 
+1.	Check whether all required Python models are installed. Refer to requirements.txt which lists all required Python modules to run this test
+2.	Go to ‘data_preparation’, initiate main.ipynb in this folder
+3.	Provide the full directory where the SAR benchmark dataset with NetCDF .nc format is stored. For instance, path = '../data/Groningen_netcdf_20220109_full_attributes.nc'
+4.	Run each step in main.ipynb
+5.	Then go to ‘training’, initiate main.ipynb in this folder
+6.	Run each step in main.ipynb, to obtain the land use and land cover classification. The interpretation of the results can be found in the tutorial Section 3.4, as well as in our IGARSS paper (https://surfdrive.surf.nl/files/index.php/s/yAgIc2QQ84ht3c1)
+
+For details, please refer to the tutorial ‘AlignSAR_tutorial.pdf’ (https://github.com/AlignSAR/alignSAR/tree/main/tutorial), Section 3.4.
+
+An example of the generated ‘data_test’ can be downloaded via https://surfdrive.surf.nl/files/index.php/s/48yHkrDLgN1MdNC 
+
+An example of the generated ‘data3’ can be downloaded via https://surfdrive.surf.nl/files/index.php/s/H74Z4DAnKNFthUi 
+
