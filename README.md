@@ -14,15 +14,14 @@ Dockerfile: docker file with OS and software setup. ['Dockerfile'](https://githu
 7. bashrc_alignsar: install settings for the expected environment variables and paths
 8. resdata.py: script needed from signature_extraction.py.
 9. signature_extraction.py: SAR signature extraction script.
-10. speckle_filt.py: A speckle filtering script.
-11. alignsar_utils.py: various python functions used within the toolbox.
-12. MLscripts: scripts for machine learning analysis. Yolov8, ANN and Siamese are separately used for Object Detection (India), Land Use Land Cover classification (Netherlands), and Change Detection (Poland). [machine learning applications for using created SAR benchmark datasets] 
+10. alignsar_utils.py: various python functions used within the toolbox.
+11. MLscripts: scripts for machine learning analysis. Yolov8, ANN and Siamese are separately used for Object Detection (India), Land Use Land Cover classification (Netherlands), and Change Detection (Poland). [machine learning applications for using created SAR benchmark datasets] 
 
 in 'examples' folder
 1. jupyter_notebook_demo: a jupyter notebook to demonstrate how to extract, visualize and analyse SAR signatures.
 
 in 'tests' folder
-1. 'MLscripts/Netherlands-LULC': an ANN (artificial neural network) machine learning test for the LULC classification (land use and land cover) over the Netherlands.
+1. alignsar_test_main.py: a main Python script to test all functions for creating SAR benchmark dataset examples over the Netherlands.
 
 in 'tutorial' folder
 1. Alignsar_tutorial.pdf: a tutorial containing all the information on AlignSAR installation, methods, data used and step-by-step procedure for SAR benchmark dataset creation and machine learning demonstration.
