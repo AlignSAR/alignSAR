@@ -16,7 +16,7 @@ Dockerfile: docker file with OS and software setup. ['Dockerfile'](https://githu
 9. signature_extraction.py: SAR signature extraction script.
 10. speckle_filt.py: A speckle filtering script.
 11. alignsar_utils.py: various python functions used within the toolbox.
-12. MLscripts: scripts for machine learning analysis. Yolov8, ANN and Siamese are separately used for Object Detection (India), Land Use Land Cover classification (Netherlands), and Change Detection (Poland). [for SAR benchmark dataset post-analysis] 
+12. MLscripts: scripts for machine learning analysis. Yolov8, ANN and Siamese are separately used for Object Detection (India), Land Use Land Cover classification (Netherlands), and Change Detection (Poland). [machine learning applications for using created SAR benchmark datasets] 
 
 in 'examples' folder
 1. jupyter_notebook_demo: a jupyter notebook to demonstrate how to extract, visualize and analyse SAR signatures.
