@@ -6,7 +6,7 @@ import numpy.ma as ma
 from utils import *
 import numpy.linalg as LA
 import math
-import xarray as xr
+#import xarray as xr
 from Meta_info_extraction_global_local import *
 import netCDF4 as nc
 
@@ -263,12 +263,12 @@ if __name__=='__main__':
     vv_arr_stack = get_stack(dates, master_date, doris_stack_dir_VV, map_type, crop_switch=CRP_LIST, crop_list=CRP_LIST, sensor='s1')
     vh_arr_stack = get_stack(dates, master_date, doris_stack_dir_VH, map_type, crop_switch=CRP_LIST, crop_list=CRP_LIST, sensor='s1')
 
-    top10_path = os.path.abspath("./rdrcoding/")
+    top10_path = os.path.abspath("./stack_vv/20220214/")
     # top10NL layers' file name
-    top10_building_file_name = top10_path + 'top10nl_gebouw_vlak_radarcoded.raw'
-    top10_railway_file_name = top10_path + 'top10nl_spoorbaandeel_lijn_radarcoded.raw'
-    top10_water_file_name = top10_path + 'top10nl_waterdeel_vlak_radarcoded.raw'
-    top10_road_file_name = top10_path + 'top10nl_wegdeel_vlak_radarcoded.raw'
+    top10_building_file_name = top10_path + '/top10nl_gebouw_vlak_radarcoded.raw'
+    top10_railway_file_name = top10_path + '/top10nl_spoorbaandeel_lijn_radarcoded.raw'
+    top10_water_file_name = top10_path + '/top10nl_waterdeel_vlak_radarcoded.raw'
+    top10_road_file_name = top10_path + '/top10nl_wegdeel_vlak_radarcoded.raw'
     # read rdr-coded top10nl data into array
     building_arr = read_rdr_coded_file(top10_building_file_name, 2842,22551,dtype=np.float32, CROPPING=CROPPING, CRP_LIST=CRP_LIST, MASKING=False, OFFSET=True, OFFST_lp=[1,12])
     railway_arr = read_rdr_coded_file(top10_railway_file_name, 2842,22551,dtype=np.float32, CROPPING=CROPPING, CRP_LIST=CRP_LIST, MASKING=False, OFFSET=True, OFFST_lp=[1,12])
@@ -329,7 +329,7 @@ if __name__=='__main__':
         # create netcdf file
         netcdf_name = nc.Dataset(netcdf_name+'_full_attributes.nc', 'w', format='NETCDF4')
         # assign global attributes
-        global_attributes = get_global_attribute(sar_folder_path,i,0)
+        global_attributes = get_global_attribute(sar_folder_path+'/',i,0)
         # set layer size
         netcdf_name.createDimension('lines (azimuth)', 2350)
         netcdf_name.createDimension('pixels (range)', 940)
