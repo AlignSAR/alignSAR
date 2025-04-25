@@ -2,6 +2,11 @@
 ########### Test of SAR benchmark dataset creation using AlignSAR tools ###########
 ###################################################################################
 
+###################################################################################
+###  1 ##### RUN AlignSAR_test_main.py #############################################
+###########################Author Xu Zhang, Date 2025-04###########################
+
+
 ################################### NOTES #########################################
 # There are two test mode you can choose:
 # 1. if you set "mode = 1" in line 81, you will run the simple version test, which
