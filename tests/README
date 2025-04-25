@@ -1,7 +1,7 @@
 #################### AlignSAR test ############################
 ###############################################################
 
-##################Author Xu Zhang, Date 2025-04################
+###############################################################
 step 1: Follow AlignSAR_test_main.py
 ###############################################################
 
@@ -75,7 +75,7 @@ mkdir -p ./AlignSAR_test/unzipped_SAR_data && for file in ./AlignSAR_test/sar_da
 ## extract signatures and create SAR benchmark dataset
 python signature_extraction_case1.py
 
-##################Author Ling Chang, Date 2025-04#######################################################################
+########################################################################################################################
 # step 3: run readnc.ipynb # to read generated SAR benchmark datasets with NetCDF .nc format, and create STAC catalog #
 ########################################################################################################################
 
