@@ -85,7 +85,7 @@ def completeVersion():
 
 def main():
 
-    mode = 2  # 1 is simpleVersion, 2 is complete version
+    mode = 1  # 1 is simpleVersion, 2 is complete version
 
     if mode == 1:
         simpleVersion()
