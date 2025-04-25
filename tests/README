@@ -1,0 +1,21 @@
+###################################################################################
+########### Test of SAR benchmark dataset creation using AlignSAR tools ###########
+###################################################################################
+
+################################### NOTES #########################################
+# There are two test mode you can choose:
+# 1. if you set "mode = 1" in line 81, you will run the simple version test, which
+# will download some intermediate data to save time and storage space. There
+# are around 100 GB data need to be downloaded.
+#
+# 2. if you set "mode = 2" in line 81, you will run the complete version test, which
+# will download all the data and start from the very beginning processing step.
+# There are 128.7 GB need to be downloaded.
+###################################################################################
+
+########################### How to use the test scripts ###########################
+# 1. download JOSS_test folder
+# 2. open terminal in JOSS_test folder path in Linux system
+# 3. type 'python JOSS_test_main.py'
+# 4. the scripts will generate the SAR benchmark dataset in Netcdf format
+###################################################################################
