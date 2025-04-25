@@ -29,7 +29,7 @@ make
 make install
 
 
-## assign authority to excute parallel computation
+## assign authority to execute parallel computation
 chmod +x /root/Doris5ITCupdate/doris/doris_stack/main_code/jobHandlerScript
 
 ## preprocess SAR data in vh mode
