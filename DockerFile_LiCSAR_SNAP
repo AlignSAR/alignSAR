@@ -37,9 +37,9 @@ RUN git clone https://github.com/comet-licsar/licsar_proc && \
   echo "source activate py39" >> ~/.bashrc
 
 # install LiCSBAS addons as part of licsar_extra: - can be disabled as quite heavy and useful only for unwrapping (which is optional)
-RUN eval "$(mamba shell hook --shell bash)" && \
-    mamba activate py39 && \
-    pip install git+https://github.com/comet-licsar/licsar_extra.git
+# RUN eval "$(mamba shell hook --shell bash)" && \
+#    mamba activate py39 && \
+#    pip install git+https://github.com/comet-licsar/licsar_extra.git
 
 # install alignSAR scripts (and set paths and variables)
 RUN git clone https://github.com/AlignSAR/alignSAR.git && \
