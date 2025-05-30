@@ -45,8 +45,8 @@ RUN cd /opt && git clone https://github.com/comet-licsar/licsar_proc && \
 #    pip install git+https://github.com/comet-licsar/licsar_extra.git
 
 # install alignSAR scripts (and set paths and variables)
-RUN git clone https://github.com/AlignSAR/alignSAR.git && \
-  cat /opt/alignSAR/bashrc_alignsar >> ~/.bashrc
+RUN cd /opt && git clone https://github.com/AlignSAR/alignSAR.git && \
+  cat /opt/alignSAR/alignsar/bashrc_alignsar >> ~/.bashrc
 
 # install snaphu
 RUN apt-get update && apt-get install -y build-essential && \
