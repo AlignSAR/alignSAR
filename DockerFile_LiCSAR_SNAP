@@ -18,23 +18,22 @@ RUN conda update -c conda-forge -y conda && \
   # install isce2 # decided not needed here
   # mamba install -c conda-forge -y isce2 && \
 
+
 # install LiCSBAS
-RUN  cd /opt && git clone https://github.com/comet-licsar/LiCSBAS && \
-  mamba env update -n py39 -y --file LiCSBAS/environment.yml && \
+RUN  cd /opt && git clone https://github.com/comet-licsar/LiCSBAS
+RUN cd /opt &&  mamba install -c conda-forge -y -n py39 --override-channels --file LiCSBAS/LiCSBAS_requirements.txt && \
   echo "export PATH=\$PATH:/opt/LiCSBAS/bin" >> ~/.bashrc && \
   echo "export PYTHONPATH=\$PYTHONPATH:/opt/LiCSBAS/LiCSBAS_lib" >> ~/.bashrc
-  # install LiCSAR_proc
-
-ENV LiCSARpath="/opt/licsar_proc"
 
 # install LiCSAlert
 # RUN  cd /opt && curl -LO "https://github.com/matthew-gaddes/LiCSAlert/archive/refs/tags/V3.5.1.zip" && \
 #   7za x V3.5.1.zip && # TODO if needed...
 
 # install LiCSAR_proc
-RUN git clone https://github.com/comet-licsar/licsar_proc && \
-  mamba install -c conda-forge -y -n py39 --file licsar_proc/requirements.txt && \
-  mamba install -c conda-forge -y -n py39 gmt fiona && \
+ENV LiCSARpath="/opt/licsar_proc"
+RUN cd /opt && git clone https://github.com/comet-licsar/licsar_proc && \
+  mamba install -c conda-forge -y -n py39 --override-channels --file licsar_proc/requirements.txt && \
+  mamba install -c conda-forge -y -n py39 --override-channels gmt fiona && \
   echo "export LiCSARpath=/opt/licsar_proc" >> ~/.bashrc && \
   echo "export PATH=\$PATH:\$LiCSARpath/bin:\$LiCSARpath/bin/orig:\$LiCSARpath/bin/scripts:\$LiCSARpath/python" >> ~/.bashrc && \
   echo "export PYTHONPATH=\$PYTHONPATH:\$LiCSARpath/python:\$LiCSARpath/python/LiCSAR_lib:\$LiCSARpath/python/LiCSAR_db" >> ~/.bashrc && \
