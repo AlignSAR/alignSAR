@@ -85,7 +85,7 @@ A set of sample data covering the city of Groningen, the Netherlands, can be fou
 
 [4] Ling Chang, Xu Zhang, Anurag Kulshrestha, Serkan Girgin, Alfred Stein, Jose Manuel Delgado Blasco, Angie Catalina Carrillo Chappe, Andrea Cavallini, Marco Uccelli, Milan  Lazecky, Andy Hooper, Wojciech Witkowski,  Magdalena Lucka, Artur Guzy (2024). AlignSAR: An open-source package of SAR benchmark dataset creation for machine learning applications. 2024 IEEE International Geoscience and Remote Sensing Symposium, IGARSS 2024, accepted. [Link](https://surfdrive.surf.nl/files/index.php/s/yAgIc2QQ84ht3c1)
 
-[5] Xu Zhang, Ling Chang, Mingshu Wang and Alfred Stein (2025). Creating and leveraging SAR benchmark datasets to facilitate machine learning application. International Journal of Applied Earth Observation and Geoinformation, vol 142, 2025. [Link](https://doi.org/10.1016/j.jag.2025.104722)
+[5] Xu Zhang, Ling Chang and Alfred Stein (2025). Creating and leveraging SAR benchmark datasets to facilitate machine learning application. International Journal of Applied Earth Observation and Geoinformation, vol 142, 2025. [Link](https://doi.org/10.1016/j.jag.2025.104722)
 
 ## Questions and suggestions
 We welcome your questions and suggestions and contributions. Free free to contact us by sending email to alignsar.project@gmail.com
