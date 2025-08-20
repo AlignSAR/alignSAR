@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # Based on the orbit of the swath the orbits of the individual burst is calculated.
 
 from orbit_coordinates import lph2xyz, xyz2ell, intrp_orbit
