@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # The three functions here are used to transform coordinates and times in the original xml files to a usefull format for doris.
 # Therefore these functions are generally used to read metadata of sentinel files.
 import math
