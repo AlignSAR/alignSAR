@@ -386,7 +386,7 @@ def multilook(matrix, az, ra, summation=False):
     # considered the time dimension. If summation is True we do not average but sum the values in the multilooking area.
     # Multilooking always starts at the first range/azimuth pixel.
 
-    # First downsample 2 * 10
+    # First downsample az * ra
     new_ra = matrix.shape[1] / ra
     new_az = matrix.shape[0] / az
 
