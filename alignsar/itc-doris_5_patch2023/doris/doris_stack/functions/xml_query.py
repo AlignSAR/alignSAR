@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # This function performs an xml query on a provided xml file.
 
 import sys
