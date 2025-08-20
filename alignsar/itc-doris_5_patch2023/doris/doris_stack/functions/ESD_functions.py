@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import numpy as np
 from numpy import *
 from doris.doris_stack.functions.get_ramp import get_ramp, get_parameter
@@ -180,9 +181,6 @@ def get_offset(nBurst, Df_DC, coh_treshold=0.3):
                      pixel_length, 'float32', next_nr_oflines, next_nr_ofpixels)
     ESD_coh = (ESD_coh_1 + ESD_coh_2) / 2
 
-    #ifgs_1_total = freadbk(burst1 + 'cint.raw.old', 1, 1, this_nr_oflines, this_nr_ofpixels, dataFormat_s,  this_nr_oflines, this_nr_ofpixels)
-    #ifgs_2_total = freadbk(burst2 + 'cint.raw.old', 1, 1, next_nr_oflines, next_nr_ofpixels, dataFormat_s,  next_nr_oflines, next_nr_ofpixels)
-
     # Remove invalid data both in range and azimuth
     valid_range = []
     valid_azimuth = []
@@ -209,8 +207,8 @@ def get_offset(nBurst, Df_DC, coh_treshold=0.3):
     # First downsample 2 * 10
     Nra = 10
     Naz = 2
-    new_ra = ESD_coh.shape[1] / 10
-    new_az = ESD_coh.shape[0] / 2
+    new_ra = ESD_coh.shape[1] // 10
+    new_az = ESD_coh.shape[0] // 2
 
     ESD_coh = ESD_coh[0:new_az*Naz-1:Naz, 0:new_ra*Nra-1:Nra]
     ifgs_1_multilook = ifgs_1[:new_az*2, :new_ra*10].reshape([new_az, Naz, new_ra, Nra]).mean(3).mean(1)
