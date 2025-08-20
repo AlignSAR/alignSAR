@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # This script is used to remove the residual ramp in the ifgs of individual bursts based on ESD estimates.
 
 import numpy as np
