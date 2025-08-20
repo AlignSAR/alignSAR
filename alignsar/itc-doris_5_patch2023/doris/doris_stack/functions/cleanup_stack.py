@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # This script can be used to cleanup a datastack
 # In this script we use the following rational
 # 1. Data from the master date and ESD are always kept (can change when these scripts evolve)
