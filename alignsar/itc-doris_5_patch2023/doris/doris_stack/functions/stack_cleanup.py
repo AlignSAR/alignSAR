@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 This script is meant to cleanup datastacks and remove unnecessary intermediate results. The most general options are the
 settings for a PS approach and a distributed scatterers approach, which is also used for atmospheric observations.
