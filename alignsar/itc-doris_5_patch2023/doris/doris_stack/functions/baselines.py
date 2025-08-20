@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import os
 import numpy as np
 import warnings
@@ -5,95 +6,146 @@ from shutil import copyfile
 from doris.doris_stack.main_code.resdata import ResData
 import datetime
 import subprocess
+import matplotlib.pyplot as plt
 
 
-def baselines(dir_in,inputfile,start_date='2014-01-01',end_date='2018-01-01',doris=''):
-    # This function calculates the baselines and plots a baseline plot.
+def baselines(dir_in, inputfile, start_date='2014-01-01', end_date='2018-01-01', doris=''):
+    """
+    Calculate perpendicular baselines and create a baseline plot (PDF).
+    
+    Parameters:
+    ----------
+    dir_in : str
+        Path to the main data directory (contains YYYYMMDD subdirectories).
+    inputfile : str
+        Path to the DORIS input file (relative or absolute).
+    start_date : str, optional
+        Start date in format 'YYYY-MM-DD'. Default is '2014-01-01'.
+    end_date : str, optional
+        End date in format 'YYYY-MM-DD'. Default is '2018-01-01'.
+    doris : str, optional
+        Path to the DORIS executable. Must be provided or set via environment variable.
+    """
 
-    # Define doris path
+    # Ensure doris path is provided
     if not doris:
-        doris = doris_path
+        raise ValueError('Please specify the DORIS executable path, e.g., doris="/path/to/doris"')
 
+    # Check if input directory exists
     if not os.path.exists(dir_in):
         warnings.warn('The input directory does not exist!')
         return
 
-    os.chdir(dir_in)
+    # Create a processing folder for intermediate results
     process_folder = os.path.join(dir_in, 'baseline_process')
-    if not os.path.exists(process_folder):
-        os.mkdir(process_folder)
-    os.chdir(process_folder)
+    os.makedirs(process_folder, exist_ok=True)
 
+    # Convert start and end dates to numpy datetime64 objects
     try:
         first = np.datetime64(start_date)
         last = np.datetime64(end_date)
-    except:
-        warnings.warn('Input dates could not be converted, use "yyyy-mm-dd"')
+    except Exception:
+        warnings.warn('Invalid date format, please use "YYYY-MM-DD"')
         return
 
-    # Search for folders and take only the first burst.
-    folders = next(os.walk(dir_in))[1]
-    folders = sorted(folders)
+    # Find subdirectories with names like YYYYMMDD within the date range
+    folders = sorted(next(os.walk(dir_in))[1])
+    res = []
+    dates = []
 
-    # Initialize... (Search for folders / resfiles / dates)
-    n = 0
-    res = []; date = []
     for fold in folders:
-        # Select only the folders which has a name like yyyymmdd and are within
-        if len(fold) == 8:
-            # define date of folder
-            date_prod = np.datetime64((fold[:4] + '-' + fold[4:6] + '-' + fold[6:]))
+        if len(fold) != 8 or not fold.isdigit():
+            continue
+        date_prod = np.datetime64(f'{fold[:4]}-{fold[4:6]}-{fold[6:]}')
+        if not (first <= date_prod <= last):
+            continue
 
-            if date_prod >= first and date_prod <= last:
-                # Select the first swath
-                date_fold = os.path.join(dir_in,fold)
-                swath_fold = os.path.join(date_fold,next(os.walk(date_fold))[1][0])
-                # Select the first burst
-                prod_files = next(os.walk(swath_fold))[2]
-                for file in prod_files:
-                    if file.endswith('1.res'):
-                        res.extend([os.path.join(swath_fold,file)])
-                        date.extend([date_prod])
-                        n = n + 1
-                        break
+        date_fold = os.path.join(dir_in, fold)
+        swaths = next(os.walk(date_fold))[1] if os.path.isdir(date_fold) else []
+        if not swaths:
+            continue
+        swath_fold = os.path.join(date_fold, swaths[0])
 
-    # Now create a set of baselines
+        if not os.path.isdir(swath_fold):
+            continue
+        prod_files = next(os.walk(swath_fold))[2]
 
-    baselines = np.zeros([len(res),len(res)])
-    resfiles = dict()
+        # Pick the first file ending with "1.res"
+        picked = False
+        for file in prod_files:
+            if file.endswith('1.res'):
+                res.append(os.path.join(swath_fold, file))
+                dates.append(date_prod)
+                picked = True
+                break
+        if not picked:
+            continue
 
-    # First create the ifgs.res files and store the data in a res data class.
+    if not res:
+        warnings.warn('No "*1.res" files found in the given date range.')
+        return
+
+    # Copy the first res file as the master.res in the process folder
     master = res[0]
-    copyfile(master,os.path.join(process_folder,'master.res'))
+    copyfile(master, os.path.join(process_folder, 'master.res'))
 
-    for resultfile, dat in zip(res, date):
-        copyfile(resultfile,os.path.join(process_folder,'slave.res'))
-        subprocess.call([doris + ' ' + inputfile], shell=True)
+    # Array to store Bperp values
+    baselines_arr = np.zeros((len(res), 1), dtype=float)
+    resfiles = {}
 
-        dat = dat.astype(datetime.datetime).strftime('%Y-%m-%d')
-        resfiles[dat] = ResData(type='interferogram',filename='ifgs.res')
-        resfiles[dat].read()
-        os.remove(os.path.join(process_folder,'ifgs.res'))
+    # Loop over all res files to create ifgs.res and extract Bperp
+    for idx, (resultfile, dat) in enumerate(zip(res, dates)):
+        # Copy to slave.res
+        copyfile(resultfile, os.path.join(process_folder, 'slave.res'))
 
-    # Then gather the baselines
-    for dat, j in zip(date, range(len(date))):
-        dat = dat.astype(datetime.datetime).strftime('%Y-%m-%d')
-        baselines[j,0] = resfiles[dat].processes['coarse_orbits']['Bperp'][1]
+        # Run DORIS
+        ret = subprocess.call([f'{doris} {inputfile}'], shell=True, cwd=process_folder)
+        if ret != 0:
+            warnings.warn(f'DORIS execution failed (return code {ret}), skipping {resultfile}')
+            if os.path.exists(os.path.join(process_folder, 'ifgs.res')):
+                os.remove(os.path.join(process_folder, 'ifgs.res'))
+            continue
 
+        dat_str = dat.astype(datetime.datetime).strftime('%Y-%m-%d')
 
+        ifg_path = os.path.join(process_folder, 'ifgs.res')
+        if not os.path.exists(ifg_path):
+            warnings.warn(f'ifgs.res not generated, skipping {dat_str}')
+            continue
 
-    # Create figure of baselines.
-    days = (date[0] - date).astype(float)
-    plt.figure(111)
-    plt.plot(baselines[:,0], days, marker='o')
+        # Read ifgs.res using ResData
+        rd = ResData(type='interferogram', filename=ifg_path)
+        rd.read()
+        resfiles[dat_str] = rd
 
-    # Annotate
-    for dat, x, y in zip(date, baselines[:,0], days):
-        dat = dat.astype(datetime.datetime).strftime('%Y-%m-%d')
-        plt.annotate(
-            dat,
-            xy = (x, y), xytext = (0, 0),
-            textcoords = 'offset points', size = 8)
+        # Extract perpendicular baseline (Bperp) from coarse_orbits section
+        try:
+            baselines_arr[idx, 0] = rd.processes['coarse_orbits']['Bperp'][1]
+        except Exception:
+            warnings.warn(f'Cannot extract Bperp from ifgs.res ({dat_str})')
+            baselines_arr[idx, 0] = np.nan
 
-    plt.savefig('baseline_plot.pdf')
+        # Remove ifgs.res to avoid conflicts
+        os.remove(ifg_path)
 
+    # Compute days relative to the first acquisition
+    dates_np = np.array(dates)
+    days = (dates_np[0] - dates_np).astype(float)
+
+    # Plot baseline graph
+    plt.figure(figsize=(6, 4))
+    plt.plot(baselines_arr[:, 0], days, marker='o', linestyle='-')
+    plt.xlabel('Bperp (m)')
+    plt.ylabel('Days relative to first acquisition')
+    plt.title('Baseline plot')
+
+    # Annotate with acquisition dates
+    for dat, x, y in zip(dates, baselines_arr[:, 0], days):
+        dat_str = dat.astype(datetime.datetime).strftime('%Y-%m-%d')
+        plt.annotate(dat_str, xy=(x, y), xytext=(3, 3), textcoords='offset points', fontsize=8)
+
+    # Save plot to PDF
+    out_pdf = os.path.join(process_folder, 'baseline_plot.pdf')
+    plt.tight_layout()
+    plt.savefig(out_pdf)
+    print(f'Baseline plot saved to: {out_pdf}')
