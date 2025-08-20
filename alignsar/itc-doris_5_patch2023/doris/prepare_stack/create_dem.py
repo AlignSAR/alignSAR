@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # Function created by Gert Mulder
 # Institute TU Delft
 # Date 9-11-2016
