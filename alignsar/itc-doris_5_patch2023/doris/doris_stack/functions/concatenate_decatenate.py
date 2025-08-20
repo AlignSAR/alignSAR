@@ -1,92 +1,83 @@
+#!/usr/bin/env python3
+
 from doris.doris_stack.main_code.resdata import ResData
 import numpy as np
 import os, sys
 
 
 def decatenate(date_folder, image_file, burst_file, datatype, multilooked='none', res_type='master'):
-    # Decatenate data.
-    # Multilooks can be none > not concatenated, only > only multilooked images are concatenated or >
-    # all > both original and multilooked images are concatenated.
-
+    """Split a concatenated image into per-burst files."""
+    # Pick source master filename (with or without multilook suffix)
     if len(multilooked) == 7:
         master = os.path.join(date_folder, image_file[:-4] + '_' + multilooked + '.raw')
     else:
         master = os.path.join(date_folder, image_file)
 
-    # Load .res files
+    # Load .res metadata
     image_res, burst_res = read_res(date_folder, type=res_type)
 
-    # Read image size
-    bursts = burst_res.keys()
+    # Read image size from the first burst's .res
+    bursts = list(burst_res.keys())
     if multilooked != 'none':
         try:
             no_lines = int(burst_res[bursts[0]].processes['readfiles']['Number_of_ml_lines_output_image'])
             no_pixels = int(burst_res[bursts[0]].processes['readfiles']['Number_of_ml_pixels_output_image'])
-        except:
-            print('Not able to load multilooking parameters for ' + image_file)
+        except Exception:
+            print(f'Not able to load multilooking parameters for {image_file}')
             return
     else:
         no_lines = int(burst_res[bursts[0]].processes['readfiles']['Number_of_lines_output_image'])
         no_pixels = int(burst_res[bursts[0]].processes['readfiles']['Number_of_pixels_output_image'])
 
-    # First use memmap to get a memory map of the full file.
+    # Map the full image, then carve out each burst window
     full_image = np.memmap(master, dtype=datatype, mode='r', shape=(no_lines, no_pixels))
 
     for burst in bursts:
-        # Finally write all data from individual bursts to master file. We assume a simple 20 pixel offset from
-        # the side to prevent copying data without information.
-
+        # Determine burst sub-window & destination file
         burst_dat, line_0, line_1, pix_0, pix_1, burst_pix, burst_line, az_offset, ra_offset = \
             burst_info(burst, burst_file, burst_res, multilooked)
 
-        # Cut out data with border of 20 px and write to file.
+        # Write the sub-window to its burst file
         burst_image = np.memmap(burst_dat, dtype=datatype, mode='w+', shape=(burst_line, burst_pix))
-        burst_image[:, :] = full_image[line_0-1:line_1, pix_0-1:pix_1]
+        burst_image[:, :] = full_image[line_0 - 1:line_1, pix_0 - 1:pix_1]
         burst_image.flush()
 
 
 def concatenate(date_folder, image_file, burst_file, datatype, multilooked='none', res_type='master'):
-    # Concatenate data.
-
+    """Concatenate per-burst files into one full image."""
     if len(multilooked) == 7:
         master = os.path.join(date_folder, image_file[:-4] + '_' + multilooked + '.raw')
     else:
         master = os.path.join(date_folder, image_file)
 
-    # Load .res files
     image_res, burst_res = read_res(date_folder, type=res_type)
 
-    # Read image size
-    bursts = burst_res.keys()
+    bursts = list(burst_res.keys())
     if multilooked != 'none':
         try:
             no_lines = int(burst_res[bursts[0]].processes['readfiles']['Number_of_ml_lines_output_image'])
             no_pixels = int(burst_res[bursts[0]].processes['readfiles']['Number_of_ml_pixels_output_image'])
-        except:
-            print('Not able to load multilooking parameters for ' + image_file)
+        except Exception:
+            print(f'Not able to load multilooking parameters for {image_file}')
             return
     else:
         no_lines = int(burst_res[bursts[0]].processes['readfiles']['Number_of_lines_output_image'])
         no_pixels = int(burst_res[bursts[0]].processes['readfiles']['Number_of_pixels_output_image'])
 
-    # First use memmap to get a memory map of the full file.
+    # Create/overwrite the full image and paste each burst into place
     full_image = np.memmap(master, dtype=datatype, mode='w+', shape=(no_lines, no_pixels))
 
     for burst in bursts:
-        # Finally write all data from individual bursts to master file. We assume a simple 20 pixel offset from
-        # the side to prevent copying data without information. (corrected with multilooking factor)
-
         burst_dat, line_0, line_1, pix_0, pix_1, burst_pix, burst_line, daz, dra = \
             burst_info(burst, burst_file, burst_res, multilooked)
 
-        # Cut out data with border of 20 px and write to file.
-        burst_image = np.memmap(burst_dat, dtype=datatype, mode='r', shape=(burst_line,burst_pix))
-        full_image[(line_0+(daz-1)):(line_1-daz), (pix_0+(dra-1)):(pix_1-dra)] = burst_image[daz:-daz, dra:-dra]
+        burst_image = np.memmap(burst_dat, dtype=datatype, mode='r', shape=(burst_line, burst_pix))
+        # exclude a small border (daz/dra) when stitching
+        full_image[(line_0 + (daz - 1)):(line_1 - daz), (pix_0 + (dra - 1)):(pix_1 - dra)] = burst_image[daz:-daz, dra:-dra]
 
 
 def burst_info(burst, burst_file, burst_res, multilooked='none'):
-    # Information about this specific burst
-
+    """Return filenames and window coordinates for a specific burst."""
     if burst_file == 'master.raw':
         if multilooked:
             string = '_iw_' + burst[6] + '_burst_' + burst[17:] + '_' + multilooked + '.raw'
@@ -100,6 +91,7 @@ def burst_info(burst, burst_file, burst_res, multilooked='none'):
     else:
         string = burst_file
 
+    # NOTE: relies on global `date_folder` set in __main__; if you want this pure, pass `date_folder` as a parameter.
     if len(multilooked) == 7:
         burst_dat = os.path.join(date_folder, burst[0:7], burst[8:], string[:-4] + '_' + multilooked + '.raw')
         line_0 = int(burst_res[burst].processes['readfiles']['First_line_' + multilooked])
@@ -127,15 +119,13 @@ def burst_info(burst, burst_file, burst_res, multilooked='none'):
 
 
 def read_res(date_folder, type='master'):
-    # Read .res data to the burst objects. Generally done after a processing step.
-
+    """Read image-level and burst-level .res metadata objects."""
     swaths = next(os.walk(date_folder))[1]
     swaths = [fol for fol in swaths if len(fol) == 7]
 
-    res_burst = dict()
+    res_burst = {}
 
     for swath in swaths:
-
         bursts = next(os.walk(os.path.join(date_folder, swath)))[1]
         bursts = [burst for burst in bursts if burst.startswith('burst')]
 
@@ -148,11 +138,11 @@ def read_res(date_folder, type='master'):
             if type == 'master' and os.path.exists(master_res):
                 res_burst[burst_name] = ResData(filename=master_res)
             elif type == 'slave' and os.path.exists(slave_res):
-                res_burst[burst_name]= ResData(filename=slave_res)
+                res_burst[burst_name] = ResData(filename=slave_res)
             elif os.path.exists(master_res):
                 res_burst[burst_name] = ResData(filename=master_res)
             elif os.path.exists(slave_res):
-                res_burst[burst_name]= ResData(filename=slave_res)
+                res_burst[burst_name] = ResData(filename=slave_res)
             else:
                 print('No burst master or slave image available')
                 return
@@ -174,37 +164,38 @@ def read_res(date_folder, type='master'):
 
     return res_image, res_burst
 
-# Actually execute the code...
-if __name__ == "__main__":
 
-    date_folder         = sys.argv[1]
-    type                = sys.argv[2]
-    burst_file          = sys.argv[3]
-    datatype            = sys.argv[4]
+if __name__ == "__main__":
+    date_folder = sys.argv[1]
+    type = sys.argv[2]
+    burst_file = sys.argv[3]
+    datatype = sys.argv[4]
+
     if len(sys.argv) > 5:
-        multilooked         = sys.argv[5]
+        multilooked = sys.argv[5]
     else:
         multilooked = 'False'
+
     if len(sys.argv) > 6:
         res_type = sys.argv[6]
     else:
         res_type = 'master'
 
-    print('concatenate folder is ' + date_folder)
-    print('burst_file is ' + burst_file)
-    print('datatype is ' + datatype)
-    print('concatenating multilooked image is ' + multilooked)
+    print(f'concatenate folder is {date_folder}')
+    print(f'burst_file is {burst_file}')
+    print(f'datatype is {datatype}')
+    print(f'concatenating multilooked image is {multilooked}')
 
     if len(multilooked) == 7:
-        # Multilooked should be given in a 7 length string azimuth multilook _ range multiloop
-        # example '004_020'
-        # The script detects whether this multilooking is available. Otherwise it will produce an error.
+        # multilooked string example: '004_020'
         multilooked = multilooked
     else:
         multilooked = 'none'
+
     image_file = burst_file
 
-    if datatype == 'cpxint16' or datatype == 'complex_short':
+    # map legacy type names to numpy dtype
+    if datatype in ('cpxint16', 'complex_short'):
         datatype = np.dtype([('re', np.int16), ('im', np.int16)])
 
     if type == 'decatenate':
