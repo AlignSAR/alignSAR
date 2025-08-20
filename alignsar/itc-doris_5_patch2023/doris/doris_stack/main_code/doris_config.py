@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 '''
 	GrsConfig defines paths that are local to the source tree.
 	They are copied into DorisParameters for use in Doris python scripts
