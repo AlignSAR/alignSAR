@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import numpy as np
 from numpy import *
 from doris.doris_stack.functions.get_ramp import get_ramp
