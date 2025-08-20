@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # This script gathers available sentinel files from the database and checks the coverage in space and time for this data
 # stack.
 
