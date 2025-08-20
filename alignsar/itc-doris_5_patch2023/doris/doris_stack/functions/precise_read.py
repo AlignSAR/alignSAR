@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # This file contains several functions to read data from precise orbit files of sentinel-1 data.
 # Scripts were created by  Wu Wenhao, Wuhan university and adapted by Gert Mulder, TU Delft
 
