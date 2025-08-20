@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 #-----------------------------------------------------------------#
 # A python code for parsing RS2 XML file into python data structures
@@ -21,32 +21,23 @@ from lxml import etree
 import sys
 from datetime import datetime
 
-#try:
-#    from lxml import etree
-#except ImportError:
-#    import xml.etree.ElementTree as etree
-
-
-codeRevision=1.2   # this code revision number
+codeRevision = 1.2   # this code revision number
 
 def usage():
-    print 'INFO    : @(#)Doris InSAR software, $Revision: %s $, $Author: TUDelft $' % codeRevision
-    print
-    print 'Usage   : python rs2_dump_header2doris.py rs2_XML_product > outputfile'
-    print '                           where rs2_XML_product is the input filename'
-    print
-    print '          This software is part of Doris InSAR software package.\n'
-    print '(c) 1999-2010 Delft University of Technology, the Netherlands.\n'
+    print('INFO    : @(#)Doris InSAR software, $Revision: %s $, $Author: TUDelft $' % codeRevision)
+    print()
+    print('Usage   : python rs2_dump_header2doris.py rs2_XML_product > outputfile')
+    print('                           where rs2_XML_product is the input filename')
+    print()
+    print('          This software is part of Doris InSAR software package.\n')
+    print('(c) 1999-2010 Delft University of Technology, the Netherlands.\n')
 
 try:
-    inputFileName  = sys.argv[1]
-#    outputFileName = sys.argv[2]
-#    outStream      = open(outputFileName,'w')
-except:
-    print '\nError   : Unrecognized input or missing arguments\n\n'
+    inputFileName = sys.argv[1]
+except Exception:
+    print('\nError   : Unrecognized input or missing arguments\n\n')
     usage()
     sys.exit(1)
-
 
 # Helper functions
 def nsmap_none(path, ns='None:'):
@@ -71,86 +62,77 @@ SOL = 299792458.0    # speed of light
 dateformat = '%Y-%m-%dT%H:%M:%S.%fZ'
 
 # default namespace
-nsmap = {None:"http://www.rsi.ca/rs2/prod/xml/schemas"}
+nsmap = {None: "http://www.rsi.ca/rs2/prod/xml/schemas"}
 ns = '{' + nsmap[None] + '}'
-
 
 inTree = etree.parse(inputFileName)
 
 # query syntax for every field
 queryList = {
-             # mission info
-             'mission'             : 'sourceAttributes/satellite',
-             # imageFile file
-             # fullResolutionImageData pole="HH" # inTree.findall('imageAttributes/fullResolutionImageData')[0].text, and more [1] .. [3]
-             'imageFile'           : 'imageAttributes/fullResolutionImageData',
-             #'imageLines'          : 'imageAttributes/rasterAttributes/numberOfLines',
-             'imageLines'          : 'imageAttributes//numberOfLines',
-             'imagePixels'         : 'imageAttributes//numberOfSamplesPerLine',
-             'imageLineSpacing'    : 'imageAttributes//sampledLineSpacing',
-             'imagePixelSpacing'   : 'imageAttributes//sampledPixelSpacing',
-             # volume info
-             #'volFile' : 'productComponents/annotation/file/location/filename', # HARDCODED!!! for radarsat-2
-             # following smt like Level 1B Product, check manual
-             'volID'               : 'productId',
-             'volRef'              : 'documentIdentifier',
-             # product info
-             #productSpec'          : 'generalHeader/referenceDocument',  # TSX
-             'productSpec'         : 'documentIdentifier',
-             'productVolDate'      : 'imageGenerationParameters//processingTime',
-             'productSoftVer'      : 'imageGenerationParameters//softwareVersion',
-             'productDate'         : 'sourceAttributes/rawDataStartTime',
-             'productFacility'     : 'imageGenerationParameters//processingFacility',
-             # scene info
-             #'scenePol'           : 'sourceAttributes/radarParameters/acquisitionType',    # Fine Quad Polarization
-             'scenePol'            : 'sourceAttributes//polarizations',
-             'sceneBeam'           : 'sourceAttributes//beams',
-             'sceneBeamMode'       : 'sourceAttributes/beamModeMnemonic',
-             'list_sceneLat'       : 'imageAttributes/geographicInformation/geolocationGrid/imageTiePoint/geodeticCoordinate/latitude',
-             'list_sceneLon'       : 'imageAttributes/geographicInformation/geolocationGrid/imageTiePoint/geodeticCoordinate/longitude',
-             'sceneRecords'        : 'imageGenerationParameters/sarProcessingInformation/numberOfLinesProcessed',
-             'antennaLookDir'      : 'sourceAttributes//antennaPointing',
-             'missinglines'        : 'sourceAttributes//numberOfMissingLines',
-             # orbit info
-             'orbitABS'            : 'sourceAttributes/orbitAndAttitude//orbitDataFile',
-             'orbitDir'            : 'sourceAttributes//passDirection',
-             'list_orbitTime'      : 'sourceAttributes//stateVector/timeStamp',
-             'list_orbitX'         : 'sourceAttributes//stateVector/xPosition',
-             'list_orbitY'         : 'sourceAttributes//stateVector/yPosition',
-             'list_orbitZ'         : 'sourceAttributes//stateVector/zPosition',
-             'list_orbitXV'        : 'sourceAttributes//stateVector/xVelocity',
-             'list_orbitYV'        : 'sourceAttributes//stateVector/yVelocity',
-             'list_orbitZV'        : 'sourceAttributes//stateVector/zVelocity',
-             # range
-             'list_rangeRSR'       : 'sourceAttributes//adcSamplingRate', # for UF mode there are two subpulses which have to be added together
-             'rangeBW'             : 'imageGenerationParameters//rangeLookBandwidth',
-             'rangeWind'           : 'imageGenerationParameters//rangeWindow/windowName',
-             'rangeWindCoeff'      : 'imageGenerationParameters//rangeWindow/windowCoefficient',
-             'rangeTimePix'        : 'imageGenerationParameters//slantRangeTimeToFirstRangeSample',
-             # azimuth
-             'azimuthPRF'          : 'sourceAttributes//pulseRepetitionFrequency', # for some modes (MF, UF) this value is changed in processing, calculate from other values
-             'azimuthBW'           : 'imageGenerationParameters//azimuthLookBandwidth',
-             'azimuthWind'         : 'imageGenerationParameters//azimuthWindow/windowName',
-             'azimuthWindCoeff'    : 'imageGenerationParameters//azimuthWindow/windowCoefficient',
-             'azimuthTimeFirstLine': 'imageGenerationParameters//zeroDopplerTimeFirstLine',
-             'azimuthTimeLastLine' : 'imageGenerationParameters//zeroDopplerTimeLastLine',
-             # doppler
-             'dopplerTime'         : 'imageGenerationParameters//timeOfDopplerCentroidEstimate',
-             'dopplerCoeff'        : 'imageGenerationParameters//dopplerCentroidCoefficients',
-             # for wavelength computation
-             'radarfreq'           : 'sourceAttributes//radarCenterFrequency',
-             #  wavelength_computed = (0.000000001*SOL/atof(c8freq)) seems more reliable, BK 03/04
-             }
-
+    # mission info
+    'mission'             : 'sourceAttributes/satellite',
+    # imageFile file
+    'imageFile'           : 'imageAttributes/fullResolutionImageData',
+    'imageLines'          : 'imageAttributes//numberOfLines',
+    'imagePixels'         : 'imageAttributes//numberOfSamplesPerLine',
+    'imageLineSpacing'    : 'imageAttributes//sampledLineSpacing',
+    'imagePixelSpacing'   : 'imageAttributes//sampledPixelSpacing',
+    # volume info
+    'volID'               : 'productId',
+    'volRef'              : 'documentIdentifier',
+    # product info
+    'productSpec'         : 'documentIdentifier',
+    'productVolDate'      : 'imageGenerationParameters//processingTime',
+    'productSoftVer'      : 'imageGenerationParameters//softwareVersion',
+    'productDate'         : 'sourceAttributes/rawDataStartTime',
+    'productFacility'     : 'imageGenerationParameters//processingFacility',
+    # scene info
+    'scenePol'            : 'sourceAttributes//polarizations',
+    'sceneBeam'           : 'sourceAttributes//beams',
+    'sceneBeamMode'       : 'sourceAttributes/beamModeMnemonic',
+    'list_sceneLat'       : 'imageAttributes/geographicInformation/geolocationGrid/imageTiePoint/geodeticCoordinate/latitude',
+    'list_sceneLon'       : 'imageAttributes/geographicInformation/geolocationGrid/imageTiePoint/geodeticCoordinate/longitude',
+    'sceneRecords'        : 'imageGenerationParameters/sarProcessingInformation/numberOfLinesProcessed',
+    'antennaLookDir'      : 'sourceAttributes//antennaPointing',
+    'missinglines'        : 'sourceAttributes//numberOfMissingLines',
+    # orbit info
+    'orbitABS'            : 'sourceAttributes/orbitAndAttitude//orbitDataFile',
+    'orbitDir'            : 'sourceAttributes//passDirection',
+    'list_orbitTime'      : 'sourceAttributes//stateVector/timeStamp',
+    'list_orbitX'         : 'sourceAttributes//stateVector/xPosition',
+    'list_orbitY'         : 'sourceAttributes//stateVector/yPosition',
+    'list_orbitZ'         : 'sourceAttributes//stateVector/zPosition',
+    'list_orbitXV'        : 'sourceAttributes//stateVector/xVelocity',
+    'list_orbitYV'        : 'sourceAttributes//stateVector/yVelocity',
+    'list_orbitZV'        : 'sourceAttributes//stateVector/zVelocity',
+    # range
+    'list_rangeRSR'       : 'sourceAttributes//adcSamplingRate',
+    'rangeBW'             : 'imageGenerationParameters//rangeLookBandwidth',
+    'rangeWind'           : 'imageGenerationParameters//rangeWindow/windowName',
+    'rangeWindCoeff'      : 'imageGenerationParameters//rangeWindow/windowCoefficient',
+    'rangeTimePix'        : 'imageGenerationParameters//slantRangeTimeToFirstRangeSample',
+    # azimuth
+    'azimuthPRF'          : 'sourceAttributes//pulseRepetitionFrequency',
+    'azimuthBW'           : 'imageGenerationParameters//azimuthLookBandwidth',
+    'azimuthWind'         : 'imageGenerationParameters//azimuthWindow/windowName',
+    'azimuthWindCoeff'    : 'imageGenerationParameters//azimuthWindow/windowCoefficient',
+    'azimuthTimeFirstLine': 'imageGenerationParameters//zeroDopplerTimeFirstLine',
+    'azimuthTimeLastLine' : 'imageGenerationParameters//zeroDopplerTimeLastLine',
+    # doppler
+    'dopplerTime'         : 'imageGenerationParameters//timeOfDopplerCentroidEstimate',
+    'dopplerCoeff'        : 'imageGenerationParameters//dopplerCentroidCoefficients',
+    # for wavelength computation
+    'radarfreq'           : 'sourceAttributes//radarCenterFrequency',
+}
 
 # get variables and parameters from xml
 container = {}
-for key, value in queryList.iteritems():
+for key, value in queryList.items():
     if key.startswith('list_'):
         container[key] = [tag.text for tag in inTree.findall(nsmap_none(value, ns))]
     else:
         container[key] = inTree.findtext(nsmap_none(value, ns))
-        if container[key] == None:
+        if container[key] is None:
             raise Exception('Path {0} not found in XML'.format(value))
 
 container['dopplerCoeff'] = container['dopplerCoeff'].split()
@@ -162,9 +144,8 @@ container['sceneCenLon'] = mean([float(val) for val in container['list_sceneLon'
 
 # sum subpulses for UF like modes
 RSR1 = sum(float(val) for val in container['list_rangeRSR'])
-# alternative: calculate RSR from given pixel spacing, former way doesn't work correctly for reduced resolution XF images. Difference is a factor 1.0000001
+# alternative: calculate RSR from given pixel spacing
 container['rangeRSR'] = SOL/float(container['imagePixelSpacing'])/2
-# for backwards compatibility use first method when values are very close to each other
 if 0.9999 < RSR1/container['rangeRSR'] < 1.0001:
     container['rangeRSR'] = RSR1
 
@@ -179,13 +160,10 @@ else:
     azimuthTimeStart = azimuthTimeLastLine
     obs_time = -obs_time
 
-if container['sceneBeam'] != 'S3': # Hacky fix for S3 merged images
+if container['sceneBeam'] != 'S3':  # Hacky fix for S3 merged images
     container['azimuthPRF'] = (float(container['imageLines']) - 1)/obs_time
 
 # ---------------------------------------------------------------------------------------------------------
-
-#print container['mission']
-#exit()
 
 dummyVar = 'DUMMY'
 
@@ -193,30 +171,29 @@ print('\nrs2_dump_header2doris.py v%s, doris software, 2013\n' % codeRevision)
 print('*******************************************************************')
 print('*_Start_readfiles:')
 print('*******************************************************************')
-print('Volume file: 					%s' % 'product.xml') # container['volFile']) # HARDCODED!!! for Radarsat-2
+print('Volume file: 					%s' % 'product.xml')
 print('Volume_ID: 					%s' % container['volID'])
 print('Volume_identifier: 				%s' % container['volRef'])
 print('Volume_set_identifier: 				%s' % dummyVar)
 print('(Check)Number of records in ref. file: 		%s' % container['sceneRecords'])
-print('SAR_PROCESSOR:                                  %s %s' % (str.split(container['productSpec'])[0][:2],container['productSoftVer']))
+print('SAR_PROCESSOR:                                  %s %s' % (str.split(container['productSpec'])[0][:2], container['productSoftVer']))
 print('SWATH:                                          %s' % container['sceneBeam'])
 print('PASS:                                           %s' % container['orbitDir'])
-print('IMAGING_MODE:                                   %s %s' % (container['sceneBeamMode'],container['scenePol']))
+print('IMAGING_MODE:                                   %s %s' % (container['sceneBeamMode'], container['scenePol']))
 print('RADAR_FREQUENCY (Hz):                           %s' % container['radarfreq'])
 print('')
 print('Product type specifier: 	                %s' % container['mission'])
 print('Logical volume generating facility: 		%s' % container['productFacility'])
 print('Logical volume creation date: 			%s' % container['productVolDate'])
 print('Location and date/time of product creation: 	%s' % container['productDate'])
-#print('Scene identification: 				Orbit: %s %s Mode: %s' % (container['orbitABS'].split('_')[0],container['orbitDir'],container['sceneBeamMode']))
 print('Scene identification: 				Orbit: %s  %s' % (container['orbitABS'].split('_')[0], azimuthTimeStart.strftime(dateformat)))
-print('Scene location: 		                lat: %.4f lon: %.4f' % (float(container['sceneCenLat']),float(container['sceneCenLon'])))
+print('Scene location: 		                lat: %.4f lon: %.4f' % (float(container['sceneCenLat']), float(container['sceneCenLon'])))
 print('')
-print('Leader file:                                 	%s' % 'product.xml') # container['volFile']) # HARDCODED!!! for Radarsat-2
+print('Leader file:                                 	%s' % 'product.xml')
 print('Sensor platform mission identifer:         	%s' % container['mission'])
 print('Scene_centre_latitude:                     	%s' % container['sceneCenLat'])
 print('Scene_centre_longitude:                    	%s' % container['sceneCenLon'])
-print('Scene_centre_heading:                            %s' % 'Null') # needs to be computed from geoinfo
+print('Scene_centre_heading:                            %s' % 'Null')
 print('Radar_wavelength (m):                      	%s' % str(SOL/float(container['radarfreq'])))
 print('First_pixel_azimuth_time (UTC):			%s' % azimuthTimeStart.strftime('%d-%b-%Y %H:%M:%S.%f'))
 print('Pulse_Repetition_Frequency (computed, Hz): 	%s' % container['azimuthPRF'])
@@ -232,7 +209,7 @@ print('Weighting_range:                            	%s %f' % (str.upper(containe
 print('')
 print('*******************************************************************')
 print('Datafile: 					%s' % container['imageFile'])
-print('Dataformat: 				%s' % 'GeoTIFF')  # hardcoded!!!
+print('Dataformat: 				%s' % 'GeoTIFF')
 print('Number_of_lines_original: 			%s' % container['imageLines'])
 print('Number_of_pixels_original: 	                %s' % container['imagePixels'])
 print('*******************************************************************')
@@ -260,8 +237,4 @@ print('')
 print('*******************************************************************')
 print('* End_leader_datapoints:_NORMAL')
 print('*******************************************************************')
-# print('\n')
-# print('    Current time: %s\n' % time.asctime())
-# print('\n')
-
 #EOF
