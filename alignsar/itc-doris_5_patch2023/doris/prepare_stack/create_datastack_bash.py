@@ -1,77 +1,59 @@
-# This function creates the bash script in the data folder to run the final datastack.
-# please note that you still have to define your start and end dates!
-
+#!/usr/bin/env python3
 import os
 import xml.etree.ElementTree as ET
 
 class CreateBash(object):
-
-
     def __init__(self):
-        return
+        pass
 
     def create(self, stack_folder, root_folder, nodes):
-
-        xml_file = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                                'install/doris_config.xml')
+        # Load doris_config.xml
+        xml_file = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+            'install', 'doris_config.xml'
+        )
         tree = ET.parse(xml_file)
         settings = tree.getroot()
 
-        source_path = settings.find('.source_path').text
-        doris_folder = os.path.dirname(settings.find('.doris_path').text)
-        cpxfiddle_folder = os.path.dirname(settings.find('.cpxfiddle_path').text)
-        snaphu_folder = os.path.dirname(settings.find('.snaphu_path').text)
+        source_path = settings.find('source_path').text
+        doris_folder = os.path.dirname(settings.find('doris_path').text)
+        cpxfiddle_folder = os.path.dirname(settings.find('cpxfiddle_path').text)
+        snaphu_folder = os.path.dirname(settings.find('snaphu_path').text)
 
-        file_path=os.path.join(stack_folder, 'doris_stack.sh')
-
-        f = open(file_path, 'w')
-
+        # === doris_stack.sh ===
+        file_path = os.path.join(stack_folder, 'doris_stack.sh')
         doris_run_script = os.path.join(source_path, 'doris_stack', 'main_code', 'doris_main.py')
-        processing = stack_folder
 
-        f.write('#!/bin/bash \n')
-        f.write('\n')
-        f.write('#PBS -l nodes=1:ppn=' + nodes + ' \n')
-        f.write('\n')
-        f.write('source_path=' + source_path + '\n')
-        f.write('export PYTHONPATH=$source_path:$PYTHONPATH \n')
-        f.write('export PATH=' + doris_folder + ':' + cpxfiddle_folder + ':' + snaphu_folder + ':' + '$PATH \n')
-        f.write('python ' + doris_run_script + ' -p ' + processing + ' \n')
+        with open(file_path, 'w') as f:
+            f.write('#!/bin/bash\n\n')
+            f.write(f'#PBS -l nodes=1:ppn={nodes}\n\n')
+            f.write(f'source_path={source_path}\n')
+            f.write('export PYTHONPATH=$source_path:$PYTHONPATH\n')
+            f.write(f'export PATH={doris_folder}:{cpxfiddle_folder}:{snaphu_folder}:$PATH\n')
+            f.write(f'python3 {doris_run_script} -p {stack_folder}\n')
 
-        f.close()
-
-        # make sure the file is executable
         os.chmod(file_path, 0o744)
 
-        # Also create a download and dem creation bash script.
+        # === create_dem.sh ===
         file_path = os.path.join(stack_folder, 'create_dem.sh')
-        f = open(file_path, 'w')
-
         doris_run_script = os.path.join(source_path, 'prepare_stack', 'create_dem.py')
-        processing = stack_folder
 
-        f.write('#!/bin/bash \n')
-        f.write('\n')
-        f.write('source_path=' + source_path + '\n')
-        f.write('export PYTHONPATH=$source_path:$PYTHONPATH \n')
-        f.write('python ' + doris_run_script + ' ' + processing + ' SRTM3 \n')
-        f.close()
+        with open(file_path, 'w') as f:
+            f.write('#!/bin/bash\n\n')
+            f.write(f'source_path={source_path}\n')
+            f.write('export PYTHONPATH=$source_path:$PYTHONPATH\n')
+            f.write(f'python3 {doris_run_script} {stack_folder} SRTM3\n')
 
-        # make sure the file is executable
         os.chmod(file_path, 0o744)
 
+        # === download_sentinel.sh ===
         file_path = os.path.join(stack_folder, 'download_sentinel.sh')
-        f = open(file_path, 'w')
-        f.write('source_path=' + source_path + '\n')
-        f.write('export PYTHONPATH=$source_path:$PYTHONPATH \n')
         doris_run_script = os.path.join(source_path, 'prepare_stack', 'download_sentinel_data_orbits.py')
-        processing = stack_folder
 
-        f.write('#!/bin/bash \n')
-        f.write('\n')
+        with open(file_path, 'w') as f:
+            f.write('#!/bin/bash\n\n')
+            f.write(f'source_path={source_path}\n')
+            f.write('export PYTHONPATH=$source_path:$PYTHONPATH\n')
+            f.write(f'python3 {doris_run_script} {stack_folder}\n')
 
-        f.write('python ' + doris_run_script + ' ' + processing + ' \n')
-        f.close()
-
-        # make sure the file is executable
         os.chmod(file_path, 0o744)
