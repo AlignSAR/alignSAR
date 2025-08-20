@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # This file is created by:
 # Gert Mulder
 # TU Delft
