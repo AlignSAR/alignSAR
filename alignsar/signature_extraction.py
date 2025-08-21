@@ -253,7 +253,6 @@ def read_rdr_coded_file(filename, lines, pixels, dtype=np.float32, CROPPING=Fals
 
 if __name__=='__main__':
     doris_stack_dir_VV = '/media/xu/Elements2/AlignSAR/Doris_Processing/Doris_Processing_36_Groningen/new_datastack/stack_vv/'
-    doris_stack_dir_VH = '/media/xu/Elements2/AlignSAR/Doris_Processing/Doris_Processing_36_Groningen/new_datastack/stack_vh/'
     #paz_doris_stack = '/media/anurag/AK_WD/PAZ_Processing/stack'
     master_date = 20220214 #'20220214'#'20170117'
     CROPPING = True
@@ -267,7 +266,6 @@ if __name__=='__main__':
     print(dates)
     #Extract the stack array
     vv_arr_stack = get_stack(dates, master_date, doris_stack_dir_VV, map_type, crop_switch=CRP_LIST, crop_list=CRP_LIST, sensor='s1')
-    vh_arr_stack = get_stack(dates, master_date, doris_stack_dir_VH, map_type, crop_switch=CRP_LIST, crop_list=CRP_LIST, sensor='s1')
 
     top10_path = '/media/xu/Elements2/AlignSAR/Doris_Processing/Doris_Processing_36_Groningen/new_datastack/stack_vv/20220214/'
     # top10NL layers' file name
