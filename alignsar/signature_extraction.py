@@ -4,11 +4,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy import signal
 import numpy.ma as ma
-from alignsar_utils import *
+from .alignsar_utils import *
 import numpy.linalg as LA
 import math
 import xarray as xr
-from Meta_info_extraction_global_local import *
+from .Meta_info_extraction_global_local import *
 import netCDF4 as nc
 import argparse
 
