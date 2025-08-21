@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 '''
 Author: Anurag Kulshrestha
 Script for: wgs2radar
