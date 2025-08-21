@@ -2,7 +2,7 @@
 import argparse
 import numpy as np
 import os, sys
-from resdata import ResData
+from .resdata import ResData
 from scipy import signal
 import numpy.ma as ma
 
