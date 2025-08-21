@@ -1,5 +1,0 @@
-here is the link to download yolov8x.pt and make sure the downloded yolov8x.pt is placed in current directory!
-
-https://surfdrive.surf.nl/files/index.php/s/oWhkkq96dO2zJdA
-
-more yolov8 models can be found via https://github.com/ultralytics/ultralytics and used for this analysis. 
