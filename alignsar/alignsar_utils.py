@@ -240,7 +240,6 @@ def read_param_file(param_file_dir):
 
 if __name__=='__main__':
     doris_stack_dir_VV = '/media/anurag/SSD_1/anurag/PhD_Project/Doris_Processing/Doris_Processing_36_Groningen/new_datastack/stack_vv/'
-    doris_stack_dir_VH = '/media/anurag/SSD_1/anurag/PhD_Project/Doris_Processing/Doris_Processing_36_Groningen/new_datastack/stack_vh/'
     #paz_doris_stack = '/media/anurag/AK_WD/PAZ_Processing/stack'
     master_date = 20200330#'20220214'#'20170117'
     CROPPING = True
@@ -254,9 +253,7 @@ if __name__=='__main__':
     print(dates)
     #Extract the stack array
     vv_arr_stack = get_stack(dates, master_date, doris_stack_dir_VV, map_type, crop_switch=CRP_LIST, crop_list=CRP_LIST, sensor='s1', swath_burst=False)
-    vh_arr_stack = get_stack(dates, master_date, doris_stack_dir_VH, map_type, crop_switch=CRP_LIST, crop_list=CRP_LIST, sensor='s1', swath_burst=False)
     
     np.save('groningen_vv_cpx.npy', vv_arr_stack)
-    np.save('groningen_vh_cpx.npy', vh_arr_stack)
 
 
