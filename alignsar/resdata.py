@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import warnings
 import os
 import collections
