@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # Milan Lazecky, 2023 - to improve quality of geocoding for AlignSAR. 
 # Functions work for outputs of both doris (lon, lat outputs from GEOCODE) and SNAP (dim file must contain OrthorectifiedLon/Lat layers).
 # Nearest neighbours interpolation is used to preserve information for categorical data
