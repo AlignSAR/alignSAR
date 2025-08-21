@@ -7,6 +7,28 @@ from scipy import signal
 import numpy.ma as ma
 
 
+"""
+Example usage from terminal:
+
+# Process VV stack, crop to a specific region, and save as .npy
+python myscript.py \
+    --doris_stack_dir_vv /path/to/stack_vv \
+    --master_date 20200330 \
+    --crop_switch \
+    --crop_list 500 1440 16000 18350 \
+    --max_images 20 \
+    --map_type cpx \
+    --output groningen_vv_cpx.npy
+
+# Process VH stack without cropping
+python myscript.py \
+    --doris_stack_dir_vv /path/to/stack_vh \
+    --master_date 20200330 \
+    --max_images 10 \
+    --map_type ifg \
+    --output groningen_vh_ifg.npy
+"""
+
 def RI2cpx(R, I, cpxfile, intype=np.float32):
     """Convert real and imaginary binary files to a complex number binary file.
     
@@ -298,25 +320,4 @@ if __name__ == '__main__':
     print(f"Saved stack array to {args.output}")
 
 
-"""
-Example usage from terminal:
-
-# Process VV stack, crop to a specific region, and save as .npy
-python myscript.py \
-    --doris_stack_dir_vv /path/to/stack_vv \
-    --master_date 20200330 \
-    --crop_switch \
-    --crop_list 500 1440 16000 18350 \
-    --max_images 20 \
-    --map_type cpx \
-    --output groningen_vv_cpx.npy
-
-# Process VH stack without cropping
-python myscript.py \
-    --doris_stack_dir_vv /path/to/stack_vh \
-    --master_date 20200330 \
-    --max_images 10 \
-    --map_type ifg \
-    --output groningen_vh_ifg.npy
-"""
 
