@@ -190,7 +190,6 @@ def get_dates(doris_stack_dir, master_date):
     dates = sorted([l for l in [j for k,j,i in os.walk(doris_stack_dir)][0] if (len(l)==8)])
     #dates.remove(str(master_date))
     return dates
-    return [datetime.datetime.strptime(l, '%Y%m%d') for l in dates]
 
 def get_stack(dates, master_date, doris_stack_dir, map_type, crop_switch=True, crop_list=[100,200,100,200], sensor='s1', swath_burst=False):
     if crop_switch:
