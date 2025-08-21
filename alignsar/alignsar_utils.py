@@ -6,7 +6,63 @@ from resdata import ResData
 from scipy import signal
 import numpy.ma as ma
 
+if __name__ == '__main__':
+    """
+    Command-line interface for processing Doris stack data.
 
+    This script reads amplitude/interferogram/coherence data from a Doris
+    stack directory, optionally crops it, and saves it as a NumPy array (.npy).
+    """
+
+    parser = argparse.ArgumentParser(description="Process Doris stack data into NumPy arrays.")
+    
+    # Path to Doris stack directory (VV or VH)
+    parser.add_argument('--doris_stack_dir_vv', type=str, required=True,
+                        help='Path to VV Doris stack directory.')
+    
+    # Master date in YYYYMMDD format
+    parser.add_argument('--master_date', type=int, required=True,
+                        help='Master date in YYYYMMDD format.')
+    
+    # Cropping options
+    parser.add_argument('--crop_switch', action='store_true',
+                        help='Enable cropping. If set, use --crop_list to specify area.')
+    parser.add_argument('--crop_list', type=int, nargs=4, default=[500, 1440, 16000, 18350],
+                        help='Crop region as [start_line, end_line, start_pixel, end_pixel].')
+    
+    # Max number of images to load
+    parser.add_argument('--max_images', type=int, default=30,
+                        help='Maximum number of images to load from the stack.')
+    
+    # Spatial averaging window size (currently unused in main)
+    parser.add_argument('--sp_avg_win_size', type=int, default=3,
+                        help='Spatial averaging window size.')
+    
+    # Map type selection: complex data, interferogram, or coherence
+    parser.add_argument('--map_type', type=str, choices=['cpx', 'ifg', 'coh'], default='cpx',
+                        help='Type of map to read: cpx, ifg, or coh.')
+    
+    # Output file name
+    parser.add_argument('--output', type=str, default='output.npy',
+                        help='Output NumPy file name.')
+
+    args = parser.parse_args()
+
+    # Get the list of dates from Doris stack
+    dates = get_dates(args.doris_stack_dir_vv, args.master_date)[:args.max_images]
+    print("Found dates:", dates)
+
+    # Read the stack as a 3D NumPy array (lines, pixels, dates)
+    vv_arr_stack = get_stack(
+        dates, args.master_date, args.doris_stack_dir_vv,
+        args.map_type, crop_switch=args.crop_switch,
+        crop_list=args.crop_list, sensor='s1', swath_burst=False
+    )
+
+    # Save the stack to file
+    np.save(args.output, vv_arr_stack)
+    print(f"Saved stack array to {args.output}")
+    
 """
 Example usage from terminal:
 
@@ -262,62 +318,7 @@ def read_param_file(param_file_dir):
     return meta_dict
 
 
-if __name__ == '__main__':
-    """
-    Command-line interface for processing Doris stack data.
 
-    This script reads amplitude/interferogram/coherence data from a Doris
-    stack directory, optionally crops it, and saves it as a NumPy array (.npy).
-    """
-
-    parser = argparse.ArgumentParser(description="Process Doris stack data into NumPy arrays.")
-    
-    # Path to Doris stack directory (VV or VH)
-    parser.add_argument('--doris_stack_dir_vv', type=str, required=True,
-                        help='Path to VV Doris stack directory.')
-    
-    # Master date in YYYYMMDD format
-    parser.add_argument('--master_date', type=int, required=True,
-                        help='Master date in YYYYMMDD format.')
-    
-    # Cropping options
-    parser.add_argument('--crop_switch', action='store_true',
-                        help='Enable cropping. If set, use --crop_list to specify area.')
-    parser.add_argument('--crop_list', type=int, nargs=4, default=[500, 1440, 16000, 18350],
-                        help='Crop region as [start_line, end_line, start_pixel, end_pixel].')
-    
-    # Max number of images to load
-    parser.add_argument('--max_images', type=int, default=30,
-                        help='Maximum number of images to load from the stack.')
-    
-    # Spatial averaging window size (currently unused in main)
-    parser.add_argument('--sp_avg_win_size', type=int, default=3,
-                        help='Spatial averaging window size.')
-    
-    # Map type selection: complex data, interferogram, or coherence
-    parser.add_argument('--map_type', type=str, choices=['cpx', 'ifg', 'coh'], default='cpx',
-                        help='Type of map to read: cpx, ifg, or coh.')
-    
-    # Output file name
-    parser.add_argument('--output', type=str, default='output.npy',
-                        help='Output NumPy file name.')
-
-    args = parser.parse_args()
-
-    # Get the list of dates from Doris stack
-    dates = get_dates(args.doris_stack_dir_vv, args.master_date)[:args.max_images]
-    print("Found dates:", dates)
-
-    # Read the stack as a 3D NumPy array (lines, pixels, dates)
-    vv_arr_stack = get_stack(
-        dates, args.master_date, args.doris_stack_dir_vv,
-        args.map_type, crop_switch=args.crop_switch,
-        crop_list=args.crop_list, sensor='s1', swath_burst=False
-    )
-
-    # Save the stack to file
-    np.save(args.output, vv_arr_stack)
-    print(f"Saved stack array to {args.output}")
 
 
 
