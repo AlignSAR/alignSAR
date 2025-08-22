@@ -6,8 +6,9 @@ from .resdata import ResData
 from scipy import signal
 import numpy.ma as ma
 
-if __name__ == '__main__':
-    """
+
+def main():
+        """
     Command-line interface for processing Doris stack data.
 
     This script reads amplitude/interferogram/coherence data from a Doris
@@ -67,7 +68,7 @@ if __name__ == '__main__':
 Example usage from terminal:
 
 # Process VV stack, crop to a specific region, and save as .npy
-python myscript.py \
+python alignsar_utils.py \
     --doris_stack_dir_vv /path/to/stack_vv \
     --master_date 20200330 \
     --crop_switch \
@@ -77,13 +78,15 @@ python myscript.py \
     --output groningen_vv_cpx.npy
 
 # Process VH stack without cropping
-python myscript.py \
+python alignsar_utils.py \
     --doris_stack_dir_vv /path/to/stack_vh \
     --master_date 20200330 \
     --max_images 10 \
     --map_type ifg \
     --output groningen_vh_ifg.npy
 """
+if __name__ == '__main__':
+    main()
 
 def RI2cpx(R, I, cpxfile, intype=np.float32):
     """Convert real and imaginary binary files to a complex number binary file.
