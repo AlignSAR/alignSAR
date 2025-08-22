@@ -99,3 +99,8 @@ dev = [
 [tool.setuptools]
 # Declare that the Python package is located in the "alignsar" folder
 packages = ["alignsar"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["alignsar*"]
+exclude = ["tests*", "docs*"]
