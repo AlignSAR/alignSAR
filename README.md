@@ -15,11 +15,12 @@ We suggest using conda
  to create an isolated environment for the installation to avoid conflicts.
  
 ## Dockerfile Setup
+
 1. **Preparation**  
-   Install Docker and download the [`Dockerfile`](https://github.com/AlignSAR/alignSAR) from the repository into a dedicated directory. This file automatically installs Doris-5 and related third-party tools.
+   Install Docker and download the [`Dockerfile`](https://github.com/AlignSAR/alignSAR) from the repository into a dedicated directory.  
+   This file automatically installs Doris-5 and related third-party tools.
 
 2. **Build the image**
-
    ```bash
    docker build -t alignsar .
 ````
@@ -33,31 +34,28 @@ We suggest using conda
    * `-it`: interactive mode
    * `-v`: mount a local path to the container
 
-##	SAR benchmark dataset processing procedure and demonstration 
-Please refer to [Alignsar_tutorial.pdf](https://github.com/AlignSAR/alignSAR/blob/main/tutorial/AlignSAR_tutorial.pdf).
+---
 
+### SAR Benchmark Dataset Processing
 
+Please refer to the [AlignSAR\_tutorial.pdf](https://github.com/AlignSAR/alignSAR/blob/main/tutorial/AlignSAR_tutorial.pdf) for the complete SAR benchmark dataset processing procedure and demonstration.
 
-## Tutorial and sample data
-A set of sample data covering the city of Groningen, the Netherlands, can be found in [/examples/data/data_links.txt]( https://github.com/AlignSAR/alignSAR/blob/main/examples/data/data_links.txt), and with STAC can be downloaded via [link-eotdl](https://www.eotdl.com/datasets/). More description is in the [/tutorial/Alignsar_tutorial.pdf](https://github.com/AlignSAR/alignSAR/blob/main/tutorial/AlignSAR_tutorial.pdf).
+---
 
-## Citations
-[1] Ling Chang, Anurag Kulshrestha, Bin Zhang and Xu Zhang (2023). Extraction and analysis of radar scatterer attributes for PAZ SAR by combining time series InSAR, PolSAR and land use measurements. Remote Sensing 15(6), 1571. [Link](https://doi.org/10.3390/rs15061571)
+### Tutorial and Sample Data
 
-[2] Anurag Kulshrestha, Ling Chang and Alfred Stein (2024). Radarcoding reference data for SAR training data creation in Radar coordinates. IEEE Geoscience and Remote Sensing Letters. [Link](https://ieeexplore.ieee.org/document/10478187)
+A set of sample data covering the city of Groningen, the Netherlands, can be found in [`/examples/data/data_links.txt`](examples/data/data_links.txt).
 
-[3] Ling Chang, Jose Manuel Delgado Blasco, Andrea Cavallini, Andy Hooper, Anurag Kulshrestha, Milan Lazecky, Wojciech Witkowski, Xu Zhang, Serkan Girgin and all other AlignSAR members (2023). AlignSAR: developing an open SAR library for machine learning applications. ESA Fringe 2023, 11-15 Sept 2023, Leeds, UK.
+---
 
-[4] Ling Chang, Xu Zhang, Anurag Kulshrestha, Serkan Girgin, Alfred Stein, Jose Manuel Delgado Blasco, Angie Catalina Carrillo Chappe, Andrea Cavallini, Marco Uccelli, Milan  Lazecky, Andy Hooper, Wojciech Witkowski,  Magdalena Lucka, Artur Guzy (2024). AlignSAR: An open-source package of SAR benchmark dataset creation for machine learning applications. 2024 IEEE International Geoscience and Remote Sensing Symposium, IGARSS 2024, accepted. [Link](https://surfdrive.surf.nl/files/index.php/s/yAgIc2QQ84ht3c1)
+### Citations
 
-[5] Xu Zhang, Ling Chang and Alfred Stein (2025). Creating and leveraging SAR benchmark datasets to facilitate machine learning application. International Journal of Applied Earth Observation and Geoinformation, vol 142, 2025. [Link](https://doi.org/10.1016/j.jag.2025.104722)
+\[1] Ling Chang, Anurag Kulshrestha, Bin Zhang and Xu Zhang (2023). Extraction and analysis of radar scatterer attributes.
 
-## Questions and suggestions
-We welcome your questions and suggestions and contributions. Free free to contact us by sending email to alignsar.project@gmail.com
+\[2] Anurag Kulshrestha, Ling Chang and Alfred Stein (2024). Radarcoding reference data for SAR training data creation.
 
-## Acknowledgment
-We acknowledge ESA and all members in this project. 
+\[3] Ling Chang, Jose Manuel Delgado Blasco, Andrea Cavallini, Andy Hooper, Anurag Kulshrestha, Milan Lazecky, Wojciech Perz.
 
-
+\[4] Ling Chang, Xu Zhang, Anurag Kulshrestha, Serkan Girgin, Alfred Stein, Jose Manuel Delgado Blasco, Angie Catalina Flórez.
 
 
