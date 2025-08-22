@@ -12,8 +12,9 @@ from .Meta_info_extraction_global_local import *
 import netCDF4 as nc
 import argparse
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Generate NetCDF with SAR attributes (AlignSAR workflow)")
+
+def main():
+        parser = argparse.ArgumentParser(description="Generate NetCDF with SAR attributes (AlignSAR workflow)")
     parser.add_argument('--doris_stack_dir_VV', required=True, help='Path to Doris VV stack directory')
     parser.add_argument('--doris_stack_dir_VH', required=True, help='Path to Doris VH stack directory')
     parser.add_argument('--master_date', type=str, required=True, help='Master date (YYYYMMDD)')
@@ -77,6 +78,9 @@ python myscript.py \
     --sar_folder_path /data/sar/ \
     --max_images 30
 """
+if __name__ == '__main__':
+    main()
+
 
 # Several paths should be specified before using this script. 
 # 'doris_stack_dir_VV' and 'doris_stack_dir_VH' are pre-processed path of Doris results.
