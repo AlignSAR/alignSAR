@@ -13,75 +13,6 @@ import netCDF4 as nc
 import argparse
 
 
-def main():
-        parser = argparse.ArgumentParser(description="Generate NetCDF with SAR attributes (AlignSAR workflow)")
-    parser.add_argument('--doris_stack_dir_VV', required=True, help='Path to Doris VV stack directory')
-    parser.add_argument('--doris_stack_dir_VH', required=True, help='Path to Doris VH stack directory')
-    parser.add_argument('--master_date', type=str, required=True, help='Master date (YYYYMMDD)')
-    parser.add_argument('--crop_first_line', type=int, default=500, help='Crop start line index (azimuth)')
-    parser.add_argument('--crop_last_line', type=int, default=1440, help='Crop end line index (azimuth)')
-    parser.add_argument('--crop_first_pixel', type=int, default=16000, help='Crop start pixel index (range)')
-    parser.add_argument('--crop_last_pixel', type=int, default=18350, help='Crop end pixel index (range)')
-    parser.add_argument('--lines_full', type=int, default=2842, help='Total number of lines in raw file')
-    parser.add_argument('--pixels_full', type=int, default=22551, help='Total number of pixels in raw file')
-    parser.add_argument('--netcdf_lines', type=int, default=2350, help='Number of lines in NetCDF output')
-    parser.add_argument('--netcdf_pixels', type=int, default=940, help='Number of pixels in NetCDF output')
-    parser.add_argument('--lam_file', required=True, help='Path to lam.raw (longitude)')
-    parser.add_argument('--phi_file', required=True, help='Path to phi.raw (latitude)')
-    parser.add_argument('--sar_folder_path', required=True, help='Path to SAR folder')
-    parser.add_argument('--max_images', type=int, default=30, help='Maximum number of images to process')
-    args = parser.parse_args()
-
-    CROPPING = True
-    CRP_LIST = [args.crop_first_line, args.crop_last_line, args.crop_first_pixel, args.crop_last_pixel]
-
-    # Get acquisition dates
-    dates = get_dates(args.doris_stack_dir_VV, args.master_date)[:args.max_images]
-
-    # Extract VV/VH stacks
-    vv_arr_stack = get_stack(dates, args.master_date, args.doris_stack_dir_VV, 'cpx',
-                             crop_switch=CRP_LIST, crop_list=CRP_LIST, sensor='s1')
-    vh_arr_stack = get_stack(dates, args.master_date, args.doris_stack_dir_VH, 'cpx',
-                             crop_switch=CRP_LIST, crop_list=CRP_LIST, sensor='s1')
-
-    # Read longitude/latitude arrays
-    lam_merge_arr = freadbk(args.lam_file, 1, 1, args.lines_full, args.pixels_full,
-                            'float32', args.lines_full, args.pixels_full)
-    phi_merge_arr = freadbk(args.phi_file, 1, 1, args.lines_full, args.pixels_full,
-                            'float32', args.lines_full, args.pixels_full)
-
-    # Crop longitude/latitude arrays
-    lon = lam_merge_arr[args.crop_first_line:args.crop_last_line,
-                        args.crop_first_pixel:args.crop_last_pixel]
-    lat = phi_merge_arr[args.crop_first_line:args.crop_last_line,
-                        args.crop_first_pixel:args.crop_last_pixel]
-
-    # Example: create an empty NetCDF file with specified dimensions
-    netcdf_name = nc.Dataset('example_output.nc', 'w', format='NETCDF4')
-    netcdf_name.createDimension('lines (azimuth)', args.netcdf_lines)
-    netcdf_name.createDimension('pixels (range)', args.netcdf_pixels)
-    netcdf_name.close()
-
-"""
-Example command to run this script:
-
-python myscript.py \
-    --doris_stack_dir_VV /data/stack_vv/ \
-    --doris_stack_dir_VH /data/stack_vh/ \
-    --master_date 20220214 \
-    --crop_first_line 500 --crop_last_line 1440 \
-    --crop_first_pixel 16000 --crop_last_pixel 18350 \
-    --lines_full 2842 --pixels_full 22551 \
-    --netcdf_lines 2350 --netcdf_pixels 940 \
-    --lam_file /data/geo/lam.raw \
-    --phi_file /data/geo/phi.raw \
-    --sar_folder_path /data/sar/ \
-    --max_images 30
-"""
-if __name__ == '__main__':
-    main()
-
-
 # Several paths should be specified before using this script. 
 # 'doris_stack_dir_VV' and 'doris_stack_dir_VH' are pre-processed path of Doris results.
 # 'top10_path' is the path of TOP10NL data.
@@ -428,6 +359,70 @@ if __name__=='__main__':
             layer[:] = data_name[:,:,i]
         netcdf_name.close()
 
+def main():
+    parser = argparse.ArgumentParser(description="Generate NetCDF with SAR attributes (AlignSAR workflow)")
+    parser.add_argument('--doris_stack_dir_VV', required=True, help='Path to Doris VV stack directory')
+    parser.add_argument('--doris_stack_dir_VH', required=True, help='Path to Doris VH stack directory')
+    parser.add_argument('--master_date', type=str, required=True, help='Master date (YYYYMMDD)')
+    parser.add_argument('--crop_first_line', type=int, default=500, help='Crop start line index (azimuth)')
+    parser.add_argument('--crop_last_line', type=int, default=1440, help='Crop end line index (azimuth)')
+    parser.add_argument('--crop_first_pixel', type=int, default=16000, help='Crop start pixel index (range)')
+    parser.add_argument('--crop_last_pixel', type=int, default=18350, help='Crop end pixel index (range)')
+    parser.add_argument('--lines_full', type=int, default=2842, help='Total number of lines in raw file')
+    parser.add_argument('--pixels_full', type=int, default=22551, help='Total number of pixels in raw file')
+    parser.add_argument('--netcdf_lines', type=int, default=2350, help='Number of lines in NetCDF output')
+    parser.add_argument('--netcdf_pixels', type=int, default=940, help='Number of pixels in NetCDF output')
+    parser.add_argument('--lam_file', required=True, help='Path to lam.raw (longitude)')
+    parser.add_argument('--phi_file', required=True, help='Path to phi.raw (latitude)')
+    parser.add_argument('--sar_folder_path', required=True, help='Path to SAR folder')
+    parser.add_argument('--max_images', type=int, default=30, help='Maximum number of images to process')
+    args = parser.parse_args()
 
-# test = nc.Dataset('Groningen_netcdf_20220109_full_attributes.nc')
-# test.close()
+    CROPPING = True
+    CRP_LIST = [args.crop_first_line, args.crop_last_line, args.crop_first_pixel, args.crop_last_pixel]
+
+    # Get acquisition dates
+    dates = get_dates(args.doris_stack_dir_VV, args.master_date)[:args.max_images]
+
+    # Extract VV/VH stacks
+    vv_arr_stack = get_stack(dates, args.master_date, args.doris_stack_dir_VV, 'cpx',
+                             crop_switch=CRP_LIST, crop_list=CRP_LIST, sensor='s1')
+    vh_arr_stack = get_stack(dates, args.master_date, args.doris_stack_dir_VH, 'cpx',
+                             crop_switch=CRP_LIST, crop_list=CRP_LIST, sensor='s1')
+
+    # Read longitude/latitude arrays
+    lam_merge_arr = freadbk(args.lam_file, 1, 1, args.lines_full, args.pixels_full,
+                            'float32', args.lines_full, args.pixels_full)
+    phi_merge_arr = freadbk(args.phi_file, 1, 1, args.lines_full, args.pixels_full,
+                            'float32', args.lines_full, args.pixels_full)
+
+    # Crop longitude/latitude arrays
+    lon = lam_merge_arr[args.crop_first_line:args.crop_last_line,
+                        args.crop_first_pixel:args.crop_last_pixel]
+    lat = phi_merge_arr[args.crop_first_line:args.crop_last_line,
+                        args.crop_first_pixel:args.crop_last_pixel]
+
+    # Example: create an empty NetCDF file with specified dimensions
+    netcdf_name = nc.Dataset('example_output.nc', 'w', format='NETCDF4')
+    netcdf_name.createDimension('lines (azimuth)', args.netcdf_lines)
+    netcdf_name.createDimension('pixels (range)', args.netcdf_pixels)
+    netcdf_name.close()
+
+"""
+Example command to run this script:
+
+python myscript.py \
+    --doris_stack_dir_VV /data/stack_vv/ \
+    --doris_stack_dir_VH /data/stack_vh/ \
+    --master_date 20220214 \
+    --crop_first_line 500 --crop_last_line 1440 \
+    --crop_first_pixel 16000 --crop_last_pixel 18350 \
+    --lines_full 2842 --pixels_full 22551 \
+    --netcdf_lines 2350 --netcdf_pixels 940 \
+    --lam_file /data/geo/lam.raw \
+    --phi_file /data/geo/phi.raw \
+    --sar_folder_path /data/sar/ \
+    --max_images 30
+"""
+if __name__ == '__main__':
+    main()
