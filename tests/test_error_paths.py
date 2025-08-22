@@ -1,4 +1,6 @@
 import pytest
+import numpy as np
+
 from alignsar.alignsar_utils import RI2cpx, freadbk
 
 def test_RI2cpx_missing_file(tmp_path):
