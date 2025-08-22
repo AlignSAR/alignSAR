@@ -27,7 +27,7 @@ jobs:
         run: conda install -y gdal rasterio geopandas pyproj rioxarray
 
       - name: Install package + dev deps via pip
-        run: pip install -e .[dev] --no-deps
+        run: pip install -e .[dev]
 
       - name: Run fast unit/smoke tests
         run: python -m pytest -m "not slow" --maxfail=1 --disable-warnings -q
