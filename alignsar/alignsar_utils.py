@@ -242,7 +242,7 @@ def read_param_file(param_file_dir):
     return meta_dict
 
 def main():
-        """
+    """
     Command-line interface for processing Doris stack data.
 
     This script reads amplitude/interferogram/coherence data from a Doris
