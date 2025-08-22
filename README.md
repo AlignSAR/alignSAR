@@ -27,6 +27,19 @@ in 'tutorial' folder
 Note that this is research code provided to you "as is" with no warranties of correctness. Use at your own risk.
 
 ## Installation
+
+Python version `>=3.10` is required to install MOTrainer.
+
+MOTrainer can be installed from PyPI:
+
+```sh
+pip install alignsar
+```
+
+We suggest using conda
+ to create an isolated environment for the installation to avoid conflicts.
+ 
+## Installation
 Either build a docker image using provided Dockerfile, or install relevant software manually. 
 
 ###	Dockerfile setup:
