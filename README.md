@@ -32,16 +32,6 @@ We suggest using conda
    * `-it`: interactive mode
    * `-v`: mount a local path to the container
 
-4. **Unmount**
-   Close the terminal to unmount.
-
-```
-
-Do you want me to **add the OS compatibility note** in one short line at the bottom? That way, users know which systems it’s tested on.
-```
-
-
-
 ###	SAR benchmark dataset processing procedure and demonstration 
 Please refer to [Alignsar_tutorial.pdf](https://github.com/AlignSAR/alignSAR/blob/main/tutorial/AlignSAR_tutorial.pdf).
 
