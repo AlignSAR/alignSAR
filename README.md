@@ -1,31 +1,6 @@
 # AlignSAR
 The AlignSAR tools are used to extract representative SAR signatures, and ultimately offer FAIR-guided open SAR benchmark dataset library designed for SAR-based artificial intelligence applications, while ensuring interoperability and consistency with existing and upcoming initiatives and technologies, facilitating wider exploitation of SAR data and its integration and combination with other datasets. This library will contain meaningful and accurate SAR signatures created by integrating and aligning multi-SAR images and other geodetic measurements in time and space. Related link: https://www.alignsar.nl
 
-## Tool description:
-Dockerfile: docker file with OS and software setup. ['Dockerfile'](https://github.com/AlignSAR/alignSAR/blob/main/Dockerfile) is to install Doris-5 and relevant software, 'DockerFile_LiCSAR_SNAP' is to install LiCSAR and SNAP.
-
- in 'alignsar' folder
-1. bin: non-python scripts used within the toolbox (e.g. rdr<->geocode)
-2. rdcode: the radarcoding scripts.
-3. stac: python scripts to create STAC
-4. Meta_info_extraction_global_local.py: script to extract global/local attributes from Sentinel-1 SAR metadata. 
-5. bashrc_alignsar: install settings for the expected environment variables and paths
-6. resdata.py: script needed from signature_extraction.py.
-7. signature_extraction.py: SAR signature extraction script.
-8. alignsar_utils.py: various python functions used within the toolbox.
-
-
-in 'examples' folder
-1. jupyter_notebook_demo: a jupyter notebook to demonstrate how to extract, visualize and analyse SAR signatures.
-
-in 'tests' folder
-1. alignsar_test_main.py: a main Python script to test all functions for creating SAR benchmark dataset examples over the Netherlands.
-
-in 'tutorial' folder
-1. Alignsar_tutorial.pdf: a tutorial containing all the information on AlignSAR installation, methods, data used and step-by-step procedure for SAR benchmark dataset creation and machine learning demonstration.
-   
-Note that this is research code provided to you "as is" with no warranties of correctness. Use at your own risk.
-
 ## Installation
 
 Python version `>=3.10` is required to install MOTrainer.
