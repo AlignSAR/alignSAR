@@ -13,7 +13,7 @@ pip install alignsar
 
 We suggest using conda to create an isolated environment for the installation to avoid conflicts.
  
-## Dockerfile Setup
+## Dockerfile Setup （Optional）
 
 1. **Preparation**  
    Install Docker and download the [`Dockerfile`](https://github.com/AlignSAR/alignSAR) from the repository into a dedicated directory.  
