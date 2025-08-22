@@ -8,6 +8,10 @@ on:
 jobs:
   pytest:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}  
+
     steps:
       - uses: actions/checkout@v4
 
@@ -19,21 +23,11 @@ jobs:
           activate-environment: test-env
           auto-update-conda: true
 
-      - name: Install geo dependencies via conda
-        run: |
-          conda install -c conda-forge gdal rasterio geopandas pyproj rioxarray
+      - name: Install geo deps via conda
+        run: conda install -y gdal rasterio geopandas pyproj rioxarray
 
-      - name: Install build tools & dev deps via pip
-        run: |
-          pip install --upgrade pip
-          pip install -e .[dev] --no-deps
+      - name: Install package + dev deps via pip
+        run: pip install -e .[dev] --no-deps
 
       - name: Run fast unit/smoke tests
-        run: |
-          pytest -m "not slow" --maxfail=1 --disable-warnings -q
-
-      - name: (Optional) Run slow/integration tests
-        if: ${{ false }}
-        run: |
-          export ALIGNSAR_RUN_INTEGRATION=1
-          pytest -m "slow" -q
+        run: python -m pytest -m "not slow" --maxfail=1 --disable-warnings -q
