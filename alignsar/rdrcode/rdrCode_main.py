@@ -20,7 +20,7 @@ Steps:
 import argparse
 # from utils.load_shape_unzip_paz import extract_kml_preview  ## not existing...
 from alignsar.alignsar_utils import read_param_file
-from alignsar.rdrCode_prep_ref_data import prepare_poly_ref_data, get_doris_process_bounds, alter_input_file, execute_rdrcode
+from alignsar.rdrcode.rdrCode_prep_ref_data import prepare_poly_ref_data, get_doris_process_bounds, alter_input_file, execute_rdrcode
 
 
 def _to_list(str_list):
