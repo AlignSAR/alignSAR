@@ -11,8 +11,7 @@ MOTrainer can be installed from PyPI:
 pip install alignsar
 ```
 
-We suggest using conda
- to create an isolated environment for the installation to avoid conflicts.
+We suggest using conda to create an isolated environment for the installation to avoid conflicts.
  
 ## Dockerfile Setup
 
@@ -23,22 +22,21 @@ We suggest using conda
 2. **Build the image**
    ```bash
    docker build -t alignsar .
-````
+   ```
 
 3. **Run the container**
-
    ```bash
    docker run -it -v /your_local_path:/path_in_docker alignsar
    ```
 
-   * `-it`: interactive mode
+   * `-it`: interactive mode  
    * `-v`: mount a local path to the container
 
 ---
 
 ### SAR Benchmark Dataset Processing
 
-Please refer to the [AlignSAR\_tutorial.pdf](https://github.com/AlignSAR/alignSAR/blob/main/tutorial/AlignSAR_tutorial.pdf) for the complete SAR benchmark dataset processing procedure and demonstration.
+Please refer to the [AlignSAR_tutorial.pdf](https://github.com/AlignSAR/alignSAR/blob/main/tutorial/AlignSAR_tutorial.pdf) for the complete SAR benchmark dataset processing procedure and demonstration.
 
 ---
 
@@ -50,12 +48,10 @@ A set of sample data covering the city of Groningen, the Netherlands, can be fou
 
 ### Citations
 
-\[1] Ling Chang, Anurag Kulshrestha, Bin Zhang and Xu Zhang (2023). Extraction and analysis of radar scatterer attributes.
+[1] Ling Chang, Anurag Kulshrestha, Bin Zhang and Xu Zhang (2023). Extraction and analysis of radar scatterer attributes.  
 
-\[2] Anurag Kulshrestha, Ling Chang and Alfred Stein (2024). Radarcoding reference data for SAR training data creation.
+[2] Anurag Kulshrestha, Ling Chang and Alfred Stein (2024). Radarcoding reference data for SAR training data creation.  
 
-\[3] Ling Chang, Jose Manuel Delgado Blasco, Andrea Cavallini, Andy Hooper, Anurag Kulshrestha, Milan Lazecky, Wojciech Perz.
+[3] Ling Chang, Jose Manuel Delgado Blasco, Andrea Cavallini, Andy Hooper, Anurag Kulshrestha, Milan Lazecky, Wojciech Perz.  
 
-\[4] Ling Chang, Xu Zhang, Anurag Kulshrestha, Serkan Girgin, Alfred Stein, Jose Manuel Delgado Blasco, Angie Catalina Flórez.
-
-
+[4] Ling Chang, Xu Zhang, Anurag Kulshrestha, Serkan Girgin, Alfred Stein, Jose Manuel Delgado Blasco, Angie Catalina Flórez.  
