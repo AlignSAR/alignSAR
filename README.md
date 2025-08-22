@@ -14,7 +14,7 @@ pip install alignsar
 We suggest using conda
  to create an isolated environment for the installation to avoid conflicts.
  
-###Dockerfile Setup
+## Dockerfile Setup
 1. **Preparation**  
    Install Docker and download the [`Dockerfile`](https://github.com/AlignSAR/alignSAR) from the repository into a dedicated directory. This file automatically installs Doris-5 and related third-party tools.
 
@@ -32,7 +32,7 @@ We suggest using conda
    * `-it`: interactive mode
    * `-v`: mount a local path to the container
 
-###	SAR benchmark dataset processing procedure and demonstration 
+##	SAR benchmark dataset processing procedure and demonstration 
 Please refer to [Alignsar_tutorial.pdf](https://github.com/AlignSAR/alignSAR/blob/main/tutorial/AlignSAR_tutorial.pdf).
 
 
