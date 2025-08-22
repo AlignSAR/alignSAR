@@ -10,10 +10,12 @@ Python version `>=3.10` is required to install MOTrainer.
 MOTrainer can be installed from PyPI:
 
 ```sh
+conda create -n alignsar python=3.10 -c conda-forge
+conda activate alignsar
+conda install -c conda-forge gdal rasterio geopandas pyproj rioxarray
 pip install alignsar
 ```
 
-We suggest using conda to create an isolated environment for the installation to avoid conflicts.
  
 ## Dockerfile Setup （Optional）
 
