@@ -25,7 +25,7 @@ jobs:
       - name: Install build tools
         run: |
           python -m pip install --upgrade pip
-          pip install setuptools wheel build
+          pip install setuptools wheel build numpy
 
       - name: Install package + dev + geo deps
         run: |
