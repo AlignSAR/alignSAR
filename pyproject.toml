@@ -98,7 +98,7 @@ dev = [
 # ==============================
 [tool.setuptools]
 # Declare that the Python package is located in the "alignsar" folder
-packages = ["alignsar"]
+packages = ["alignsar", "alignsar.rdrcode", "alignsar.stac"]
 
 [tool.setuptools.packages.find]
 where = ["."]
