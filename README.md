@@ -18,7 +18,8 @@ We suggest using conda
 1. **Preparation**  
    Install Docker and download the [`Dockerfile`](https://github.com/AlignSAR/alignSAR) from the repository into a dedicated directory. This file automatically installs Doris-5 and related third-party tools.
 
-2. **Build the image**  
+2. **Build the image**
+
    ```bash
    docker build -t alignsar .
 ````
