@@ -99,6 +99,11 @@ dev = [
 [tool.setuptools]
 # Declare that the Python package is located in the "alignsar" folder
 packages = ["alignsar", "alignsar.rdrcode", "alignsar.stac"]
+script-files = [
+  "bin/convert_ll2ra.sh",
+  "bin/export2tif_rd_snap.sh",
+  "bin/geocode_ifg_snap.sh",
+]
 
 [tool.setuptools.packages.find]
 where = ["."]
