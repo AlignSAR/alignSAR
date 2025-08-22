@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup mamba
+      - name: Setup conda
         uses: conda-incubator/setup-miniconda@v3
         with:
           python-version: "3.10"
@@ -24,7 +24,7 @@ jobs:
           auto-update-conda: true
 
       - name: Install geo deps via conda
-        run: mamba install -y gdal rasterio geopandas pyproj rioxarray
+        run: conda install -y gdal rasterio geopandas pyproj rioxarray
 
       - name: Install package + dev deps via pip
         run: pip install -e .[dev]
