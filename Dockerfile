@@ -47,6 +47,6 @@ RUN cd /root/Doris5ITCupdate/doris/doris_core \
   && cd ../envisat_tools \
   && make \
   && make install
-
+RUN chmod +x /root/Doris5ITCupdate/doris/doris_stack/main_code/jobHandlerScript
 
 
