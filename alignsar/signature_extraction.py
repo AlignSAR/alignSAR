@@ -306,7 +306,7 @@ def main():
 """
 Example command to run this script:
 
-python myscript.py \
+python signature_extraction.py \
     --doris_stack_dir_VV /data/stack_vv/ \
     --doris_stack_dir_VH /data/stack_vh/ \
     --master_date 20220214 \
