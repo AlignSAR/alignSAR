@@ -35,7 +35,6 @@ def main():
             "Software to radar-code vector reference files with respect to a SAR image.\n\n"
             "Dependencies: doris, gdal, shapely, geopandas\n"
             "Make sure doris and gdal are callable from the shell.\n\n"
-            "Estimated disk space needed: ~2 × uncompressed SAR data size\n"
             "Requirement: Doris processing completed up to coarse orbits stage."
         ),
         formatter_class=argparse.RawTextHelpFormatter,
