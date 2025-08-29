@@ -212,9 +212,9 @@ def get_stack(dates, master_date, doris_stack_dir, map_type, crop_switch=True, c
     res = np.zeros((lines,pixels, len(dates)), dtype = np.complex64)
     for i,date in enumerate(dates):
         if date == master_date and map_type == 'cpx':
-            conitue
+            continue
         elif date == master_date and map_type == 'ifg':
-            conitue
+            continue
         else:
             slc_arr = get_cropped_image(map_type, doris_stack_dir, date, crop_switch=crop_switch, crop_list=crop_list, sensor=sensor, swath_burst=False)
             #slc_arr = 10*np.log10(np.absolute(slc_arr))
