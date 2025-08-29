@@ -226,7 +226,7 @@ def main():
             building_arr, railway_arr, water_arr, road_arr, lon, lat
         )))
 
-        nc_name = f'Groningen_netcdf_{dates[ei]}_full_attributes.nc'
+        nc_name = f'netcdf_{dates[ei]}_full_attributes.nc'
         ds = nc.Dataset(nc_name, 'w', format='NETCDF4')
 
         global_attributes = get_global_attribute(sar_folder_path + '/', ei, 0)
