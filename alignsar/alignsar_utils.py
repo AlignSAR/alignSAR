@@ -7,37 +7,21 @@ from scipy import signal
 import numpy.ma as ma
 
 
-
-
-def RI2cpx(R, I, cpxfile, intype=np.float32):
-    """Convert real and imaginary binary files to a complex number binary file.
-    
-    Args:
-        R (string or np.ndarray): path to the binary file with real values, or directly loaded as numpy ndarray
-        I (string or np.ndarray): path to the binary file with imaginary values, or directly loaded as numpy ndarray
-        cpxfile (string or None): path to the binary file for complex output (the output will be as complex64). if None, it will only return the cpxarray
-        intype (type): data type of the binary file. np.float32 or np.float64 if needed.
-    
-    Returns:
-        np.array: this array must be reshaped if needed
-    """
-    # we may either load R, I from file:
-    if type(R) == type('str'):
-        r = np.fromfile(R, dtype=intype)
-        i = np.fromfile(I, dtype=intype)
-    else:
-        r = R.astype(intype).ravel()
-        i = I.astype(intype).ravel()
-    if cpxfile:
-        cpx = np.zeros(len(r)+len(i))
-        cpx[0::2] = r
-        cpx[1::2] = i
-        cpx.astype(np.float32).tofile(cpxfile)
-    return r + 1j*i
-
-
 def freadbk(path_file, line_start=1, pixel_start=1, nofLines=None, nofPixels=None, dt='float32', lines=0, pixels=0, memmap=True):
     # First use memmap to get a memory map of the full file, than extract the requested part.
+    '''
+
+    :param path_file:
+    :param line_start:
+    :param pixel_start:
+    :param nofLines:
+    :param nofPixels:
+    :param dt:
+    :param lines:
+    :param pixels:
+    :param memmap:
+    :return:
+    '''
 
     if dt == 'cpxint16':
         dtype = np.dtype([('re', np.int16), ('im', np.int16)])
@@ -63,7 +47,12 @@ def test_convolve_3d(arr, AVG_WIN_SIZE, dtype=np.complex64):
     '''
     arr has a 3rd dim and conv is done per element in the 3rd dimension
     kernal should be 2 dimensional
+    :param arr:
+    :param AVG_WIN_SIZE:
+    :param dtype:
+    :return:
     '''
+
     kern = kernal(AVG_WIN_SIZE)
     shp = arr.shape
     ker_shp = kern.shape
@@ -75,15 +64,33 @@ def test_convolve_3d(arr, AVG_WIN_SIZE, dtype=np.complex64):
     return grad
 
 def test_convolve(arr, kernal):
+    '''
+
+    :param arr:
+    :param kernal:
+    :return:
+    '''
     grad = signal.convolve2d(arr, kernal, boundary='symm', mode='valid')
     return grad
 
 def kernal(window_size):
+    '''
+
+    :param window_size:
+    :return:
+    '''
     k=np.ones(window_size*window_size).reshape(window_size, window_size)
     normalize_k=k/(window_size**2)
     return normalize_k
 
 def hist_stretch_all(arr, bits, clip_extremes):
+    '''
+
+    :param arr:
+    :param bits:
+    :param clip_extremes:
+    :return:
+    '''
     #bands=arr.shape[-1]
     
     n=arr.shape
@@ -110,33 +117,52 @@ def hist_stretch_all(arr, bits, clip_extremes):
 
 
 def get_slv_arr_shape(doris_stack_dir, date, sensor='s1', swath='1', burst='1'):
-    
+    '''
+
+    :param doris_stack_dir:
+    :param date:
+    :param sensor:
+    :param swath:
+    :param burst:
+    :return:
+    '''
+
     if sensor =='s1':
         slv_resFilename = os.path.join(doris_stack_dir, date, 'swath_'+swath, 'burst_'+burst,'slave.res')
     else:
         slv_resFilename = os.path.join(doris_stack_dir, date,'slave.res')
-    
+
     slv_res = ResData(slv_resFilename)
-    
+
     l0 = int(slv_res.processes['resample']['First_line (w.r.t. original_master)'])
     lN = int(slv_res.processes['resample']['Last_line (w.r.t. original_master)'])
     p0 = int(slv_res.processes['resample']['First_pixel (w.r.t. original_master)'])
     pN = int(slv_res.processes['resample']['Last_pixel (w.r.t. original_master)'])
-    
+
     Naz_res = lN-l0+1
     Nrg_res = pN-p0+1
-    
+
     return (Naz_res, Nrg_res)
 
 
 def get_cropped_image(choice_amp_int, doris_stack_dir, date, amp_file_name='slave_rsmp.raw', ifgs_file_name = 'cint_srd.raw', coh_file_name = 'coherence.raw', crop_switch=False, crop_list=[], sensor='s1', swath_burst=False, swath='1', burst='1'):
     '''
     Function to read a subset of of slave_rsmp.raw or cint_srd.raw
-    Args:
-    
-    
+    :param choice_amp_int:
+    :param doris_stack_dir:
+    :param date:
+    :param amp_file_name:
+    :param ifgs_file_name:
+    :param crop_switch:
+    :param crop_list:
+    :param sensor:
+    :param swath_burst:
+    :param swath:
+    :param burst:
+    :return:
     '''
-    if (sensor=='s1' and swath_burst):  #change '&' to 'and' when using python 3.8, '&' is for python 3.10
+
+    if (sensor=='s1' and swath_burst):
         amp_dataFilename = os.path.join(doris_stack_dir, date, 'swath_'+swath, 'burst_'+burst, amp_file_name)
         ifgs_dataFilename = os.path.join(doris_stack_dir, date, 'swath_'+swath, 'burst_'+burst, ifgs_file_name)
         coh_dataFilename = os.path.join(doris_stack_dir, date, 'swath_'+swath, 'burst_'+burst, coh_file_name)
@@ -175,7 +201,6 @@ def get_cropped_image(choice_amp_int, doris_stack_dir, date, amp_file_name='slav
     
     print('Reading {} data from date {}. l0, p0, lines, pixels = {}, {}, {}, {}'.format(choice_amp_int, date, crop_list[0], crop_list[2], lines, pixels))
     #print(Naz_res, Nrg_res)
-
     if (choice_amp_int == 'cpx'):
         arr = freadbk(amp_dataFilename, 
                     crop_list[0],#+1, 
@@ -197,12 +222,29 @@ def get_cropped_image(choice_amp_int, doris_stack_dir, date, amp_file_name='slav
     return arr
         
 def get_dates(doris_stack_dir, master_date):
+    '''
+
+    :param doris_stack_dir:
+    :param master_date:
+    :return:
+    '''
     #master_date = master_date.strftime("%Y%m%d")
     dates = sorted([l for l in [j for k,j,i in os.walk(doris_stack_dir)][0] if (len(l)==8)])
     #dates.remove(str(master_date))
     return dates
+    return [datetime.datetime.strptime(l, '%Y%m%d') for l in dates]
 
 def get_stack(dates, master_date, doris_stack_dir, map_type, crop_switch=True, crop_list=[100,200,100,200], sensor='s1', swath_burst=False):
+    '''
+
+    :param dates:
+    :param doris_stack_dir:
+    :param crop_switch:
+    :param crop_list:
+    :param sensor:
+    :param swath_burst:
+    :return:
+    '''
     if crop_switch:
         lines = crop_list[1]-crop_list[0]
         pixels = crop_list[3]-crop_list[2]
@@ -210,9 +252,10 @@ def get_stack(dates, master_date, doris_stack_dir, map_type, crop_switch=True, c
         lines,pixels = get_slv_arr_shape(doris_stack_dir, dates[0])
         
     res = np.zeros((lines,pixels, len(dates)), dtype = np.complex64)
+    master_date = str(master_date)
     for i,date in enumerate(dates):
-        if date == master_date and map_type == 'cpx':
-            continue
+        if date == master_date and map_type == 'coh':
+            res[...,i] = np.ones((lines,pixels))
         elif date == master_date and map_type == 'ifg':
             continue
         else:
@@ -220,115 +263,28 @@ def get_stack(dates, master_date, doris_stack_dir, map_type, crop_switch=True, c
             #slc_arr = 10*np.log10(np.absolute(slc_arr))
             #plt.imshow(np.clip(slc_arr, 0, 35), cmap='gray')
             #plt.show()
-        res[...,i] = slc_arr
+            res[...,i] = slc_arr
     return res
 
 def make_mrm(slc_arr):
+    '''
+
+    :param slc_arr:
+    :return:
+    '''
     slc_arr = np.absolute(slc_arr)
     mrm = slc_arr.mean(2)
     return mrm
 
 def plot_clipped(arr, per_min, per_max):
+    '''
+
+    :param arr:
+    :param per_min:
+    :param per_max:
+    :return:
+    '''
     print(np.nanpercentile(arr, (per_min, per_max)))
     return np.clip(arr, *np.nanpercentile(arr, (per_min, per_max)))
 
-
-def read_param_file(param_file_dir):
-    meta = open(param_file_dir)
-    meta_dict = {}
-    for i in meta.readlines():
-        if (i[0]!='%'):
-            j=i[:-1].split('=') # removing \n's from end of the line
-            if (len(j)>1):
-                if (j[1].find('%')>0):
-                    j[1]=j[1][:j[1].index('%')]  #trim further after
-                if (j[1][1]=="'"):
-                    j[1]=j[1][2:-1]
-                j=[str.strip(k) for k in j] #trimming
-                meta_dict[j[0]]=j[1]
-    return meta_dict
-
-def main():
-    """
-    Command-line interface for processing Doris stack data.
-
-    This script reads amplitude/interferogram/coherence data from a Doris
-    stack directory, optionally crops it, and saves it as a NumPy array (.npy).
-    """
-
-    parser = argparse.ArgumentParser(description="Process Doris stack data into NumPy arrays.")
-    
-    # Path to Doris stack directory (VV or VH)
-    parser.add_argument('--doris_stack_dir_vv', type=str, required=True,
-                        help='Path to VV Doris stack directory.')
-    
-    # Master date in YYYYMMDD format
-    parser.add_argument('--master_date', type=int, required=True,
-                        help='Master date in YYYYMMDD format.')
-    
-    # Cropping options
-    parser.add_argument('--crop_switch', action='store_true',
-                        help='Enable cropping. If set, use --crop_list to specify area.')
-    parser.add_argument('--crop_list', type=int, nargs=4, default=[500, 1440, 16000, 18350],
-                        help='Crop region as [start_line, end_line, start_pixel, end_pixel].')
-    
-    # Max number of images to load
-    parser.add_argument('--max_images', type=int, default=30,
-                        help='Maximum number of images to load from the stack.')
-    
-    # Spatial averaging window size (currently unused in main)
-    parser.add_argument('--sp_avg_win_size', type=int, default=3,
-                        help='Spatial averaging window size.')
-    
-    # Map type selection: complex data, interferogram, or coherence
-    parser.add_argument('--map_type', type=str, choices=['cpx', 'ifg', 'coh'], default='cpx',
-                        help='Type of map to read: cpx, ifg, or coh.')
-    
-    # Output file name
-    parser.add_argument('--output', type=str, default='output.npy',
-                        help='Output NumPy file name.')
-
-    args = parser.parse_args()
-
-    # Get the list of dates from Doris stack
-    dates = get_dates(args.doris_stack_dir_vv, args.master_date)[:args.max_images]
-    print("Found dates:", dates)
-
-    # Read the stack as a 3D NumPy array (lines, pixels, dates)
-    vv_arr_stack = get_stack(
-        dates, args.master_date, args.doris_stack_dir_vv,
-        args.map_type, crop_switch=args.crop_switch,
-        crop_list=args.crop_list, sensor='s1', swath_burst=False
-    )
-
-    # Save the stack to file
-    np.save(args.output, vv_arr_stack)
-    print(f"Saved stack array to {args.output}")
-    
-"""
-Example usage from terminal:
-
-# Process VV stack, crop to a specific region, and save as .npy
-python alignsar_utils.py \
-    --doris_stack_dir_vv /path/to/stack_vv \
-    --master_date 20200330 \
-    --crop_switch \
-    --crop_list 500 1440 16000 18350 \
-    --max_images 20 \
-    --map_type cpx \
-    --output groningen_vv_cpx.npy
-
-# Process VH stack without cropping
-python alignsar_utils.py \
-    --doris_stack_dir_vv /path/to/stack_vh \
-    --master_date 20200330 \
-    --max_images 10 \
-    --map_type ifg \
-    --output groningen_vh_ifg.npy
-"""
-if __name__ == '__main__':
-    main()
-
-
-
-
+ ︁
