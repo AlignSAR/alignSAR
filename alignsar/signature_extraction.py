@@ -230,8 +230,8 @@ def main():
         nc_name = f'netcdf_{dates[ei]}_full_attributes.nc'
         ds = nc.Dataset(nc_name, 'w', format='NETCDF4')
 
-        #global_attributes = get_global_attribute(sar_folder_path + '/', ei, 0, lon.max(),lon.min(),lat.max(),lat.min(),master_date,CRP_LIST)
-        print(sar_folder_path + '/', ei, 0, lon.max(),lon.min(),lat.max(),lat.min(),master_date,CRP_LIST)
+        global_attributes = get_global_attribute(sar_folder_path + '/', ei, 0, lon.max(),lon.min(),lat.max(),lat.min(),master_date,CRP_LIST)
+        #print(sar_folder_path + '/', ei, 0, lon.max(),lon.min(),lat.max(),lat.min(),master_date,CRP_LIST)
         for attr_name, attr_value in global_attributes.items():
             setattr(ds, attr_name, attr_value)
 
