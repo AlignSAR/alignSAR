@@ -209,6 +209,7 @@ def main():
         'Cross-pol correlation coefficient', 'Cross-pol cross product', 'Entropy',
         'Buildings', 'Railways', 'Water', 'Roads', 'Lon', 'Lat'
     ]
+    
     local_attributes_list = [
         VV_amplitude_attr, VH_amplitude_attr, VV_interferometric_phase_attr, VV_coherence_attr, Intensity_summation_attr,
         Intensity_difference_attr, Intensity_ratio_attr, Cross_pol_correlation_coefficient_attr,
