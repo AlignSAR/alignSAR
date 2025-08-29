@@ -95,8 +95,13 @@ script-files = [
   "alignsar/bin/convert_ll2ra.sh",
   "alignsar/bin/export2tif_rd_snap.sh",
   "alignsar/bin/geocode_ifg_snap.sh",
-  "alignsar/bin/doris",
 ]
+
+[tool.setuptools.data-files]
+"bin" = ["alignsar/bin/doris"]
+
+[tool.setuptools.package-data]
+alignsar = ["bin/*"] 
 
 [tool.pytest.ini_options]
 addopts = "-q"
