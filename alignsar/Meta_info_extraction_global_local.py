@@ -27,7 +27,7 @@ def get_global_attribute(sar_folder_path, folder_num, xml_num,lon_max,lon_min,la
     swath = root.find(".//swath").text
 
     sar_date_time = root.find(".//startTime").text[:10] # end to date
-    sar_master_date_time = "20220214"
+    sar_master_date_time = master_date
     sar_UTC_time = root.find(".//startTime").text[11:16]
     sar_instrument_mode = root.find(".//mode").text
     sar_looks_range = "1"
@@ -45,8 +45,8 @@ def get_global_attribute(sar_folder_path, folder_num, xml_num,lon_max,lon_min,la
 
     Global_attr = {'processing_level':'L1', 'date_created': t, 'creator_name': 'Xu Zhang', 'creator_email': 'x.zhang-7@utwente.nl', \
                 'creator_url': 'https://research.utwente.nl/en/persons/xu-zhang', 'institution': 'UT', 'project': 'ESA Open SAR Library', 'publisher_name': 'AlignSAR', \
-                'publisher_email': 'alignsar.project@gmail.com', 'publisher_url': 'alignsar.nl', 'geospatial_lat_min': '53.108846741824934', \
-                'geospatial_lat_max': '53.45763298862386', 'geospatial_lon_min': '5.376860616873864', 'geospatial_lon_max': '6.8439575842848654', \
+                'publisher_email': 'alignsar.project@gmail.com', 'publisher_url': 'alignsar.nl', 'geospatial_lat_min': 'lat_min', \
+                'geospatial_lat_max': lat_max, 'geospatial_lon_min': lon_min, 'geospatial_lon_max': lon_max, \
                'sar_date_time':sar_date_time, 'sar_master_date_time':sar_master_date_time, 'sar_UTC_time':sar_UTC_time, 'sar_instrument_mode':sar_instrument_mode, \
                 'sar_looks_range':sar_looks_range, 'sar_looks_azimuth':sar_looks_azimuth, 'sar_pixel_spacing_range':sar_pixel_spacing_range, \
                 'sar_pixel_spacing_azimuth':sar_pixel_spacing_azimuth, 'sar_processing_software':sar_processing_software, \
