@@ -87,12 +87,13 @@ dev = [
 # setuptools package discovery
 # ==============================
 [tool.setuptools]
-packages = ["alignsar", "alignsar.rdrcode", "alignsar.stac"]
+packages = ["alignsar", "alignsar.rdrcode"]
 include-package-data = true
 script-files = [
   "alignsar/bin/convert_ll2ra.sh",
   "alignsar/bin/export2tif_rd_snap.sh",
   "alignsar/bin/geocode_ifg_snap.sh",
+   "alignsar/bin/doris",
 ]
 
 [tool.pytest.ini_options]
