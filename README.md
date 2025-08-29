@@ -5,7 +5,7 @@ The AlignSAR tools are used to extract representative SAR signatures, and ultima
 
 ## Installation
 
-Python version `>=3.10` is required to install MOTrainer.
+Python version `>=3.10` is required to install alignsar.
 
 alignsar can be installed from PyPI:
 
