@@ -95,6 +95,8 @@ script-files = [
   "alignsar/bin/convert_ll2ra.sh",
   "alignsar/bin/export2tif_rd_snap.sh",
   "alignsar/bin/geocode_ifg_snap.sh",
+  "alignsar/bin/dorisrmstep.sh",
+
 ]
 
 [tool.setuptools.data-files]
