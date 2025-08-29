@@ -219,7 +219,6 @@ def main():
 
     epochs = min(len(dates), MAX_IMAGES)
     for ei in range(epochs):
-        # ?? 16 ???,???? (pixels, lines, layers) ??????? 2350/940 ????
         data_cube = np.transpose(np.stack((
             vv_amp[:, :, ei], vh_amp[:, :, ei], vv_ifg[:, :, ei], vv_coh[:, :, ei],
             intensity_sum[:, :, ei], intensity_diff[:, :, ei], intensity_ratio[:, :, ei],
@@ -246,5 +245,7 @@ def main():
             var[:] = data_cube[:, :, li]
 
         ds.close()
-if __name__ == '__main__':
+        
+if __name__ == "__main__":
+    main()
    
