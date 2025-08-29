@@ -19,6 +19,7 @@ def get_xml_path(sar_folder_path, folder_num, xml_num):
 
 
 def get_global_attribute(sar_folder_path, folder_num, xml_num,lon.max(),lon.min(),lat.max(),lat.min(),master_date,CRP_LIST):
+    print(sar_folder_path, folder_num, xml_num,lon.max(),lon.min(),lat.max(),lat.min(),master_date,CRP_LIST)
     xml_path = get_xml_path(sar_folder_path,folder_num,xml_num)
     tree = ET.parse(xml_path)
     root = tree.getroot()
