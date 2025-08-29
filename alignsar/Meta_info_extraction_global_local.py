@@ -57,7 +57,7 @@ def get_global_attribute(sar_folder_path, folder_num, xml_num,lon.max(),lon.min(
     # sar_insar_master_time = # read from input file
     sar_SLC_crop = [500, 1440, 16000, 18350] # read from input file
     now = datetime.now()
-    t = now.strftime('%Y-%m-%d'))
+    t = now.strftime('%Y-%m-%d')
 
     Global_attr = {'processing_level':'L1', 'date_created': t, 'creator_name': 'Xu Zhang', 'creator_email': 'x.zhang-7@utwente.nl', \
                 'creator_url': 'https://research.utwente.nl/en/persons/xu-zhang', 'institution': 'UT', 'project': 'ESA Open SAR Library', 'publisher_name': 'AlignSAR', \
