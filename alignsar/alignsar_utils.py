@@ -5,6 +5,7 @@ from .resdata import ResData
 from scipy import signal
 import numpy.ma as ma
 
+# Milan
 def RI2cpx(R, I, cpxfile, intype=np.float32):
     """Convert real and imaginary binary files to a complex number binary file.
     
@@ -30,7 +31,6 @@ def RI2cpx(R, I, cpxfile, intype=np.float32):
         cpx[1::2] = i
         cpx.astype(np.float32).tofile(cpxfile)
     return r + 1j*i
-    
 def read_param_file(param_file_dir):
     meta = open(param_file_dir)
     meta_dict = {}
