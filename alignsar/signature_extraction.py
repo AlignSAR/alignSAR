@@ -239,13 +239,10 @@ def main():
 
         layer_num = 16
         for li in range(layer_num):
-            # Top10NL ??? f8,?? f4
             vtype = 'f8' if signature_list[li] in ('Buildings', 'Railways', 'Water', 'Roads') else 'f4'
             var = ds.createVariable(signature_list[li], vtype, ('lines (azimuth)', 'pixels (range)'))
-            # ????
             for loc_attr_name, loc_attr_value in local_attributes_list[li].items():
                 setattr(var, loc_attr_name, loc_attr_value)
-            # ????(data_cube ? (pixels, lines, layers);?????????,?? 2350/940 ??)
             var[:] = data_cube[:, :, li]
 
         ds.close()
