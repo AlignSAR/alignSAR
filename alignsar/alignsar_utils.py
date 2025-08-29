@@ -175,18 +175,25 @@ def get_cropped_image(choice_amp_int, doris_stack_dir, date, amp_file_name='slav
     
     print('Reading {} data from date {}. l0, p0, lines, pixels = {}, {}, {}, {}'.format(choice_amp_int, date, crop_list[0], crop_list[2], lines, pixels))
     #print(Naz_res, Nrg_res)
-    if (choice_amp_int == 'amp'):
+
+    if (choice_amp_int == 'cpx'):
         arr = freadbk(amp_dataFilename, 
                     crop_list[0],#+1, 
                     crop_list[2], 
                     lines,pixels,
                     'complex64', int(Naz_res), int(Nrg_res))
-    if (choice_amp_int == 'ifgs'):
+    if (choice_amp_int == 'ifg'):
         arr = freadbk(ifgs_dataFilename, 
                     crop_list[0],#+1, 
                     crop_list[2], 
                     lines,pixels,
                     'complex64', int(Naz_res), int(Nrg_res))
+    if (choice_amp_int == 'coh'):
+        arr = freadbk(coh_dataFilename,
+                    crop_list[0],#+1,
+                    crop_list[2],
+                    lines,pixels,
+                    'float32', int(Naz_res), int(Nrg_res))
     return arr
         
 def get_dates(doris_stack_dir, master_date):
