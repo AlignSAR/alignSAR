@@ -64,7 +64,7 @@ def get_global_attribute(sar_folder_path, folder_num, xml_num):
                 'sar_looks_range':sar_looks_range, 'sar_looks_azimuth':sar_looks_azimuth, 'sar_pixel_spacing_range':sar_pixel_spacing_range, \
                 'sar_pixel_spacing_azimuth':sar_pixel_spacing_azimuth, 'sar_processing_software':sar_processing_software, \
                 'sar_absolute_orbit':sar_absolute_orbit,'sar_relative_orbit':sar_relative_orbit, 'sar_view_azimuth':sar_view_azimuth, 'sar_view_incidence_angle':sar_view_incidence_angle, \
-                'sar_SLC_crop[azimuth,range]':sar_SLC_crop, 'sar_subswath': '1', 'sar_burst': '1,2'}
+                'sar_SLC_crop[azimuth,range]':sar_SLC_crop}
     return Global_attr
 
 
