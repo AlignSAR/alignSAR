@@ -151,7 +151,7 @@ def execute_rdrcode(params, rdrCode_input_fnames):
     for inp_name in rdrCode_input_fnames:
         
         os.chdir(sar_dir)
-        os.system('doris.rmstep.sh comp_refdem ifgs.res')
+        os.system('dorisrmstep.sh comp_refdem ifgs.res')
         cmd = 'doris '+ inp_name
         os.system(cmd)
         #os.chdir(code_dir)
@@ -170,7 +170,7 @@ def conv_raw(dates, master_date, doris_stack_dir):
         cp_cmd = 'cp '+os.path.join(doris_stack_dir, date, 'swath_1', 'burst_1', 'ifgs.res')+' '+os.path.join(doris_stack_dir, date, 'swath_1', 'burst_1', 'ifgs_copy.res')
         os.system(cp_cmd)
         #alter ifgs file
-        os.system('doris.rmstep.sh comp_refdem '+os.path.join(doris_stack_dir, date, 'swath_1', 'burst_1', 'ifgs.res'))
+        os.system('dorisrmstep.sh comp_refdem '+os.path.join(doris_stack_dir, date, 'swath_1', 'burst_1', 'ifgs.res'))
         #alter input filek
 
 def _to_list(str_list):
