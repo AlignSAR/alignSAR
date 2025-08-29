@@ -212,6 +212,16 @@ def get_dates(doris_stack_dir, master_date):
     return dates
 
 def get_stack(dates, master_date, doris_stack_dir, map_type, crop_switch=True, crop_list=[100,200,100,200], sensor='s1', swath_burst=False):
+    '''
+
+    :param dates:
+    :param doris_stack_dir:
+    :param crop_switch:
+    :param crop_list:
+    :param sensor:
+    :param swath_burst:
+    :return:
+    '''
     if crop_switch:
         lines = crop_list[1]-crop_list[0]
         pixels = crop_list[3]-crop_list[2]
@@ -219,9 +229,10 @@ def get_stack(dates, master_date, doris_stack_dir, map_type, crop_switch=True, c
         lines,pixels = get_slv_arr_shape(doris_stack_dir, dates[0])
         
     res = np.zeros((lines,pixels, len(dates)), dtype = np.complex64)
+    master_date = str(master_date)
     for i,date in enumerate(dates):
-        if date == master_date and map_type == 'cpx':
-            continue
+        if date == master_date and map_type == 'coh':
+            res[...,i] = np.ones((lines,pixels))
         elif date == master_date and map_type == 'ifg':
             continue
         else:
@@ -229,7 +240,7 @@ def get_stack(dates, master_date, doris_stack_dir, map_type, crop_switch=True, c
             #slc_arr = 10*np.log10(np.absolute(slc_arr))
             #plt.imshow(np.clip(slc_arr, 0, 35), cmap='gray')
             #plt.show()
-        res[...,i] = slc_arr
+            res[...,i] = slc_arr
     return res
 
 def make_mrm(slc_arr):
