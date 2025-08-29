@@ -62,7 +62,7 @@ classifiers = [
 "rdrCode.py" = "alignsar.rdrcode.rdrCode_main:main"
 "alignsar_utils.py" = "alignsar.alignsar_utils:main"
 "signature_extraction.py" = "alignsar.signature_extraction:main"
-"Meta_info_extraction_global.py" = "alignsar.Meta_info_extraction_global:main"
+"Meta_info_extraction_global_local.py" = "alignsar.Meta_info_extraction_global_local:main"
 
 
 # ==============================
@@ -95,7 +95,7 @@ script-files = [
   "alignsar/bin/convert_ll2ra.sh",
   "alignsar/bin/export2tif_rd_snap.sh",
   "alignsar/bin/geocode_ifg_snap.sh",
-   "alignsar/bin/doris",
+  "alignsar/bin/doris",
 ]
 
 [tool.pytest.ini_options]
