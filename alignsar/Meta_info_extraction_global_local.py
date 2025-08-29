@@ -18,7 +18,7 @@ def get_xml_path(sar_folder_path, folder_num, xml_num):
     return sar_folder_path + folders[folder_num] + '/annotation/' + files[xml_num]
 
 
-def get_global_attribute(sar_folder_path, folder_num, xml_num,lonmax,lonmin,lat.max,lat.min,master_date,CRP_LIST):
+def get_global_attribute(sar_folder_path, folder_num, xml_num,lon_max,lon_min,lat_max,lat_min,master_date,CRP_LIST):
     print(sar_folder_path, folder_num, xml_num,lonmax,lonmin,lat.max,lat.min,master_date,CRP_LIST)
     xml_path = get_xml_path(sar_folder_path,folder_num,xml_num)
     tree = ET.parse(xml_path)
@@ -30,32 +30,16 @@ def get_global_attribute(sar_folder_path, folder_num, xml_num,lonmax,lonmin,lat.
     sar_master_date_time = "20220214"
     sar_UTC_time = root.find(".//startTime").text[11:16]
     sar_instrument_mode = root.find(".//mode").text
-    # sar_polarizations = root.find(".//polarisation").text
     sar_looks_range = "1"
     sar_looks_azimuth = "1"
-    # sar_observation_direction = "right" root.find(".//").find("pass").text # left or right
     sar_pixel_spacing_range = root.find(".//rangePixelSpacing").text
     sar_pixel_spacing_azimuth = root.find(".//azimuthPixelSpacing").text
-
-    # use equation to calculate the resolution
-    # eq: resolution_range = c/(2Bandwidth)
-    # eq: resolution_azimuth = antenna_length/2
-        # c = 3e8
-    # sar_resolution_range = c/2/float(root.find(".//rangeProcessing").find("totalBandwidth").text.strip('"'))  # ?? total bandwidth??
-    # sar_resolution_azimuth = root.find(".//").text  # ?? antenna length ???
-
-    # sar_processing_level = root.find(".//").text
-    # sar_processing_lineage = root.find(".//").text
     sar_processing_software = "doris"
-    # sar_proj_epsg = root.find(".//").text
-    # sar_orbit_state = root.find(".//").text
     sar_absolute_orbit = root.find(".//absoluteOrbitNumber").text
     sar_relative_orbit = (int(sar_absolute_orbit)-73) % 175 +1
-    # sci_publications = root.find(".//").text
     sar_view_azimuth = root.find(".//pass").text
     sar_view_incidence_angle = root.find(".//incidenceAngleMidSwath").text
-    # sar_insar_master_time = # read from input file
-    sar_SLC_crop = [500, 1440, 16000, 18350] # read from input file
+    sar_SLC_crop = CRP_LIST # read from input file
     now = datetime.now()
     t = now.strftime('%Y-%m-%d')
 
