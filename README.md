@@ -7,12 +7,12 @@ The AlignSAR tools are used to extract representative SAR signatures, and ultima
 
 Python version `>=3.10` is required to install alignsar.
 
-alignsar can be installed from PyPI:
+Use `conda-forge` for the geospatial stack, then install AlignSAR from PyPI:
 
 ```sh
 conda create -n alignsar python=3.10 -c conda-forge
 conda activate alignsar
-conda install -c conda-forge gdal rasterio geopandas pyproj rioxarray
+conda install -c conda-forge gdal==3.8.5 rasterio geopandas pyproj rioxarray
 pip install alignsar
 ```
 
