@@ -12,7 +12,7 @@ alignsar can be installed from PyPI:
 ```sh
 mamba create -n alignsar python=3.10 -c conda-forge
 mamba activate alignsar
-mamba install -c conda-forge gdal rasterio geopandas pyproj rioxarray hdf5 netcdf4 libnetcdf
+mamba install -c conda-forge gdal rasterio geopandas pyproj rioxarray
 pip install alignsar
 ```
 
