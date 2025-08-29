@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET
 import os
+from datetime import datetime, timedelta
 
 # The functions in this file will be called in 'signature_extraction.py' file for feature extraction. 
 # Corresponding path setting is mentioned in 'signature_extraction.py'. 
@@ -54,9 +55,10 @@ def get_global_attribute(sar_folder_path, folder_num, xml_num):
     sar_view_incidence_angle = root.find(".//incidenceAngleMidSwath").text
     # sar_insar_master_time = # read from input file
     sar_SLC_crop = [500, 1440, 16000, 18350] # read from input file
+    now = datetime.now()
+    t = now.strftime('%Y-%m-%d'))
 
-
-    Global_attr = {'processing_level':'L1', 'date_created': '2023-09-23', 'creator_name': 'Xu Zhang', 'creator_email': 'x.zhang-7@utwente.nl', \
+    Global_attr = {'processing_level':'L1', 'date_created': t, 'creator_name': 'Xu Zhang', 'creator_email': 'x.zhang-7@utwente.nl', \
                 'creator_url': 'https://research.utwente.nl/en/persons/xu-zhang', 'institution': 'UT', 'project': 'ESA Open SAR Library', 'publisher_name': 'AlignSAR', \
                 'publisher_email': 'alignsar.project@gmail.com', 'publisher_url': 'alignsar.nl', 'geospatial_lat_min': '53.108846741824934', \
                 'geospatial_lat_max': '53.45763298862386', 'geospatial_lon_min': '5.376860616873864', 'geospatial_lon_max': '6.8439575842848654', \
