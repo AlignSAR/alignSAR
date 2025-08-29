@@ -92,7 +92,140 @@ def get_global_attribute(sar_folder_path, folder_num, xml_num,
         'sar_view_incidence_angle': sar_view_incidence_angle,
         'sar_SLC_crop[azimuth,range]': CRP_LIST
     }
+                             
+VV_amplitude_attr={
+    'Units': 'voltage [linear]',\
+    'Format': 'float32',\
+    'Description': 'the absolute value of every complex number in VV channel'
+}
 
+
+
+VH_amplitude_attr={
+    'Units': 'voltage [linear]',\
+    'Format': 'float32',\
+    'Description': 'the absolute value of every complex number in VH channel'
+}
+
+
+
+VV_interferometric_phase_attr={
+    'Units': 'radians',\
+    'Format': 'float32',\
+    'Range': 'between -pi and +pi',\
+    'Description': 'phase difference between master and slave acquisition'
+}
+
+
+VV_coherence_attr={
+    'Units': 'unitless',\
+    'Format': 'float32',\
+    'Range': 'between 0 and 1',\
+    'Description': 'the correlation between master and slave acquisition'
+}
+
+
+
+Intensity_summation_attr={
+    'Units': 'voltage [linear]',\
+    'Format': 'float32',\
+    'Description': 'the summation of the intensity in VV and VH channel'
+}
+
+
+
+Intensity_difference_attr={
+    'Units': 'voltage [linear]',\
+    'Format': 'float32',\
+    'Description': 'the intensity difference between VV and VH channel'
+}
+
+
+Intensity_ratio_attr={
+    'Units': 'voltage [linear]',\
+    'Format': 'float32',\
+    'Description': 'the intensity ratio between VV and VH channel'
+}
+
+
+Cross_pol_correlation_coefficient_attr={
+    'Units': 'unitless',\
+    'Format': 'float32',\
+    'Description': 'it is derived from the polarimetric covariance matrix',\
+    'Reference': 'Lee, J.S.; Pottier, E. Polarimetric Radar Imaging: From Basics to Applications; CRC Press: Boca Raton, FL, USA, 2017'
+}
+
+
+
+Cross_pol_cross_product_attr={
+    'Units': '',\
+    'Format': 'float32',\
+    'Description': 'it is derived from the polarimetric covariance matrix',\
+    'Reference': 'Lee, J.S.; Pottier, E. Polarimetric Radar Imaging: From Basics to Applications; CRC Press: Boca Raton, FL, USA, 2017'
+}
+
+
+
+
+Entropy_attr={
+    'Units': '',\
+    'Format': 'float32',\
+    'Description': 'it is derived from the polarimetric covariance matrix',\
+    'Reference': 'Lee, J.S.; Pottier, E. Polarimetric Radar Imaging: From Basics to Applications; CRC Press: Boca Raton, FL, USA, 2017'
+}
+
+
+
+Buildings_attr={
+    'Units': '',\
+    'Format': 'float64',\
+    'Range': 'between 0 and 1',\
+    'Description': 'the integer value 1 indicates the location of buildings. The values between 0 and 1 show the fuzzy boundary between buildings and non building areas.',\
+    'Source': 'topographic base map TOP10NL'
+}
+
+
+
+Railways_attr={
+    'Units': '',\
+    'Format': 'float64',\
+    'Range': 'between 0 and 1',\
+    'Description': 'the integer value 1 indicates the location of railways. The values between 0 and 1 show the fuzzy boundary between railways and non railways.',\
+    'Source': 'topographic base map TOP10NL'
+}
+
+
+
+Water_attr={
+    'Units': '',\
+    'Format': 'float64',\
+    'Range': 'between 0 and 1',\
+    'Description': 'the integer value 1 indicates the location of water bodies. The values between 0 and 1 show the fuzzy boundary between water and non water areas.',\
+    'Source': 'topographic base map TOP10NL'
+}
+
+
+Roads_attr={
+    'Units': '',
+    'Format': 'float64',
+    'Range': 'between 0 and 1',
+    'Description': 'the integer value 1 indicates the location of roads. The values between 0 and 1 show the fuzzy boundary between roads and non roads.',
+    'Source': 'topographic base map TOP10NL'
+}
+
+
+Lon_attr ={
+    'Units': 'degree',\
+    'Format': 'float32',\
+    'Description': 'longitude of each pixel'
+}
+
+
+Lat_attr ={
+    'Units': 'degree',\
+    'Format': 'float32',\
+    'Description': 'latitude of each pixel'
+}
 
 def main():
     """
