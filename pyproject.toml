@@ -62,6 +62,8 @@ classifiers = [
 "rdrCode.py" = "alignsar.rdrcode.rdrCode_main:main"
 "alignsar_utils.py" = "alignsar.alignsar_utils:main"
 "signature_extraction.py" = "alignsar.signature_extraction:main"
+"Meta_info_extraction_global.py" = "alignsar.Meta_info_extraction_global:main"
+
 
 # ==============================
 # Project URLs
