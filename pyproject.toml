@@ -63,7 +63,7 @@ classifiers = [
 "alignsar_utils.py" = "alignsar.alignsar_utils:main"
 "signature_extraction.py" = "alignsar.signature_extraction:main"
 "Meta_info_extraction_global_local.py" = "alignsar.Meta_info_extraction_global_local:main"
-
+"stac.py" = "alignsar.stac:main"
 
 # ==============================
 # Project URLs
