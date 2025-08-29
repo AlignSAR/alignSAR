@@ -25,12 +25,12 @@ pip install alignsar
 
 2. **Build the image**
    ```bash
-   docker build -t alignsar .
+   sudo docker build -t alignsar .
    ```
 
 3. **Run the container**
    ```bash
-   docker run -it -v /your_local_path:/path_in_docker alignsar
+   sudo docker run -it -v /your_local_path:/path_in_docker alignsar
    ```
 
    * `-it`: interactive mode  
