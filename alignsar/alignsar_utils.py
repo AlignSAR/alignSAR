@@ -6,6 +6,20 @@ from .resdata import ResData
 from scipy import signal
 import numpy.ma as ma
 
+def read_param_file(param_file_dir):
+    meta = open(param_file_dir)
+    meta_dict = {}
+    for i in meta.readlines():
+        if (i[0]!='%'):
+            j=i[:-1].split('=') # removing \n's from end of the line
+            if (len(j)>1):
+                if (j[1].find('%')>0):
+                    j[1]=j[1][:j[1].index('%')]  #trim further after
+                if (j[1][1]=="'"):
+                    j[1]=j[1][2:-1]
+                j=[str.strip(k) for k in j] #trimming
+                meta_dict[j[0]]=j[1]
+    return meta_dict
 
 def freadbk(path_file, line_start=1, pixel_start=1, nofLines=None, nofPixels=None, dt='float32', lines=0, pixels=0, memmap=True):
     # First use memmap to get a memory map of the full file, than extract the requested part.
