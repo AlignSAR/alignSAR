@@ -14,7 +14,7 @@ build-backend = "setuptools.build_meta"
 name = "alignsar"
 
 # Version number (semantic versioning recommended)
-version = "0.0.3"
+version = "0.0.6"
 
 # Short description of the package
 description = "AlignSAR: An open-source toolbox of SAR benchmark dataset creation for machine learning applications"
