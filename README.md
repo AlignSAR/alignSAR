@@ -30,7 +30,7 @@ pip install alignsar
 
 3. **Run the container**
    ```bash
-   sudo docker run -it -v /your_local_path:/path_in_docker alignsar
+   sudo docker run -it -v /your_local_path:/home/test alignsar
    ```
 
    * `-it`: interactive mode  
