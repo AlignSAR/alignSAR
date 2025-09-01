@@ -1,44 +1,113 @@
+# ==============================
+# Build system configuration
+# ==============================
+# setuptools >= 61 is required for PEP 621 metadata support
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=61", "wheel"]
 build-backend = "setuptools.build_meta"
 
+# ==============================
+# Project metadata
+# ==============================
 [project]
+# Package name as it will appear on PyPI / conda
 name = "alignsar"
-version = "1.1"
-requires-python = ">=3.8"
-dependencies = [
-    "numpy",
-    "scikit-learn",
-    "scipy",
-    "xarray",
-    "netCDF4",
-    "matplotlib",
-    "resdata",
-    "rasterio",
-    "geopandas",
-    "pyproj",
-    "gdal",
-    "rioxarray",
-]
+
+# Version number (semantic versioning recommended)
+version = "0.1.1"
+
+# Short description of the package
 description = "AlignSAR: An open-source toolbox of SAR benchmark dataset creation for machine learning applications"
+
+# README file used as the long description on PyPI
 readme = "README.md"
-license = {file = "LICENSE"}
+
+# Minimum Python version required
+requires-python = ">=3.8"
+
+# License information
+license = { file = "LICENSE" }
+
+# Author list
 authors = [
-    {name = "Ling Chang", email = "ling.chang@utwente.nl"},
-    {name = "Xu Zhang"},
-    {name = "Anurag Kulshrestha"},
-    {name = "Milan Lazecky"},
-    {name = "Serkan Girgin"},
-    {name = "Jose Manuel Delgado Blasco"},
-]
-keywords = ["SAR", "Benchmark Datasets", "Machine Learning"]
-classifiers=[
-    'Intended Audience :: Science/Research',
-    'License :: OSI Approved :: Apache Software License',
-    'Natural Language :: English',
-    'Programming Language :: Python :: 2.7.17',
-    'Programming Language :: Python :: 3.10',
+  { name = "Ling Chang", email = "ling.chang@utwente.nl" },
+  { name = "Xu Zhang" },
+  { name = "Anurag Kulshrestha" },
+  { name = "Milan Lazecky" },
+  { name = "Serkan Girgin" },
+  { name = "Jose Manuel Delgado Blasco" },
 ]
 
+# Search keywords for package index
+keywords = ["SAR", "Benchmark Datasets", "Machine Learning"]
+
+# Core dependencies for installation (lightweight stack without heavy geo-libs)
+dependencies = [
+  "numpy>=1.22",
+  "scipy>=1.8",
+  "scikit-learn>=1.1",
+  "xarray>=2022.03",
+  "netCDF4>=1.6",
+  "matplotlib>=3.5"
+]
+
+# Classifiers help users find your project by category
+classifiers = [
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: Apache Software License",
+  "Natural Language :: English",
+  "Programming Language :: Python :: 3.10",
+]
+[project.scripts]
+"rdrCode.py" = "alignsar.rdrcode.rdrCode_main:main"
+"alignsar_utils.py" = "alignsar.alignsar_utils:main"
+"signature_extraction.py" = "alignsar.signature_extraction:main"
+"Meta_info_extraction_global_local.py" = "alignsar.Meta_info_extraction_global_local:main"
+"stac.py" = "alignsar.stac:main"
+
+# ==============================
+# Project URLs
+# ==============================
 [project.urls]
-repository = " https://github.com/AlignSAR/alignSAR"
+Repository = "https://github.com/Bingquan-InSAR/alignSAR"
+Issues = "https://github.com/Bingquan-InSAR/alignSAR/issues"
+
+# ==============================
+# Optional dependencies
+# ==============================
+[project.optional-dependencies]
+# Development and testing dependencies (install via: pip install "alignsar[dev]")
+dev = [
+  "pytest>=7",
+  "pytest-cov>=4",
+  "ruff>=0.5",
+  "mypy>=1.7",
+  "pre-commit>=3.5",
+]
+
+# ==============================
+# setuptools package discovery
+# ==============================
+[tool.setuptools]
+packages = ["alignsar", "alignsar.rdrcode"]
+include-package-data = true
+script-files = [
+  "alignsar/bin/convert_ll2ra.sh",
+  "alignsar/bin/export2tif_rd_snap.sh",
+  "alignsar/bin/geocode_ifg_snap.sh",
+  "alignsar/bin/dorisrmstep.sh",
+
+]
+
+[tool.setuptools.data-files]
+"bin" = ["alignsar/bin/doris"]
+
+[tool.setuptools.package-data]
+alignsar = ["bin/*"] 
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+markers = [
+  "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+]

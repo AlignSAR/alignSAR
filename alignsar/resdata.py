@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import warnings
 import os
 import collections
@@ -66,7 +67,7 @@ class ResData(object):
                     elif 'End_process_control' in line:
                         self.process_control = temp
                         break
-                    elif splitter in line and line[0] is not '|' and line[0] is not '\t' :
+                    elif splitter in line and line[0] != '|' and line[0] != '\t':
                         # Split line if possible and add to dictionary
                         l_split = line.split(splitter)
                         temp[l_split[0].strip()] = l_split[1].strip()

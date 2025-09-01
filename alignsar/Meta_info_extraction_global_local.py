@@ -1,78 +1,98 @@
+#!/usr/bin/env python3
+
 import xml.etree.ElementTree as ET
 import os
+from datetime import datetime
+import argparse
 
-# The functions in this file will be called in 'signature_extraction.py' file for feature extraction. 
-# Corresponding path setting is mentioned in 'signature_extraction.py'. 
 
 def get_xml_path(sar_folder_path, folder_num, xml_num):
-    items = os.listdir(sar_folder_path)
-    # create 'folders' list to contain all the sar image folders, e.g., folders=[S1A_IW_SLC__1SDV_20220109T171712_20220109T171740_041387_04EBB7_25EB.SAFE, ...]
-    folders = [item for item in items if os.path.isdir(os.path.join(sar_folder_path,item))]
-    # choose one sar image folder and come into it, attach xml folder 'annotation' to it
-    xml_path = sar_folder_path + folders[folder_num] + '/annotation'
-    items = os.listdir(xml_path)
-    # create 'files' list to contain all the xml files, e.g., files=[s1a-iw1-slc-vh-20220109t171712-20220109t171738-041387-04ebb7-001.xml, ...]
-    files = [item for item in items if os.path.isfile(os.path.join(xml_path,item))]
-    # return one of the xml file path, depend on 'xml_num'
-    return sar_folder_path + folders[folder_num] + '/annotation/' + files[xml_num]
+    """
+    Get the path of a specific XML file inside a SAR SAFE folder.
+
+    Parameters:
+        sar_folder_path (str): Path to the SAR data directory containing SAFE folders.
+        folder_num (int): Index of the target SAFE folder.
+        xml_num (int): Index of the XML file within the 'annotation' folder.
+
+    Returns:
+        str: Full path to the selected XML file.
+    """
+    folders = [f for f in os.listdir(sar_folder_path)
+               if os.path.isdir(os.path.join(sar_folder_path, f))]
+    xml_dir = os.path.join(sar_folder_path, folders[folder_num], 'annotation')
+    files = [f for f in os.listdir(xml_dir)
+             if os.path.isfile(os.path.join(xml_dir, f))]
+    return os.path.join(xml_dir, files[xml_num])
 
 
-def get_global_attribute(sar_folder_path, folder_num, xml_num):
-    xml_path = get_xml_path(sar_folder_path,folder_num,xml_num)
+def get_global_attribute(sar_folder_path, folder_num, xml_num,
+                         lon_max, lon_min, lat_max, lat_min,
+                         master_date, CRP_LIST):
+    """
+    Extract global SAR attributes from the selected XML file.
+
+    Parameters:
+        sar_folder_path (str): Path to the SAR data directory containing SAFE folders.
+        folder_num (int): Index of the target SAFE folder.
+        xml_num (int): Index of the XML file within the 'annotation' folder.
+        lon_max (float): Maximum longitude of the AOI.
+        lon_min (float): Minimum longitude of the AOI.
+        lat_max (float): Maximum latitude of the AOI.
+        lat_min (float): Minimum latitude of the AOI.
+        master_date (str): Master acquisition date (YYYY-MM-DD).
+        CRP_LIST (str): Crop information (azimuth, range) for SLC cropping.
+
+    Returns:
+        dict: Dictionary containing global SAR metadata attributes.
+    """
+    xml_path = get_xml_path(sar_folder_path, folder_num, xml_num)
     tree = ET.parse(xml_path)
     root = tree.getroot()
 
-    swath = root.find(".//swath").text
-
-    sar_date_time = root.find(".//startTime").text[:10] # end to date
-    sar_master_date_time = "20220214"
+    sar_date_time = root.find(".//startTime").text[:10]
     sar_UTC_time = root.find(".//startTime").text[11:16]
     sar_instrument_mode = root.find(".//mode").text
-    # sar_polarizations = root.find(".//polarisation").text
-    sar_looks_range = "1"
-    sar_looks_azimuth = "1"
-    # sar_observation_direction = "right" root.find(".//").find("pass").text # left or right
     sar_pixel_spacing_range = root.find(".//rangePixelSpacing").text
     sar_pixel_spacing_azimuth = root.find(".//azimuthPixelSpacing").text
-
-    # use equation to calculate the resolution
-    # eq: resolution_range = c/(2Bandwidth)
-    # eq: resolution_azimuth = antenna_length/2
-        # c = 3e8
-    # sar_resolution_range = c/2/float(root.find(".//rangeProcessing").find("totalBandwidth").text.strip('"'))  # ?? total bandwidth??
-    # sar_resolution_azimuth = root.find(".//").text  # ?? antenna length ???
-
-    # sar_processing_level = root.find(".//").text
-    # sar_processing_lineage = root.find(".//").text
-    sar_processing_software = "doris"
-    # sar_proj_epsg = root.find(".//").text
-    # sar_orbit_state = root.find(".//").text
     sar_absolute_orbit = root.find(".//absoluteOrbitNumber").text
-    sar_relative_orbit = (int(sar_absolute_orbit)-73) % 175 +1
-    # sci_publications = root.find(".//").text
+    sar_relative_orbit = (int(sar_absolute_orbit) - 73) % 175 + 1
     sar_view_azimuth = root.find(".//pass").text
     sar_view_incidence_angle = root.find(".//incidenceAngleMidSwath").text
-    # sar_insar_master_time = # read from input file
-    sar_SLC_crop = [500, 1440, 16000, 18350] # read from input file
 
+    t = datetime.now().strftime('%Y-%m-%d')
 
-    Global_attr = {'processing_level':'L1', 'date_created': '2023-09-23', 'creator_name': 'Xu Zhang', 'creator_email': 'x.zhang-7@utwente.nl', \
-                'creator_url': 'https://research.utwente.nl/en/persons/xu-zhang', 'institution': 'UT', 'project': 'ESA Open SAR Library', 'publisher_name': 'AlignSAR', \
-                'publisher_email': 'alignsar.project@gmail.com', 'publisher_url': 'alignsar.nl', 'geospatial_lat_min': '53.108846741824934', \
-                'geospatial_lat_max': '53.45763298862386', 'geospatial_lon_min': '5.376860616873864', 'geospatial_lon_max': '6.8439575842848654', \
-               'sar_date_time':sar_date_time, 'sar_master_date_time':sar_master_date_time, 'sar_UTC_time':sar_UTC_time, 'sar_instrument_mode':sar_instrument_mode, \
-                'sar_looks_range':sar_looks_range, 'sar_looks_azimuth':sar_looks_azimuth, 'sar_pixel_spacing_range':sar_pixel_spacing_range, \
-                'sar_pixel_spacing_azimuth':sar_pixel_spacing_azimuth, 'sar_processing_software':sar_processing_software, \
-                'sar_absolute_orbit':sar_absolute_orbit,'sar_relative_orbit':sar_relative_orbit, 'sar_view_azimuth':sar_view_azimuth, 'sar_view_incidence_angle':sar_view_incidence_angle, \
-                'sar_SLC_crop[azimuth,range]':sar_SLC_crop, 'sar_subswath': '1', 'sar_burst': '1,2'}
-    return Global_attr
-
-
-# get the first xml file in first sar image folder, e.g., S1A_IW_SLC__1SDV_20220109T171712_20220109T171740_041387_04EBB7_25EB.SAFE/annotation/s1a-iw1-slc-vh-20220109t171712-20220109t171738-041387-04ebb7-001.xml
-# print(get_global_attribute(sar_folder_path,2,0))
-
-
-
+    return {
+        'processing_level': 'L1',
+        'date_created': t,
+        'creator_name': 'Xu Zhang',
+        'creator_email': 'x.zhang-7@utwente.nl',
+        'creator_url': 'https://research.utwente.nl/en/persons/xu-zhang',
+        'institution': 'UT',
+        'project': 'ESA Open SAR Library',
+        'publisher_name': 'AlignSAR',
+        'publisher_email': 'alignsar.project@gmail.com',
+        'publisher_url': 'alignsar.nl',
+        'geospatial_lat_min': lat_min,
+        'geospatial_lat_max': lat_max,
+        'geospatial_lon_min': lon_min,
+        'geospatial_lon_max': lon_max,
+        'sar_date_time': sar_date_time,
+        'sar_master_date_time': master_date,
+        'sar_UTC_time': sar_UTC_time,
+        'sar_instrument_mode': sar_instrument_mode,
+        'sar_looks_range': "1",
+        'sar_looks_azimuth': "1",
+        'sar_pixel_spacing_range': sar_pixel_spacing_range,
+        'sar_pixel_spacing_azimuth': sar_pixel_spacing_azimuth,
+        'sar_processing_software': 'doris',
+        'sar_absolute_orbit': sar_absolute_orbit,
+        'sar_relative_orbit': sar_relative_orbit,
+        'sar_view_azimuth': sar_view_azimuth,
+        'sar_view_incidence_angle': sar_view_incidence_angle,
+        'sar_SLC_crop[azimuth,range]': CRP_LIST
+    }
+                             
 VV_amplitude_attr={
     'Units': 'voltage [linear]',\
     'Format': 'float32',\
@@ -206,3 +226,39 @@ Lat_attr ={
     'Format': 'float32',\
     'Description': 'latitude of each pixel'
 }
+
+def main():
+    """
+    Command-line interface for extracting SAR metadata from XML files.
+    """
+    parser = argparse.ArgumentParser(description="Extract SAR global attributes from Sentinel-1 SAFE XML files.")
+    parser.add_argument("--sar_folder", type=str, required=True, help="Path to the folder containing SAFE files")
+    parser.add_argument("--folder_num", type=int, default=0, help="Index of SAFE folder to read")
+    parser.add_argument("--xml_num", type=int, default=0, help="Index of XML file in annotation folder")
+    parser.add_argument("--lon_max", type=float, required=True, help="Maximum longitude of AOI")
+    parser.add_argument("--lon_min", type=float, required=True, help="Minimum longitude of AOI")
+    parser.add_argument("--lat_max", type=float, required=True, help="Maximum latitude of AOI")
+    parser.add_argument("--lat_min", type=float, required=True, help="Minimum latitude of AOI")
+    parser.add_argument("--master_date", type=str, required=True, help="Master acquisition date (YYYY-MM-DD)")
+    parser.add_argument("--crp_list", type=str, required=True, help="Crop information for SLC (azimuth, range)")
+
+    args = parser.parse_args()
+
+    attrs = get_global_attribute(
+        args.sar_folder,
+        args.folder_num,
+        args.xml_num,
+        args.lon_max,
+        args.lon_min,
+        args.lat_max,
+        args.lat_min,
+        args.master_date,
+        args.crp_list
+    )
+
+    for key, value in attrs.items():
+        print(f"{key}: {value}")
+
+
+if __name__ == "__main__":
+    main()

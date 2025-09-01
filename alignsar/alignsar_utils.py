@@ -1,10 +1,14 @@
-import os,sys
-from resdata import ResData
+#!/usr/bin/env python3
+import argparse
 import numpy as np
+import os, sys
+from .resdata import ResData
 from scipy import signal
 import numpy.ma as ma
 
-# Milan
+
+
+
 def RI2cpx(R, I, cpxfile, intype=np.float32):
     """Convert real and imaginary binary files to a complex number binary file.
     
@@ -128,11 +132,21 @@ def get_slv_arr_shape(doris_stack_dir, date, sensor='s1', swath='1', burst='1'):
 def get_cropped_image(choice_amp_int, doris_stack_dir, date, amp_file_name='slave_rsmp.raw', ifgs_file_name = 'cint_srd.raw', coh_file_name = 'coherence.raw', crop_switch=False, crop_list=[], sensor='s1', swath_burst=False, swath='1', burst='1'):
     '''
     Function to read a subset of of slave_rsmp.raw or cint_srd.raw
-    Args:
-    
-    
+    :param choice_amp_int:
+    :param doris_stack_dir:
+    :param date:
+    :param amp_file_name:
+    :param ifgs_file_name:
+    :param crop_switch:
+    :param crop_list:
+    :param sensor:
+    :param swath_burst:
+    :param swath:
+    :param burst:
+    :return:
     '''
-    if (sensor=='s1' & swath_burst):  #change '&' to 'and' when using python 3.8, '&' is for python 3.10
+
+    if (sensor=='s1' and swath_burst):
         amp_dataFilename = os.path.join(doris_stack_dir, date, 'swath_'+swath, 'burst_'+burst, amp_file_name)
         ifgs_dataFilename = os.path.join(doris_stack_dir, date, 'swath_'+swath, 'burst_'+burst, ifgs_file_name)
         coh_dataFilename = os.path.join(doris_stack_dir, date, 'swath_'+swath, 'burst_'+burst, coh_file_name)
@@ -171,18 +185,24 @@ def get_cropped_image(choice_amp_int, doris_stack_dir, date, amp_file_name='slav
     
     print('Reading {} data from date {}. l0, p0, lines, pixels = {}, {}, {}, {}'.format(choice_amp_int, date, crop_list[0], crop_list[2], lines, pixels))
     #print(Naz_res, Nrg_res)
-    if (choice_amp_int == 'amp'):
+    if (choice_amp_int == 'cpx'):
         arr = freadbk(amp_dataFilename, 
                     crop_list[0],#+1, 
                     crop_list[2], 
                     lines,pixels,
                     'complex64', int(Naz_res), int(Nrg_res))
-    if (choice_amp_int == 'ifgs'):
+    if (choice_amp_int == 'ifg'):
         arr = freadbk(ifgs_dataFilename, 
                     crop_list[0],#+1, 
                     crop_list[2], 
                     lines,pixels,
                     'complex64', int(Naz_res), int(Nrg_res))
+    if (choice_amp_int == 'coh'):
+        arr = freadbk(coh_dataFilename,
+                    crop_list[0],#+1,
+                    crop_list[2],
+                    lines,pixels,
+                    'float32', int(Naz_res), int(Nrg_res))
     return arr
         
 def get_dates(doris_stack_dir, master_date):
@@ -190,9 +210,18 @@ def get_dates(doris_stack_dir, master_date):
     dates = sorted([l for l in [j for k,j,i in os.walk(doris_stack_dir)][0] if (len(l)==8)])
     #dates.remove(str(master_date))
     return dates
-    return [datetime.datetime.strptime(l, '%Y%m%d') for l in dates]
 
 def get_stack(dates, master_date, doris_stack_dir, map_type, crop_switch=True, crop_list=[100,200,100,200], sensor='s1', swath_burst=False):
+    '''
+
+    :param dates:
+    :param doris_stack_dir:
+    :param crop_switch:
+    :param crop_list:
+    :param sensor:
+    :param swath_burst:
+    :return:
+    '''
     if crop_switch:
         lines = crop_list[1]-crop_list[0]
         pixels = crop_list[3]-crop_list[2]
@@ -200,17 +229,18 @@ def get_stack(dates, master_date, doris_stack_dir, map_type, crop_switch=True, c
         lines,pixels = get_slv_arr_shape(doris_stack_dir, dates[0])
         
     res = np.zeros((lines,pixels, len(dates)), dtype = np.complex64)
+    master_date = str(master_date)
     for i,date in enumerate(dates):
-        if date == master_date and map_type == 'cpx':
-            conitue
+        if date == master_date and map_type == 'coh':
+            res[...,i] = np.ones((lines,pixels))
         elif date == master_date and map_type == 'ifg':
-            conitue
+            continue
         else:
             slc_arr = get_cropped_image(map_type, doris_stack_dir, date, crop_switch=crop_switch, crop_list=crop_list, sensor=sensor, swath_burst=False)
             #slc_arr = 10*np.log10(np.absolute(slc_arr))
             #plt.imshow(np.clip(slc_arr, 0, 35), cmap='gray')
             #plt.show()
-        res[...,i] = slc_arr
+            res[...,i] = slc_arr
     return res
 
 def make_mrm(slc_arr):
@@ -238,26 +268,84 @@ def read_param_file(param_file_dir):
                 meta_dict[j[0]]=j[1]
     return meta_dict
 
+def main():
+    """
+    Command-line interface for processing Doris stack data.
 
-if __name__=='__main__':
-    doris_stack_dir_VV = '/media/anurag/SSD_1/anurag/PhD_Project/Doris_Processing/Doris_Processing_36_Groningen/new_datastack/stack_vv/'
-    doris_stack_dir_VH = '/media/anurag/SSD_1/anurag/PhD_Project/Doris_Processing/Doris_Processing_36_Groningen/new_datastack/stack_vh/'
-    #paz_doris_stack = '/media/anurag/AK_WD/PAZ_Processing/stack'
-    master_date = 20200330#'20220214'#'20170117'
-    CROPPING = True
-    CRP_LIST = [500, 1440, 16000, 18350]#[2000, 3500, 8500, 10000]#
-    MAX_IMAGES = 30
-    SP_AVG_WIN_SIYE = 3
-    map_type = 'cpx'  # 'cpx', 'ifg', 'coh'
+    This script reads amplitude/interferogram/coherence data from a Doris
+    stack directory, optionally crops it, and saves it as a NumPy array (.npy).
+    """
+
+    parser = argparse.ArgumentParser(description="Process Doris stack data into NumPy arrays.")
     
-    #Get the dates
-    dates = get_dates(paz_doris_stack, master_date)[:MAX_IMAGES]
-    print(dates)
-    #Extract the stack array
-    vv_arr_stack = get_stack(dates, master_date, doris_stack_dir_VV, map_type, crop_switch=CRP_LIST, crop_list=CRP_LIST, sensor='s1', swath_burst=False)
-    vh_arr_stack = get_stack(dates, master_date, doris_stack_dir_VH, map_type, crop_switch=CRP_LIST, crop_list=CRP_LIST, sensor='s1', swath_burst=False)
+    # Path to Doris stack directory (VV or VH)
+    parser.add_argument('--doris_stack_dir_vv', type=str, required=True,
+                        help='Path to VV Doris stack directory.')
     
-    np.save('groningen_vv_cpx.npy', vv_arr_stack)
-    np.save('groningen_vh_cpx.npy', vh_arr_stack)
+    # Master date in YYYYMMDD format
+    parser.add_argument('--master_date', type=int, required=True,
+                        help='Master date in YYYYMMDD format.')
+    
+    # Cropping options
+    parser.add_argument('--crop_switch', action='store_true',
+                        help='Enable cropping. If set, use --crop_list to specify area.')
+    parser.add_argument('--crop_list', type=int, nargs=4, default=[500, 1440, 16000, 18350],
+                        help='Crop region as [start_line, end_line, start_pixel, end_pixel].')
+    
+    # Max number of images to load
+    parser.add_argument('--max_images', type=int, default=30,
+                        help='Maximum number of images to load from the stack.')
+    
+    # Spatial averaging window size (currently unused in main)
+    parser.add_argument('--sp_avg_win_size', type=int, default=3,
+                        help='Spatial averaging window size.')
+    
+    # Map type selection: complex data, interferogram, or coherence
+    parser.add_argument('--map_type', type=str, choices=['cpx', 'ifg', 'coh'], default='cpx',
+                        help='Type of map to read: cpx, ifg, or coh.')
+    
+    # Output file name
+    parser.add_argument('--output', type=str, default='output.npy',
+                        help='Output NumPy file name.')
 
+    args = parser.parse_args()
 
+    # Get the list of dates from Doris stack
+    dates = get_dates(args.doris_stack_dir_vv, args.master_date)[:args.max_images]
+    print("Found dates:", dates)
+
+    # Read the stack as a 3D NumPy array (lines, pixels, dates)
+    vv_arr_stack = get_stack(
+        dates, args.master_date, args.doris_stack_dir_vv,
+        args.map_type, crop_switch=args.crop_switch,
+        crop_list=args.crop_list, sensor='s1', swath_burst=False
+    )
+
+    # Save the stack to file
+    np.save(args.output, vv_arr_stack)
+    print(f"Saved stack array to {args.output}")
+    
+"""
+Example usage from terminal:
+
+# Process VV stack, crop to a specific region, and save as .npy
+python alignsar_utils.py \
+    --doris_stack_dir_vv /path/to/stack_vv \
+    --master_date 20200330 \
+    --crop_switch \
+    --crop_list 500 1440 16000 18350 \
+    --max_images 20 \
+    --map_type cpx \
+    --output groningen_vv_cpx.npy
+
+# Process VH stack without cropping
+python alignsar_utils.py \
+    --doris_stack_dir_vv /path/to/stack_vh \
+    --master_date 20200330 \
+    --max_images 10 \
+    --map_type ifg \
+    --output groningen_vh_ifg.npy
+"""
+if __name__ == '__main__':
+    main()
+    
