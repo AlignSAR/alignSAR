@@ -2,22 +2,7 @@
 [![pytest](https://github.com/Bingquan-InSAR/alignSAR/actions/workflows/tests.yml/badge.svg)](https://github.com/Bingquan-InSAR/alignSAR/actions/workflows/tests.yml)
 
 The AlignSAR tools are used to extract representative SAR signatures, and ultimately offer FAIR-guided open SAR benchmark dataset library designed for SAR-based artificial intelligence applications, while ensuring interoperability and consistency with existing and upcoming initiatives and technologies, facilitating wider exploitation of SAR data and its integration and combination with other datasets. This library will contain meaningful and accurate SAR signatures created by integrating and aligning multi-SAR images and other geodetic measurements in time and space. Related link: https://www.alignsar.nl
-
-## Installation
-
-Python version `>=3.10` is required to install alignsar.
-
-Use `conda-forge` for the geospatial stack, then install AlignSAR from PyPI:
-
-```sh
-conda create -n alignsar python=3.10 -c conda-forge
-conda activate alignsar
-conda install -c conda-forge gdal==3.8.5 rasterio geopandas pyproj rioxarray
-pip install alignsar
-```
-
- 
-## Dockerfile Setup （Optional）
+## Dockerfile Setup
 
 1. **Preparation**  
    Install Docker and download the [`Dockerfile`](https://github.com/AlignSAR/alignSAR) from the repository into a dedicated directory.  
@@ -37,6 +22,19 @@ pip install alignsar
    * `-v`: mount a local path to the container
 
 ---
+
+## Installation
+
+Python version `>=3.10` is required to install alignsar.
+
+Use `conda-forge` for the geospatial stack, then install AlignSAR from PyPI:
+
+```sh
+conda create -n alignsar python=3.10 -c conda-forge
+conda activate alignsar
+conda install -c conda-forge gdal==3.8.5 rasterio geopandas pyproj rioxarray
+pip install alignsar
+```
 
 ###	SAR benchmark dataset processing procedure and demonstration 
 Please refer to [Alignsar_tutorial.pdf](https://github.com/AlignSAR/alignSAR/blob/main/tutorial/AlignSAR_tutorial.pdf).
