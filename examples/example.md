@@ -11,12 +11,11 @@
 - [Background and Goal](#background-and-goal)  
 - [Prerequisites](#prerequisites)  
 - [Quick Start](#quick-start-tldr)  
-- [Step 1: Clone the repository and build the Docker image](#step-1-clone-the-repository-and-build-the-docker-image)  
-- [Step 2: Create a Conda environment and install dependencies](#step-2-create-a-conda-environment-and-install-dependencies)  
-- [Step 3: Download demo datasets](#step-3-download-demo-datasets)  
-- [Step 4: Run DORIS preprocessing (inside Docker)](#step-4-run-doris-preprocessing-inside-docker)  
-- [Step 5: Generate radar coding parameters and run RadarCode](#step-5-generate-radar-coding-parameters-and-run-radarcode)  
-- [Step 6: Run benchmark scripts](#step-6-run-benchmark-scripts)  
+- [Step 1: Create a Conda environment and install dependencies](#step-1-create-a-conda-environment-and-install-dependencies)  
+- [Step 2: Download demo datasets](#step-2-download-demo-datasets)  
+- [Step 3: Run DORIS preprocessing (inside Docker)](#step-3-run-doris-preprocessing-inside-docker)  
+- [Step 4: Generate radar coding parameters and run RadarCode](#step-4-generate-radar-coding-parameters-and-run-radarcode)  
+- [Step 5: Run benchmark scripts](#step-5-run-benchmark-scripts)  
 
 ---
 
@@ -36,7 +35,7 @@ The workflow covers:
 <a id="prerequisites"></a>
 ## 🛠 Prerequisites
 
-- Linux OS (tested on Ubuntu)
+- Linux OS (tested on Ubuntu 18.04)
 - `docker` installed and running
 - `conda` available (`miniconda` or `anaconda`)
 - Stable internet connection for dataset download
@@ -70,21 +69,10 @@ unzip benchmark.zip -d benchmark
 
 ---
 
-<a id="step-1-clone-the-repository-and-build-the-docker-image"></a>
-## 1️⃣ Step 1: Clone the repository and build the Docker image
 
-```bash
-mkdir /mnt/example
-cd /mnt/example
-git clone https://github.com/AlignSAR/alignSAR.git
-cd alignSAR/
-sudo docker build -t alignsar .
-```
 
----
-
-<a id="step-2-create-a-conda-environment-and-install-dependencies"></a>
-## 2️⃣ Step 2: Create a Conda environment and install dependencies
+<a id="step-1-create-a-conda-environment-and-install-dependencies"></a>
+## 2️⃣ Step 1: Create a Conda environment and install dependencies
 
 ```bash
 cd /mnt/example
@@ -96,8 +84,8 @@ pip install alignsar
 
 ---
 
-<a id="step-3-download-demo-datasets"></a>
-## 3️⃣ Step 3: Download demo datasets
+<a id="step-2-download-demo-datasets"></a>
+## 3️⃣ Step 2: Download demo datasets
 
 ```bash
 curl -L -o pre-process.zip "https://surfdrive.surf.nl/files/index.php/s/TfqPqI7HTWeKCh7/download"
@@ -109,8 +97,8 @@ unzip benchmark.zip -d benchmark
 
 ---
 
-<a id="step-4-run-doris-preprocessing-inside-docker"></a>
-## 4️⃣ Step 4: Run DORIS preprocessing (inside Docker)
+<a id="step-3-run-doris-preprocessing-inside-docker"></a>
+## 4️⃣ Step 3: Run DORIS preprocessing (inside Docker)
 
 ```bash
 cd /mnt/example/pre-process
@@ -129,8 +117,8 @@ sudo chmod -R 777 *
 
 ---
 
-<a id="step-5-generate-radar-coding-parameters-and-run-radarcode"></a>
-## 5️⃣ Step 5: Generate radar coding parameters and run RadarCode
+<a id="step-4-generate-radar-coding-parameters-and-run-radarcode"></a>
+## 5️⃣ Step 4: Generate radar coding parameters and run RadarCode
 
 ```bash
 cd /mnt/example/pre-process/rdrcoding
@@ -140,8 +128,8 @@ rdrCode.py --inputFile input_card.txt
 
 ---
 
-<a id="step-6-run-benchmark-scripts"></a>
-## 6️⃣ Step 6: Run benchmark scripts
+<a id="step-5-run-benchmark-scripts"></a>
+## 6️⃣ Step 5: Run benchmark scripts
 
 ```bash
 cd /mnt/example/benchmark
