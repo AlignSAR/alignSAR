@@ -12,6 +12,9 @@ authors:
   - name: Xu Zhang
     orcid: 0000-0002-5227-2003
     affiliation: 1
+  - name: Bingquan Li
+    orcid: 0000-0002-7211-1899
+    affiliation: 1
   - name: Anurag Kulshrestha
     orcid: 0000-0002-4640-8998
     affiliation: 2
