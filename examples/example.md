@@ -59,11 +59,6 @@ conda activate alignsar
 conda install -c conda-forge gdal==3.8.5 rasterio geopandas pyproj rioxarray -y
 pip install alignsar
 
-# Download datasets
-curl -L -o pre-process.zip "https://surfdrive.surf.nl/files/index.php/s/TfqPqI7HTWeKCh7/download"
-curl -L -o benchmark.zip "https://surfdrive.surf.nl/files/index.php/s/3J1f2m1nT4vG3eE/download"
-unzip pre-process.zip -d pre-process
-unzip benchmark.zip -d benchmark
 ```
 
 ---
