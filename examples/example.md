@@ -67,7 +67,7 @@ pip install alignsar
 ## Step 2: Download demo datasets
 
 ```bash
-curl -L -o pre-process.zip "https://surfdrive.surf.nl/files/index.php/s/TfqPqI7HTWeKCh7/download"
+curl -L -o pre-process.zip "https://surfdrive.surf.nl/files/index.php/s/D9P5vuiIQbT5deZ/download"
 curl -L -o benchmark.zip "https://surfdrive.surf.nl/files/index.php/s/3J1f2m1nT4vG3eE/download"
 
 unzip pre-process.zip -d pre-process
