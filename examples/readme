@@ -1,1 +1,2 @@
 This folder provides data samples ('./data/data_links.txt') for running alignsar tool, and examples for analyzing the created SAR benchmark datasets with Juypternotebook scripts ('./jupyter_notebook_demo')
+Please follow example.md to test the tool
