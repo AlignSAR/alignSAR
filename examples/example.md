@@ -10,7 +10,6 @@
 
 - [Background and Goal](#background-and-goal)  
 - [Prerequisites](#prerequisites)  
-- [Quick Start](#quick-start-tldr)  
 - [Step 1: Create a Conda environment and install dependencies](#step-1-create-a-conda-environment-and-install-dependencies)  
 - [Step 2: Download demo datasets](#step-2-download-demo-datasets)  
 - [Step 3: Run DORIS preprocessing (inside Docker)](#step-3-run-doris-preprocessing-inside-docker)  
@@ -42,8 +41,8 @@ The workflow covers:
 
 ---
 
-<a id="quick-start-tldr"></a>
-## ⚡ Quick Start
+<a id="step-1-create-a-conda-environment-and-install-dependencies"></a>
+## 2️⃣ Step 1: Create a Conda environment and install dependencies
 
 ```bash
 # Create working directory
@@ -65,21 +64,6 @@ curl -L -o pre-process.zip "https://surfdrive.surf.nl/files/index.php/s/TfqPqI7H
 curl -L -o benchmark.zip "https://surfdrive.surf.nl/files/index.php/s/3J1f2m1nT4vG3eE/download"
 unzip pre-process.zip -d pre-process
 unzip benchmark.zip -d benchmark
-```
-
----
-
-
-
-<a id="step-1-create-a-conda-environment-and-install-dependencies"></a>
-## 2️⃣ Step 1: Create a Conda environment and install dependencies
-
-```bash
-cd /mnt/example
-conda create -n alignsar python=3.10 -c conda-forge -y
-conda activate alignsar
-conda install -c conda-forge gdal==3.8.5 rasterio geopandas pyproj rioxarray -y
-pip install alignsar
 ```
 
 ---
