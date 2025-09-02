@@ -37,12 +37,7 @@ pip install alignsar
 ```
 
 ###	SAR benchmark dataset processing procedure and demonstration 
-Please refer to [example](https://github.com/AlignSAR/alignSAR/blob/main/examples/example.md) and [Alignsar_tutorial.pdf](https://github.com/AlignSAR/alignSAR/blob/main/tutorial/AlignSAR_tutorial.pdf).
-
-
-
-## Tutorial and sample data
-A set of sample data covering the city of Groningen, the Netherlands, can be found in [/examples/data/data_links.txt]( https://github.com/AlignSAR/alignSAR/blob/main/examples/data/data_links.txt), and with STAC can be downloaded via [link-eotdl](https://www.eotdl.com/datasets/). More description is in the [/tutorial/Alignsar_tutorial.pdf](https://github.com/AlignSAR/alignSAR/blob/main/tutorial/AlignSAR_tutorial.pdf).
+Please refer to [example](https://github.com/AlignSAR/alignSAR/blob/main/examples/example.md) under 'examples' folder and the tutorial [Alignsar_tutorial.pdf](https://github.com/AlignSAR/alignSAR/blob/main/tutorial/AlignSAR_tutorial.pdf) in 'tutorial' folder. In addition, a set of sample data covering the city of Groningen, the Netherlands, can be found in [/examples/data/data_links.txt]( https://github.com/AlignSAR/alignSAR/blob/main/examples/data/data_links.txt), and with STAC can be downloaded via [link-eotdl](https://www.eotdl.com/datasets/). 
 
 ## Citations
 [1] Ling Chang, Anurag Kulshrestha, Bin Zhang and Xu Zhang (2023). Extraction and analysis of radar scatterer attributes for PAZ SAR by combining time series InSAR, PolSAR and land use measurements. Remote Sensing 15(6), 1571. [Link](https://doi.org/10.3390/rs15061571)
