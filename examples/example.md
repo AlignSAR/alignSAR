@@ -1,7 +1,7 @@
 # AlignSAR Demo — example.md
 
 > 🚀 A fully reproducible step-by-step AlignSAR demonstration, including **Docker preprocessing**, **Conda environment setup**, **data download**, and **script execution**.  
-> Tested on **Linux (Ubuntu 18.04)**.  
+> Tested on **Linux (Ubuntu 20.04)**.  
 > **Last updated:** 2025-09-02
 
 ---
@@ -34,7 +34,7 @@ The workflow covers:
 <a id="prerequisites"></a>
 ## 🛠 Prerequisites
 
-- Linux OS (tested on Ubuntu 18.04)
+- Linux OS (tested on Ubuntu 20.04)
 - `docker` installed and running
 - `conda` available (`miniconda` or `anaconda`)
 - Stable internet connection for dataset download
