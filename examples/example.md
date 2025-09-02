@@ -1,7 +1,7 @@
 # AlignSAR Demo — example.md
 
 > 🚀 A fully reproducible step-by-step AlignSAR demonstration, including **Docker preprocessing**, **Conda environment setup**, **data download**, and **script execution**.  
-> Tested on **Linux (Ubuntu)**.  
+> Tested on **Linux (Ubuntu 18.04)**.  
 > **Last updated:** 2025-09-02
 
 ---
