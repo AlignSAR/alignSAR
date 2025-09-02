@@ -70,7 +70,7 @@ AlignSAR is available as an Apache-2.0-licensed open-source toolbox hosted on [G
 
 3. [rdcode](https://github.com/AlignSAR/alignSAR/tree/main/alignsar/rdrcode): the radarcoding scripts to align other geospatial data onto SAR reference grid. For method details refer to @Kulshresta2023. 
 
-4. [signature_extraction.py](https://github.com/AlignSAR/alignSAR/blob/main/alignsar/signature_extraction.py): a script to extract representative SAR signatures.
+4. [signature_extraction.py](https://github.com/AlignSAR/alignSAR/blob/main/alignsar/signature_extraction.py): a script to extract representative SAR signatures. For method details refer to @zhang2025creating.
    
 5. [Meta_info_extraction_global_local.py](https://github.com/AlignSAR/alignSAR/blob/main/alignsar/Meta_info_extraction_global_local.py): a script to extract global/local attributes from Sentinel-1 SAR metadata.
 
