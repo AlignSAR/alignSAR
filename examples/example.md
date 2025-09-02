@@ -113,9 +113,9 @@ rdrCode.py --inputFile input_card.txt
 ```bash
 cd /mnt/example/benchmark
 
-signature_extraction.py   --doris_stack_dir_vv /mnt/example/benchmark/stack_vv   --doris_stack_dir_vh /mnt/example/benchmark/stack_vh   --master_date 20220214   --crop_first_line 500   --crop_last_line 1440   --crop_first_pixel 16000   --crop_last_pixel 18350   --lines_full 2842   --pixels_full 22551   --netcdf_lines 2350   --netcdf_pixels 940   --lam_file /mnt/example/benchmark/stack_vv/lam.raw   --phi_file /mnt/example/benchmark/stack_vv/phi.raw   --sar_folder_path /mnt/example/benchmark/unzipped_SAR_data   --max_images 30
+signature_extraction.py --doris_stack_dir_vv /mnt/example/benchmark/stack_vv --doris_stack_dir_vh /mnt/example/benchmark/stack_vh --master_date 20220214 --crop_first_line 500 --crop_last_line 1440 --crop_first_pixel 16000 --crop_last_pixel 18350 --lines_full 2842 --pixels_full 22551 --netcdf_lines 2350 --netcdf_pixels 940 --lam_file /mnt/example/benchmark/stack_vv/lam.raw --phi_file /mnt/example/benchmark/stack_vv/phi.raw --sar_folder_path /mnt/example/benchmark/unzipped_SAR_data --max_images 30
 
-Meta_info_extraction_global_local.py   --sar_folder /mnt/example/benchmark/unzipped_SAR_data/   --folder_num 0   --xml_num 0   --lon_max 6.6342616   --lon_min 6.4574795   --lat_max 53.12726   --lat_min 53.12726   --master_date 20220214   --crp_list '[500, 1440, 16000, 18350]'
+Meta_info_extraction_global_local.py --sar_folder /mnt/example/benchmark/unzipped_SAR_data/ --folder_num 0 --xml_num 0 --lon_max 6.6342616 --lon_min 6.4574795 --lat_max 53.12726 --lat_min 53.12726 --master_date 20220214 --crp_list '[500, 1440, 16000, 18350]'
 
-stac.py   --inputfile netcdf_20220109_full_attributes.nc   --lon-name lon.tif   --lat-name lat.tif   --num-x 10   --num-y 10
+stac.py --inputfile netcdf_20220109_full_attributes.nc --lon-name lon.tif --lat-name lat.tif --num-x 10 --num-y 10
 ```
