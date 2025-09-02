@@ -10,7 +10,7 @@
 
 - [Background and Goal](#background-and-goal)  
 - [Prerequisites](#prerequisites)  
-- [Quick Start (TL;DR)](#quick-start-tldr)  
+- [Quick Start](#quick-start-tldr)  
 - [Step 1: Clone the repository and build the Docker image](#step-1-clone-the-repository-and-build-the-docker-image)  
 - [Step 2: Create a Conda environment and install dependencies](#step-2-create-a-conda-environment-and-install-dependencies)  
 - [Step 3: Download demo datasets](#step-3-download-demo-datasets)  
