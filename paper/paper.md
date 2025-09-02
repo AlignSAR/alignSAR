@@ -66,9 +66,9 @@ AlignSAR is available as an Apache-2.0-licensed open-source toolbox hosted on [G
 
 1. [DockerFile](https://github.com/AlignSAR/alignSAR/blob/main/Dockerfile): docker file with operating system and software setup. The docker file can automatically install Doris-5 and relevant software.
    
-2. [Doris5ITCupdate]((https://github.com/LC-SAR/Doris5ITCupdate): an updated version of Doris that is used to read raw SAR (Single Look Complex format), coregister all SAR images to the same reference grids, resample them, remove the reference and topographic phase using external Digital Elevation Model (DEM) (e.g [SRTM](https://www.earthdata.nasa.gov/sensors/srtm#:~:text=The%20Shuttle%20Radar%20Topography%20Mission,global%20dataset%20of%20land%20elevations.) or [Copernicus DEM](https://spacedata.copernicus.eu/collections/copernicus-digital-elevation-model)), and generate co-registered amplitude, SLC phase and interferometric phase data.
+2. [Doris5ITCupdate](https://github.com/LC-SAR/Doris5ITCupdate): an updated version of Doris that is used to read raw SAR (Single Look Complex format), coregister all SAR images to the same reference grids, resample them, remove the reference and topographic phase using external Digital Elevation Model (DEM) (e.g [SRTM](https://www.earthdata.nasa.gov/sensors/srtm#:~:text=The%20Shuttle%20Radar%20Topography%20Mission,global%20dataset%20of%20land%20elevations.) or [Copernicus DEM](https://spacedata.copernicus.eu/collections/copernicus-digital-elevation-model)), and generate co-registered amplitude, SLC phase and interferometric phase data.
 
-3. [rdcode](https://github.com/AlignSAR/alignSAR/tree/main/alignsar/rdrcode): the radarcoding scripts to align other geospatial data onto SAR reference grid. For method details refer to @Kulshresta2023. Another option is [snap_graphs](https://github.com/AlignSAR/alignSAR/tree/main/alignsar/snap_graphs) that are graphs for SNAP used within the toolbox (e.g. rdr<->geocode).
+3. [rdcode](https://github.com/AlignSAR/alignSAR/tree/main/alignsar/rdrcode): the radarcoding scripts to align other geospatial data onto SAR reference grid. For method details refer to @Kulshresta2023. 
 
 4. [signature_extraction.py](https://github.com/AlignSAR/alignSAR/blob/main/alignsar/signature_extraction.py): a script to extract representative SAR signatures.
    
