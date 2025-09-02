@@ -20,6 +20,7 @@
 
 ---
 
+<a id="background-and-goal"></a>
 ## 📌 Background and Goal
 
 This demo walks through the **full AlignSAR pipeline**, from preprocessing raw SAR stacks to running benchmark scripts for feature extraction and metadata generation.  
@@ -32,6 +33,7 @@ The workflow covers:
 
 ---
 
+<a id="prerequisites"></a>
 ## 🛠 Prerequisites
 
 - Linux OS (tested on Ubuntu)
@@ -41,6 +43,7 @@ The workflow covers:
 
 ---
 
+<a id="quick-start-tldr"></a>
 ## ⚡ Quick Start
 
 ```bash
@@ -67,6 +70,7 @@ unzip benchmark.zip -d benchmark
 
 ---
 
+<a id="step-1-clone-the-repository-and-build-the-docker-image"></a>
 ## 1️⃣ Step 1: Clone the repository and build the Docker image
 
 ```bash
@@ -79,6 +83,7 @@ sudo docker build -t alignsar .
 
 ---
 
+<a id="step-2-create-a-conda-environment-and-install-dependencies"></a>
 ## 2️⃣ Step 2: Create a Conda environment and install dependencies
 
 ```bash
@@ -91,6 +96,7 @@ pip install alignsar
 
 ---
 
+<a id="step-3-download-demo-datasets"></a>
 ## 3️⃣ Step 3: Download demo datasets
 
 ```bash
@@ -103,6 +109,7 @@ unzip benchmark.zip -d benchmark
 
 ---
 
+<a id="step-4-run-doris-preprocessing-inside-docker"></a>
 ## 4️⃣ Step 4: Run DORIS preprocessing (inside Docker)
 
 ```bash
@@ -122,6 +129,7 @@ sudo chmod -R 777 *
 
 ---
 
+<a id="step-5-generate-radar-coding-parameters-and-run-radarcode"></a>
 ## 5️⃣ Step 5: Generate radar coding parameters and run RadarCode
 
 ```bash
@@ -132,6 +140,7 @@ rdrCode.py --inputFile input_card.txt
 
 ---
 
+<a id="step-6-run-benchmark-scripts"></a>
 ## 6️⃣ Step 6: Run benchmark scripts
 
 ```bash
@@ -143,6 +152,3 @@ Meta_info_extraction_global_local.py   --sar_folder /mnt/example/benchmark/unzip
 
 stac.py   --inputfile netcdf_20220109_full_attributes.nc   --lon-name lon.tif   --lat-name lat.tif   --num-x 10   --num-y 10
 ```
-
-
-
